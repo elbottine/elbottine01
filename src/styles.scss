@@ -219,6 +219,13 @@ h1 {
 	color: yellow;
 }
 
+.main-thumbnail {
+    float: left;
+    width:  200px;
+    height: 200px;
+    object-fit: cover;
+}
+
 .main-title {
 	//font-family: Lobster;
 	font-size: 3em;

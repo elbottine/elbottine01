@@ -28,6 +28,16 @@ import { Component } from '@angular/core';
         <p>	
         Bienvenue
         </p>
+
+        <div class="d-flex gap-1">
+        <img class="main-thumbnail" src="/assets/group1.jpg" xstyle="width:200px;">
+        <img class="main-thumbnail" src="/assets/group2.jpg" xstyle="width:200px;">
+        <img class="main-thumbnail" src="/assets/group3.jpg" xstyle="width:200px;">
+        <img class="main-thumbnail" src="/assets/group4.jpg" xstyle="width:200px;">
+        <img class="main-thumbnail" src="/assets/group5.jpg" xstyle="width:200px;">
+        <img class="main-thumbnail" src="/assets/group6.jpg" xstyle="width:200px;">
+        </div>
+
     </div>
     <div class="col-3">
         <div class="ms-4">
