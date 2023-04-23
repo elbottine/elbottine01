@@ -6,8 +6,8 @@ import { AuthService } from '../auth/auth.service';
     template: `
 <nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark stipes">
     <a class="navbar-brand" href="#">
-        <img src="/assets/logo.png" class="mx-2" style="width:50px;">
         <img src="/assets/logo-ffbmp.jpg" class="mx-2" style="width:70px;">
+        <img src="/assets/logo.png" class="mx-2" style="width:50px;">
         <img src="/assets/logo-text.png" class="mx-2" style="width:200px;">
     </a>
     <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,7 +21,7 @@ import { AuthService } from '../auth/auth.service';
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" routerLink="blogpost/search">Qui sommes nous</a>
+                <a class="nav-link" routerLink="team">Qui sommes nous</a>
             </li>
 
             <li class="nav-item">
@@ -29,15 +29,15 @@ import { AuthService } from '../auth/auth.service';
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" routerLink="blogpost/search">Ventes</a>
+                <a class="nav-link" routerLink="home">Ventes</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" routerLink="blogpost/search">Photos</a>
+                <a class="nav-link" routerLink="home">Photos</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" routerLink="blogpost/search">Contact / Inscription</a>
+                <a class="nav-link" routerLink="home">Contact / Inscription</a>
             </li>
 
             <li class="nav-item" *ngIf="!isLogged">
