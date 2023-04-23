@@ -6,7 +6,6 @@ import { AuthService } from '../auth/auth.service';
     template: `
 <nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark stipes">
     <a class="navbar-brand" href="#">
-        <img src="/assets/logo-ffbmp.jpg" class="mx-2" style="width:70px;">
         <img src="/assets/logo.png" class="mx-2" style="width:50px;">
         <img src="/assets/logo-text.png" class="mx-2" style="width:200px;">
     </a>

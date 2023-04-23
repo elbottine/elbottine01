@@ -46,6 +46,12 @@ import { Component } from '@angular/core';
     </div>
 </div>
 
+<div class="row justify-content-center my-5">
+    <div style="width:800px;">
+        <h3>Le comité de gauche à droite...</h3>
+    </div>
+</div>
+
 </div>
 `
 })
