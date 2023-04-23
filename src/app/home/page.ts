@@ -14,20 +14,27 @@ import { Component } from '@angular/core';
     <div class="col-9">
             <!-- <h3>Présentation</h3> -->
         <p>	
-        Notre club de marches fait parti de la Fédération Francophone Belge de Marches populaires ( FFBMP - Matricule HT 089).
+        Notre club de marches fait partie de la Fédération Francophone Belge de Marches populaires ( FFBMP - Matricule HT 089).
         </p>
-        <p>	
-        Celui ci a été créé le 1 er janvier 2021 avec 5 fondateurs principaux sur l initiative de Patrick Joly et Fernand Ruelle, se joignent à eux:  Patrice Mouton,  Jean Pierre Jasmin et Myriam Duvivier.
+        <p> 
+        Celui-ci a été créé le 1 er janvier 2021 avec 5 fondateurs principaux sur l’initiative de Patrick Joly et Fernand Ruelle, se joignent à eux:  Patrice Mouton,  Jean Pierre Jasmin et Myriam Duvivier.
         </p>
-        <p>	
+        <p> 
         Vous trouverez sur ce site toutes les informations sur les activités de notre club ainsi que nos marches annuelles.
         </p>
-        <p>	
-        Nous organisons une marche d'entrainement d'environ 8 km tout les mercredis.
+        <p>
+        Nous organisons une marche d'entrainement d'environ 8 km tous les mercredis.
         </p>
-        <p>	
+        <p>
+        L'amitiée par la marche.
+        </p>
+        <p>
+        Les z'amis de Dour.
+        </p>
+        <p> 
         Bienvenue
         </p>
+
 
         <div class="d-flex gap-1">
         <img class="main-thumbnail" src="/assets/group1.jpg" xstyle="width:200px;">
@@ -47,7 +54,7 @@ import { Component } from '@angular/core';
     </div>
 </div>
 
-<div class="d-flex justify-content-end">
+<div class="d-flex justify-content-end m-5">
     <div class="">
         <img src="/assets/ethias.jpg" style="width:100px;">
     </div>
