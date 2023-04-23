@@ -26,7 +26,7 @@ import { Component } from '@angular/core';
         Nous organisons une marche d'entrainement d'environ 8 km tous les mercredis.
         </p>
         <p>
-        L'amitiée par la marche.
+        L'amitié par la marche.
         </p>
         <p>
         Les z'amis de Dour.
