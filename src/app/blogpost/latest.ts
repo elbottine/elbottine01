@@ -20,7 +20,7 @@ import { Router } from '@angular/router';
 		</div>
 	</div>
 </div>
-<a class="" [routerLink]="['/blogpost', 'search']">Tout les événements...</a>
+<a class="" [routerLink]="['/blogpost', 'search']">Tous les événements...</a>
 </div>
 `
 })
