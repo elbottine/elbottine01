@@ -36,13 +36,22 @@ import { Component } from '@angular/core';
         </p>
 
 
-        <div class="d-flex gap-1">
+        <!-- <div class="d-flex gap-1">
         <img class="main-thumbnail" src="/assets/group1.jpg" xstyle="width:200px;">
         <img class="main-thumbnail" src="/assets/group2.jpg" xstyle="width:200px;">
         <img class="main-thumbnail" src="/assets/group3.jpg" xstyle="width:200px;">
         <img class="main-thumbnail" src="/assets/group4.jpg" xstyle="width:200px;">
         <img class="main-thumbnail" src="/assets/group5.jpg" xstyle="width:200px;">
         <img class="main-thumbnail" src="/assets/group6.jpg" xstyle="width:200px;">
+        </div> -->
+
+        <div class="flex-container">
+        <img class="m-1 inner-image landscape" src="/assets/group1.jpg" xstyle="width:200px;">
+        <img class="m-1 inner-image" src="/assets/group5.jpg" xstyle="width:200px;">
+        <img class="m-1 inner-image landscape" src="/assets/group2.jpg" xstyle="width:200px;">
+        <img class="m-1 inner-image" src="/assets/group3.jpg" xstyle="width:200px;">
+        <img class="m-1 inner-image landscape" src="/assets/group4.jpg" xstyle="width:200px;">
+        <img class="m-1 inner-image" src="/assets/group6.jpg" xstyle="width:200px;">
         </div>
 
     </div>
