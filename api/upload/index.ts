@@ -12,7 +12,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
     // get connection string to Azure Storage from environment variables
     // Replace with DefaultAzureCredential before moving to production
-    const storageConnectionString = process.env.schistorageaccount01_STORAGE;
+    const storageConnectionString = process.env.storageaccount;
     if (!storageConnectionString) {
         context.res.body = `AzureWebJobsStorage env var is not defined - get Storage Connection string from Azure portal`;
         context.res.status = HTTP_CODES.BAD_REQUEST

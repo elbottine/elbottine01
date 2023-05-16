@@ -20,7 +20,7 @@
         "type": "blob",
         "path": "blogposts-blobs/{filename}",
         "direction": "out",
-        "connection": "schistorageaccount01_STORAGE"  
+        "connection": "storageaccount"  
       }
     ],
     "scriptFile": "../dist/upload/index.js"

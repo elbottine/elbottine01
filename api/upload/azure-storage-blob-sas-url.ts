@@ -20,7 +20,7 @@ export const generateReadOnlySASUrl = async (connectionString: string, container
 };
 
 export const getContainerClient = (containerName: string) => {
-    const connectionString = process.env.schistorageaccount01_STORAGE;
+    const connectionString = process.env.storageaccount;
     // const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
     // const containerClient = blobServiceClient.getContainerClient(containerName);
     return new ContainerClient(connectionString, containerName); 
