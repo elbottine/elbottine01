@@ -38,7 +38,7 @@ import { AuthService } from '../auth/auth.service';
 	<app-upload-images [blogpostId]="id"></app-upload-images>
 
     <div class="d-flex align-items-end">
-        <div class="text-muted">{{model.createdBy}} - {{model.createdAtDate}}</div>
+        <div class="text-muted">{{model?.createdBy}} - {{model?.createdAtDate}}</div>
         <div class="ms-auto">
             <button class="btn btn-danger" [routerLink]="['/blogpost', 'read', model?.id]" [disabled]="!model?.id">Visualiser</button>		
             <button class="btn btn-primary" [disabled]="!model || !dirty || !MyForm.valid" (click)="apply()">Sauver</button>
