@@ -75,6 +75,7 @@ export class UploadImagesComponent implements OnInit {
     progressInfos: any[] = [];
     message: string[] = [];
 
+    @Input()
     previews: string[] = [];
     //imageInfos?: Observable<any>;
 

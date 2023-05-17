@@ -35,7 +35,7 @@ import { AuthService } from '../auth/auth.service';
 	</div>
 
     <!-- <label for="title" class="form-label h3">Photos</label> -->
-	<app-upload-images [blogpostId]="id"></app-upload-images>
+	<app-upload-images [blogpostId]="id" [previews]="model.paths"></app-upload-images>
 
     <div class="d-flex align-items-end">
         <div class="text-muted">{{model?.createdBy}} - {{model?.createdAtDate}}</div>
