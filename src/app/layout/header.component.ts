@@ -27,18 +27,6 @@ import { AuthService } from '../auth/auth.service';
                 <a class="nav-link" routerLink="blogpost/search">Evénements</a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" routerLink="home">Ventes</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" routerLink="home">Photos</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" routerLink="home">Contact / Inscription</a>
-            </li>
-
             <li class="nav-item" *ngIf="!isLogged">
                 <a class="nav-link" routerLink="" (click)="login()" ngbTooltip="Connexion" placement="bottom">
                    

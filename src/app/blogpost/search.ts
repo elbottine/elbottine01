@@ -61,7 +61,7 @@ import { AuthService } from '../auth/auth.service';
     </div>
 
     <div class="search-result-table-area">
-        <xyz-search-result [model]="model" [blogposts$]="blogposts$">
+        <xyz-search-result [model]="model" [blogposts]="blogposts$ | async">
         </xyz-search-result>
     </div>
     <div class="my-3">
@@ -98,8 +98,10 @@ export class BlogpostSearchComponent extends ComponentBase implements OnInit {
 
 		this.blogposts$ = list$.pipe(
 		    map(x => x.blogposts),
-			shareReplay(1)
+//			shareReplay(1)
 		);
+
+        this.blogposts$.subscribe();
 
 		this.blogpostService.searchBlogposts(new BlogpostsFilter({}));
 	}

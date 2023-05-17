@@ -8,7 +8,7 @@ import { AuthService } from '../auth/auth.service';
 	selector: 'xyz-search-result',
 	template: `
 <div class="d-grid gap-3">
-    <div class="rounded shadow-sm" *ngFor="let model of blogposts$ | async">
+    <div class="rounded shadow-sm" *ngFor="let model of blogposts">
         <div class="d-grid gap-3 p-3">
             <h3>{{model.title}}</h3>
             <div [innerHTML]="model.text.substr(0, 500)"></div>
@@ -33,9 +33,9 @@ export class SearchResultComponent {
 	model: BlogpostsFilter;
 
 	@Input()
-	blogposts$: Observable<Blogpost[]>;
+	blogposts: Blogpost[];
 
-	htmlContent = '<h1>Hello Angular 14!</h1>';
+	htmlContent = '';
 
     canEdit(blogpost: Blogpost) {
         return blogpost.id && this.accountService.isLogged;
