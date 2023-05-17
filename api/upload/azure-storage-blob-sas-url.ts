@@ -31,7 +31,7 @@ export const getBlobPaths = async (containerName: string, path: string) => {
     const containerClient = getContainerClient(containerName);
     for await (const blob of containerClient.listBlobsFlat({ prefix: path + "/" })) {
         //let blobClient = await containerClient.getBlobClient(blob.name);
-        filesList.push(`https://schistorageaccount01.blob.core.windows.net/${containerName}/${blob.name}`);
+        filesList.push(`${containerClient.url}/${blob.name}`);
         //console.log(`https://schistorageaccount01.blob.core.windows.net/${blob.name}   ${blobClient.url}`);
     }
     return filesList;
