@@ -11,7 +11,7 @@ import { AuthService } from '../auth/auth.service';
 <form #MyForm="ngForm">
 
 <div class="container">
-<div class="d-grid gap-5 my-5">
+<div class="d-grid gap-5 my-5" *ngIf="model">
 
 	<h1 class="">Evénement</h1>
 
