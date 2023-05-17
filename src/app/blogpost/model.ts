@@ -4,11 +4,9 @@ export class SearchBlogpostResponse {
 
 	public constructor(init?: Partial<SearchBlogpostResponse>) {
 		this.blogposts = init && init.blogposts ? init.blogposts.map(t => new Blogpost(t)) : [];
-		this.totalRecords = init.totalRecords;
 	}
 
 	blogposts: Blogpost[];
-	totalRecords: number;
 }
 
 export class Blogpost {

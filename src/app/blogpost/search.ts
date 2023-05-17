@@ -68,11 +68,11 @@ import { AuthService } from '../auth/auth.service';
         <button type="button" class="btn btn-outline-primary" style="width: 160px"
             (click)="previousPage()" [disabled]="!model.previousPageAvailable">
             <i class="fas fa-caret-left fa-lg mr-1"></i>
-            Page précédente
+            &lt;&lt;
         </button>
         <button type="button" class="btn btn-outline-primary" style="width: 160px"
             (click)="nextPage()" [disabled]="!model.nextPageAvailable">
-            Page suivante
+            &gt;&gt;
             <i class="fas fa-caret-right fa-lg ml-1"></i>
         </button>
     </div>
@@ -96,12 +96,6 @@ export class BlogpostSearchComponent extends ComponentBase implements OnInit {
 		this.restoreFilter();
 		const list$ = this.blogpostService.getBlogposts$();
 
-		list$.subscribe(	
-			(x: any) => { 
-				return  this.calculatePagingInfo(x.totalRecords); 
-			}
-		);
-
 		this.blogposts$ = list$.pipe(
 		    map(x => x.blogposts),
 			shareReplay(1)
@@ -119,22 +113,11 @@ export class BlogpostSearchComponent extends ComponentBase implements OnInit {
 		this.model.clear();
 	}
 
-	private calculatePagingInfo(totalRecords: number): void {
-		const totalPages = Math.max(1, Math.ceil(totalRecords / this.model.pageSize));
-		const previousPageAvailable = this.model.page > 1;
-		const nextPageAvailable = this.model.page < totalPages;
-		this.model.totalPages = totalPages;
-		this.model.previousPageAvailable = previousPageAvailable;
-		this.model.nextPageAvailable = nextPageAvailable;
-	}
-
 	private restoreFilter(): void {
 		this.model = <BlogpostsFilter> {};
-		//this.model = this.localStorageService.getBlogpostsFilter();
 	}
 
 	private saveFilter(): void {
-		//this.localStorageService.saveBlogpostsFilter();
 	}
 
 	previousPage(): void {

@@ -8,8 +8,6 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         let response = null;
         let id = null;
 
-        return;
-        
         context.log(`............................................`);
         context.log(`blogpost req: ${JSON.stringify(req)}`);
         context.log(`............................................`);
