@@ -32,18 +32,18 @@ export class Blogpost {
 	updatedBy: string;
 
 	get createdAtDate(): string {
-		return new Date(Date.parse(this.createdAt)).toLocaleDateString('fr-FR', 
-        {
-            weekday: 'long',
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-            hour12: false,
-            hour: 'numeric',
-            minute: '2-digit',
-            second: '2-digit'
-          }
-          );
+		return new Date(Date.parse(this.createdAt))
+        .toLocaleDateString('fr-FR', 
+            {
+                weekday: 'long',
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+                hour12: false,
+                hour: 'numeric',
+                minute: '2-digit',
+                second: '2-digit'
+            });
 	}
 
 	clone(): Blogpost {

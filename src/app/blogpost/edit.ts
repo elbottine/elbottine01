@@ -86,7 +86,7 @@ export class BlogpostEditComponent implements OnInit {
             //blogpost.id = (new Date()).toISOString().replace(/[^0-9]/g, '');
             blogpost.createdBy = this.accountService.user.name;
             var date = new Date();
-            blogpost.createdAt = new Date().toLocaleDateString('fr-FR');
+            blogpost.createdAt = new Date().toUTCString(); // .toLocaleDateString('fr-FR');
             this.modelCopy = blogpost.clone();
             this.model = blogpost;
         }
