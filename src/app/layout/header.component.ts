@@ -20,13 +20,13 @@ import { AuthService } from '../auth/auth.service';
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" routerLink="team">Qui sommes nous</a>
-            </li>
-
-            <li class="nav-item">
                 <a class="nav-link" routerLink="blogpost/search">Evénements</a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" routerLink="team">Qui sommes nous</a>
+            </li>
+                        
             <li class="nav-item" *ngIf="!isLogged">
                 <a class="nav-link" routerLink="" (click)="login()" ngbTooltip="Connexion" placement="bottom">
                    

@@ -64,6 +64,7 @@ import { AuthService } from '../auth/auth.service';
         <xyz-search-result [model]="model" [blogposts]="blogposts$ | async">
         </xyz-search-result>
     </div>
+    <!--
     <div class="my-3">
         <button type="button" class="btn btn-outline-primary" style="width: 160px"
             (click)="previousPage()" [disabled]="!model.previousPageAvailable">
@@ -76,6 +77,7 @@ import { AuthService } from '../auth/auth.service';
             <i class="fas fa-caret-right fa-lg ml-1"></i>
         </button>
     </div>
+    -->
 </div>
 `
 })
