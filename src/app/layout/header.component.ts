@@ -4,7 +4,7 @@ import { AuthService } from '../auth/auth.service';
 @Component({
     selector: 'xyz-header',
     template: `
-<nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark stipes">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark stipes">
     <a class="navbar-brand" href="#">
         <img src="/assets/logo.png" class="mx-2" style="width:50px;">
         <img src="/assets/logo-text.png" class="mx-2" style="width:200px;">
@@ -16,17 +16,17 @@ import { AuthService } from '../auth/auth.service';
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
             <li class="nav-item">
-                <a class="nav-link" routerLink="home">Accueil</a>
+                <a class="nav-link" routerLink="home" routerLinkActive="active">Accueil</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" routerLink="blogpost/search">Evénements</a>
+                <a class="nav-link" routerLink="blogpost/search" routerLinkActive="active">Evénements</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" routerLink="team">Qui sommes nous</a>
+                <a class="nav-link" routerLink="team" routerLinkActive="active">Qui sommes nous</a>
             </li>
-                        
+
             <li class="nav-item" *ngIf="!isLogged">
                 <a class="nav-link" routerLink="" (click)="login()" ngbTooltip="Connexion" placement="bottom">
                    

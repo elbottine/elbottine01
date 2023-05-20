@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
 </div>
 
 <div class="row">
-    <div class="col-9">
+    <div class="col-lg-9">
 
         <p>	
         Notre club de marches fait partie de la Fédération Francophone Belge de Marches populaires ( FFBMP - Matricule HT 089).
@@ -35,7 +35,6 @@ import { Component } from '@angular/core';
         Bienvenue
         </p>
 
-
         <div class="container overflow-hidden">
             <div class="grid-wrapper">
                 <div class="big lc-block">
@@ -44,7 +43,6 @@ import { Component } from '@angular/core';
                 <div class="c31 lc-block">
                     <img class="img-fluid rounded" src="/assets/group5.jpg">
                 </div>
-
                 <div class="lc-block">
                     <img class="img-fluid rounded" src="/assets/group3.jpg">
                 </div>                
@@ -60,14 +58,11 @@ import { Component } from '@angular/core';
                 <div class="big lc-block">
                     <img class="img-fluid rounded" src="/assets/group4.jpg">
                 </div>
-
-
-
             </div>
         </div>
     </div>
 
-    <div class="col-3">
+    <div class="col-lg-3 d-none d-lg-block">
         <div class="ms-4">
             <h3 class="">Evénements</h3>
             <xyz-blogpost-summary></xyz-blogpost-summary>
