@@ -6,6 +6,7 @@ import { Blogpost } from './model';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { map } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { IAlbum, Lightbox } from 'ngx-lightbox';
 
 @Component({
     template: `
@@ -16,9 +17,15 @@ import { AuthService } from '../auth/auth.service';
 		<h2 class=" my-3">{{model.title}}</h2>
 		<div class="card-text" [innerHTML]="model.text"></div>
 
-        <div class="w-auto" style="min-height: 0px;background-color: #eee;">
+        <div class="imgcontainer">
+            <div class="gallery" *ngFor="let path of model.paths; let i=index">
+                <img src="{{path}}" (click)="open(i)" />
+            </div>
+        </div>
+
+        <!-- <div class="w-auto" style="min-height: 0px;background-color: #eee;">
             <img *ngFor="let path of model.paths" [src]="path" class="preview" style="width: 200px; height: 200px; object-fit: cover;" />
-        </div>        
+        </div>         -->
 
         <div class="d-flex align-items-end">
             <div class="text-muted">{{model.createdBy}} - {{model.createdAtDate}}</div>
@@ -31,15 +38,41 @@ import { AuthService } from '../auth/auth.service';
 
 </form>
 `,
-    styles: [`.form-control.ng-touched.ng-invalid{border-color: red;}`],
+    styles: [`.form-control.ng-touched.ng-invalid{border-color: red;}`,
+    `
+	.imgcontainer {
+	  max-width: 1170px;
+	  width: 100%;
+	  padding-right: 15px;
+	  padding-left: 15px;
+	  margin-right: auto;
+	  margin-left: auto;
+	}
+
+	.imgcontainer .gallery img {
+	  float: left;
+	  //width: 20%;
+	  //height: auto;
+      max-width: 200px;
+      max-height: 200px;
+	 // border: 2px solid #fff;
+	  -webkit-transition: -webkit-transform .15s ease;
+	  -moz-transition: -moz-transform .15s ease;
+	  -o-transition: -o-transform .15s ease;
+	  -ms-transition: -ms-transform .15s ease;
+	  transition: transform .15s ease;
+	  position: relative;
+	}
+  `]
 })
 export class BlogpostReadComponent implements OnInit {
 
     constructor(
         private blogpostService: BlogpostService,
         private activatedRoute: ActivatedRoute,
-        private accountService: AuthService
-    ) { }
+        private accountService: AuthService,
+        private _lightbox: Lightbox)
+    { }
 
     model: Blogpost;
     id: string;
@@ -64,4 +97,22 @@ export class BlogpostReadComponent implements OnInit {
     canEdit(blogpost: Blogpost) {
         return blogpost.id && this.accountService.isLogged;
     }
+
+
+    
+      open(index: number): void {
+        // open lightbox
+        var xxx = [<IAlbum> {
+            src: this.model.paths[index],
+            caption: '',
+            thumb: this.model.paths[index]
+        }];
+        this._lightbox.open(xxx, 0);
+      }
+    
+      close(): void {
+        // close lightbox programmatically
+        this._lightbox.close();
+      }
+      
 }

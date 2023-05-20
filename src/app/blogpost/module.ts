@@ -11,6 +11,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { BlogpostReadComponent } from './read';
 import { BlogpostsSummaryComponent } from './latest';
 import { UploadImagesModule } from '../files-upload/module';
+import { LightboxModule } from 'ngx-lightbox';
 
 const routes: Routes = [
     {
@@ -40,6 +41,7 @@ const routes: Routes = [
 		UtilsModule,
         UploadImagesModule,
 		AngularEditorModule,
+        LightboxModule,
 		RouterModule,
 		RouterModule.forChild(routes)
 	],
