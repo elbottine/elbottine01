@@ -12,7 +12,7 @@ import { BlogpostReadComponent } from './read';
 import { BlogpostsSummaryComponent } from './latest';
 import { UploadImagesModule } from '../files-upload/module';
 import { LightboxModule } from 'ngx-lightbox';
-import { NgxGalleryModule } from  'ngx-gallery';
+//import { NgxGalleryModule } from  'ngx-gallery';
 
 
 const routes: Routes = [
@@ -55,12 +55,12 @@ const routes: Routes = [
 		BlogpostReadComponent,
 		BlogpostsSummaryComponent
 	],
-	entryComponents: [
-		BlogpostSearchComponent,
-		BlogpostEditComponent,
-		BlogpostReadComponent,
-		BlogpostsSummaryComponent
-	],
+	// entryComponents: [
+	// 	BlogpostSearchComponent,
+	// 	BlogpostEditComponent,
+	// 	BlogpostReadComponent,
+	// 	BlogpostsSummaryComponent
+	// ],
 	exports: [
 		RouterModule,
 		AngularEditorModule,

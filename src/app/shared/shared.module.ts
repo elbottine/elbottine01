@@ -6,9 +6,9 @@ import { ConfirmationDialogComponent } from './confirmation-dialog.component';
 	declarations: [
 		ConfirmationDialogComponent
 	],
-	entryComponents: [
-		ConfirmationDialogComponent
-	],
+	// entryComponents: [
+	// 	ConfirmationDialogComponent
+	// ],
 	imports: [CommonModule]
 })
 export class SharedModule {}

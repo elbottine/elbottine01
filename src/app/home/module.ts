@@ -16,9 +16,9 @@ const routes: Routes = [
     declarations: [
         PageComponent
     ],
-    entryComponents: [
-        PageComponent
-    ],
+    // entryComponents: [
+    //     PageComponent
+    // ],
     exports: [
         RouterModule
     ],

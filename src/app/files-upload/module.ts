@@ -11,8 +11,8 @@ import { UploadImagesComponent } from './upload-images.component';
   	declarations: [
 		UploadImagesComponent
 	],
-	entryComponents: [
-	],
+	// entryComponents: [
+	// ],
 	exports: [
 		UploadImagesComponent
 	]

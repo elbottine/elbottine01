@@ -15,9 +15,6 @@ const routes: Routes = [
     declarations: [
         TeamComponent
     ],
-    entryComponents: [
-        TeamComponent
-    ],
     exports: [
         RouterModule
     ],
