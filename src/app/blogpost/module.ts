@@ -12,6 +12,8 @@ import { BlogpostReadComponent } from './read';
 import { BlogpostsSummaryComponent } from './latest';
 import { UploadImagesModule } from '../files-upload/module';
 import { LightboxModule } from 'ngx-lightbox';
+import { NgxGalleryModule } from  'ngx-gallery';
+
 
 const routes: Routes = [
     {
@@ -42,6 +44,7 @@ const routes: Routes = [
         UploadImagesModule,
 		AngularEditorModule,
         LightboxModule,
+
 		RouterModule,
 		RouterModule.forChild(routes)
 	],
