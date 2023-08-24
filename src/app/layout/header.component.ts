@@ -24,7 +24,7 @@ import { AuthService } from '../auth/auth.service';
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" routerLink="team" routerLinkActive="active">Qui sommes nous</a>
+                <a class="nav-link" routerLink="team" routerLinkActive="active">Contacts</a>
             </li>
 
             <li class="nav-item" *ngIf="!isLogged">
