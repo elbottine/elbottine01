@@ -15,8 +15,6 @@ import { AuthService } from '../auth/auth.service';
 
 	<h1 class="">Evénement</h1>
 
-    <app-upload-images [blogpostId]="id" [previews]="model.paths" [singleImage]=true></app-upload-images>
-
 	<div>
         <!-- <label for="title" class="form-label h3">Titre</label>         -->
 		<input type="text" class="form-control" [placeholder]="'Entrer le titre ici...'" 
@@ -25,6 +23,8 @@ import { AuthService } from '../auth/auth.service';
 			[(ngModel)]="model.title"
 			required />
 	</div>
+
+    <app-upload-images [blogpostId]="id" [previews]="model.paths" [singleImage]=true></app-upload-images>
 
 	<div>
         <!-- <label for="title" class="form-label h3">Texte</label> -->

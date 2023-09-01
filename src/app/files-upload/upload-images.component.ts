@@ -6,8 +6,6 @@ import { FileUploadService } from './file-upload.service';
 @Component({
     selector: 'app-upload-images',
     template: `
-<input #fileInput type="file" (change)="selectFiles($event)" accept="image/*" multiple style="display: none;" />
-
 <div class="container" *ngIf="singleImage">
     <div class="row">
         <div class="col">
@@ -35,6 +33,7 @@ import { FileUploadService } from './file-upload.service';
         </div>
     </div>
 </div>
+<input #fileInput type="file" (change)="selectFiles($event)" accept="image/*" multiple style="display: none;" />
 `
 })
 export class UploadImagesComponent implements OnInit {

@@ -14,14 +14,23 @@ import { ModalGalleryRef, ModalGalleryService, Image, ModalGalleryConfig, PlainL
 <form #MyForm="ngForm" *ngIf="model">
 
 <div class="container">
+
+    <div class="row">
+        <div class="col">
+            <img *ngIf="mainImagePath"  [src]="mainImagePath" class="singleImageItem" />
+        </div>
+    </div>
+
+    <div class="row">    
 	<div class="col d-grid gap-3 my-3" *ngIf="model.id">
-		<h2 class=" my-3">{{model.title}}</h2>
-		<div class="card-text" [innerHTML]="model.text"></div>
+
+        <h2 class="my-3">{{model.title}}</h2>
+
+        <div class="card-text" [innerHTML]="model.text"></div>
 
         <ks-plain-gallery [id]="204" 
             [images]="images"
             [config]="libConfigPlainGalleryRowATags"
-              
             (clickImage)="onShow(204, $event)">
         </ks-plain-gallery>
 
@@ -42,6 +51,7 @@ import { ModalGalleryRef, ModalGalleryService, Image, ModalGalleryConfig, PlainL
             </div>
         </div>        
     </div>
+    </div>    
 </div>
 
 </form>
@@ -86,6 +96,7 @@ export class BlogpostReadComponent implements OnInit {
 
     model: Blogpost;
     id: string;
+    mainImagePath: string;
 
     ngOnInit() {
         this.parseRouteParameters();
@@ -105,6 +116,8 @@ export class BlogpostReadComponent implements OnInit {
                 this.images = b.paths.map(p =>
                     new Image(i++, { img: p }, { img: p })     
                 );
+                const regex = /\/main\.\w/;
+                this.mainImagePath = b.paths.find(f => regex.test(f));
             });
     }
 
