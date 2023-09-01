@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 	<div class="row border overflow-hidden mb-1 shadow-sm">
 		<div class="col p-2 d-flex flex-column position-static">
 			<h6>{{item.title}}</h6>
-			<div class="my-2 text-truncate" [innerHTML]="item.text.substr(0, 200)" style="font-size: 0.8em;"></div>
+			<div class="my-2 text-truncate" [innerHTML]="item?.text?.substr(0, 200)" style="font-size: 0.8em;"></div>
 			<a [routerLink]="['/blogpost', 'read', item.id]">La suite...</a>
 		</div>
 	</div>
