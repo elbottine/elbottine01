@@ -22,12 +22,14 @@ export class BlogpostService {
 		return this.httpClient.get<Blogpost>(this.url + id).pipe(map(b => new Blogpost(b)));
 	}
 
-	upsert(blogpost: Blogpost): Observable<any> {
+	upsert(blogpost: Blogpost): Observable<Blogpost> {
+        let response: Observable<Object>;
 		if (blogpost.id) {
-			return this.httpClient.put('api/blogpost/' + blogpost.id, blogpost);
+			response = this.httpClient.put('api/blogpost/' + blogpost.id, blogpost);
 		} else {
-			return this.httpClient.post('api/blogpost/', blogpost);
+			response = this.httpClient.post('api/blogpost/', blogpost);
 		}
+        return response.pipe(map(r => new Blogpost(r)));
 	}
 
 	delete(blogpostId: string): Observable<any> {

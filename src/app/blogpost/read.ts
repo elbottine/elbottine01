@@ -13,45 +13,27 @@ import { ModalGalleryRef, ModalGalleryService, Image, ModalGalleryConfig, PlainL
     template: `
 <form #MyForm="ngForm" *ngIf="model">
 
-<div class="container">
+<div class="container d-grid gap-5 my-5">
 
-    <div class="row">
-        <div class="col">
-            <img *ngIf="mainImagePath"  [src]="mainImagePath" class="singleImageItem" />
+    <h2 class="my-3">{{model.title}}</h2>
+
+    <img *ngIf="mainImagePath"  [src]="mainImagePath" class="singleImageItem" />
+
+    <div class="card-text" [innerHTML]="model.text"></div>
+
+    <ks-plain-gallery [id]="204" 
+        [images]="images"
+        [config]="libConfigPlainGalleryRowATags"
+        (clickImage)="onShow(204, $event)">
+    </ks-plain-gallery>
+    
+    <div class="d-flex align-items-end">
+        <div class="text-muted">{{model.createdBy}} - {{model.createdAtDate}}</div>
+        <div class="ms-auto">
+            <button class="btn btn-outline-primary" [routerLink]="['/blogpost', 'edit', model.id]" *ngIf="canEdit(model)">Modifier</button>
         </div>
-    </div>
+    </div>        
 
-    <div class="row">    
-	<div class="col d-grid gap-3 my-3" *ngIf="model.id">
-
-        <h2 class="my-3">{{model.title}}</h2>
-
-        <div class="card-text" [innerHTML]="model.text"></div>
-
-        <ks-plain-gallery [id]="204" 
-            [images]="images"
-            [config]="libConfigPlainGalleryRowATags"
-            (clickImage)="onShow(204, $event)">
-        </ks-plain-gallery>
-
-        <!-- <div class="imgcontainer">
-            <div class="gallery" *ngFor="let path of model.paths; let i=index">
-                <img src="{{path}}" (click)="open(i)" />
-            </div>
-        </div> -->
-
-        <!-- <div class="w-auto" style="min-height: 0px;background-color: #eee;">
-            <img *ngFor="let path of model.paths" [src]="path" class="preview" style="width: 200px; height: 200px; object-fit: cover;" />
-        </div>         -->
-
-        <div class="d-flex align-items-end">
-            <div class="text-muted">{{model.createdBy}} - {{model.createdAtDate}}</div>
-            <div class="ms-auto">
-              <button class="btn btn-outline-primary" [routerLink]="['/blogpost', 'edit', model.id]" *ngIf="canEdit(model)">Modifier</button>
-            </div>
-        </div>        
-    </div>
-    </div>    
 </div>
 
 </form>

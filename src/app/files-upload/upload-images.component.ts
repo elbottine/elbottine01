@@ -12,7 +12,8 @@ import { FileUploadService } from './file-upload.service';
             <img *ngIf="mainImagePath"  [src]="mainImagePath" class="singleImageItem" />
         </div>
         <div class="col-auto" xxxstyle="height: 100px;">
-            <button type="button" class="btn btn-primary btn-block" (click)="addImage()">Ajouter</button>
+            <button type="button" class="btn btn-primary btn-block" (click)="addImage()"><i class="bi-camera"></i></button>
+
         </div>
     </div>
 </div>
@@ -29,7 +30,7 @@ import { FileUploadService } from './file-upload.service';
         </div>
         </div>
         <div class="col-auto" xxxstyle="height: 100px;">
-            <button type="button" class="btn btn-primary btn-block" (click)="addImage()">Ajouter</button>
+            <button type="button" class="btn btn-primary btn-block" (click)="addImage()"><i class="bi-camera"></i></button>
         </div>
     </div>
 </div>
@@ -57,6 +58,9 @@ export class UploadImagesComponent implements OnInit {
     constructor(private uploadService: FileUploadService) { }
 
     ngOnInit(): void {
+        if (!this.previews) {
+            this.previews = [];
+        }
         this.mainImagePath = this.getMainImagePath();
     }
 
