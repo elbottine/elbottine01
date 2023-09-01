@@ -15,6 +15,8 @@ import { AuthService } from '../auth/auth.service';
 
 	<h1 class="">Evénement</h1>
 
+    <app-upload-images [blogpostId]="id" [previews]="model.paths" [singleImage]=true></app-upload-images>
+
 	<div>
         <!-- <label for="title" class="form-label h3">Titre</label>         -->
 		<input type="text" class="form-control" [placeholder]="'Entrer le titre ici...'" 
@@ -35,7 +37,7 @@ import { AuthService } from '../auth/auth.service';
 	</div>
 
     <!-- <label for="title" class="form-label h3">Photos</label> -->
-	<app-upload-images [blogpostId]="id" [previews]="model.paths"></app-upload-images>
+	<app-upload-images [blogpostId]="id" [previews]="model.paths" [singleImage]=false></app-upload-images>
 
     <div class="d-flex align-items-end">
         <div class="text-muted">{{model?.createdBy}} - {{model?.createdAtDate}}</div>

@@ -6,78 +6,48 @@ import { FileUploadService } from './file-upload.service';
 @Component({
     selector: 'app-upload-images',
     template: `
-<!-- <div *ngFor="let progressInfo of progressInfos" class="mb-2">
-  <span>{{ progressInfo.fileName }}</span>
-  <div class="progress">
-    <div class="progress-bar progress-bar-info"
-      role="progressbar"
-      [ngStyle]="{ width: progressInfo.value + '%' }">
-      {{ progressInfo.value }}%
-    </div>
-  </div>
-</div> -->
-
 <input #fileInput type="file" (change)="selectFiles($event)" accept="image/*" multiple style="display: none;" />
 
-<!-- <div class="row">
-  <div class="col-8">
-    <label class="btn btn-default p-0">
-      <input type="file" accept="image/*" multiple (change)="selectFiles($event)" />
-    </label>
-  </div>
-
-  <div class="col-4">
-    <button class="btn btn-success btn-sm" [disabled]="!selectedFiles" (click)="uploadFiles()">
-      Upload
-    </button>
-  </div>
-</div> -->
-
-<!-- <div>
-  <img *ngFor='let preview of previews' [src]="preview" class="preview" style="width: 200px; height: 200px; object-fit: cover;">
-</div> -->
-
-<!-- <div *ngIf="message.length" class="alert alert-secondary my-3" role="alert">
-    <ul *ngFor="let msg of message; let i = index">
-        <li>{{ msg }}</li>
-    </ul>
-</div> -->
-
-<!-- <div class="card mt-3">
-  <div class="card-header">List of Images</div>
-  <ul class="list-group list-group-flush" *ngFor="let image of imageInfos | async">
-    <li class="list-group-item debug">
-      <p><a href="{{ image.url }}">{{ image.name }}</a></p>
-      <img src="{{ image.url }}" alt="{{ image.name }}" style="width: 100px; height: 100px; object-fit: cover;" />
-    </li>
-  </ul>
-</div> -->
-
-<div class="w-auto" (click)="onClick()" style="min-height: 200px; background-color: #eee;">
-    <ng-container *ngIf="previews && previews.length > 0; then showImages; else showText"></ng-container>
-    <ng-template #showText>
-        <div class="d-flex align-items-center justify-content-center" (click)="onClick()" style="min-height: 200px;background-color: #eee;">
-            <span class="text-muted">
-                <i class="bi bi-file-earmark-arrow-up-fill"></i> Ajouter des photos
-            </span>
+<div class="container" *ngIf="singleImage">
+    <div class="row">
+        <div class="col">
+            <img *ngIf="mainImagePath"  [src]="mainImagePath" class="singleImageItem" />
         </div>
-    </ng-template>
-    <ng-template #showImages>
-        <img *ngFor='let preview of previews' [src]="preview" class="preview" style="width: 200px; height: 200px; object-fit: cover;" />
-    </ng-template>    
+        <div class="col-auto" xxxstyle="height: 100px;">
+            <button type="button" class="btn btn-primary btn-block" (click)="addImage()">Ajouter</button>
+        </div>
+    </div>
 </div>
-`,
-    styles: ['.preview { max-width: 200px; }']
+<div class="container" *ngIf="!singleImage">
+    <div class="row">
+        <div class="col">
+        <div class="d-flex flex-wrap">
+            <div class="imageBox"
+                *ngFor="let image of previews"
+                (click)="selectImage(image)"
+                [ngClass]="{'selected': isImageSelected(image)}">
+                <img [src]="image" class="imageItem" />
+            </div>
+        </div>
+        </div>
+        <div class="col-auto" xxxstyle="height: 100px;">
+            <button type="button" class="btn btn-primary btn-block" (click)="addImage()">Ajouter</button>
+        </div>
+    </div>
+</div>
+`
 })
 export class UploadImagesComponent implements OnInit {
 
-    selectedFiles?: FileList;
-    progressInfos: any[] = [];
-    message: string[] = [];
+    imageItems: string[];
+    selectedImage: string;
+    mainImagePath: string;
+
+    @Input()
+    singleImage: boolean = true;
 
     @Input()
     previews: string[] = [];
-    //imageInfos?: Observable<any>;
 
     @ViewChild('fileInput', {static: true})
 	fileInput: ElementRef;
@@ -88,67 +58,83 @@ export class UploadImagesComponent implements OnInit {
     constructor(private uploadService: FileUploadService) { }
 
     ngOnInit(): void {
-        //this.imageInfos = this.uploadService.getFiles();
+        this.mainImagePath = this.getMainImagePath();
+    }
+
+    getMainImagePath(): string {
+        const regex = /\/main\.\w/;
+        return this.previews.find(f => regex.test(f));
     }
 
     selectFiles(event: any): void {
-        this.message = [];
-        this.progressInfos = [];
-        this.selectedFiles = event.target.files;
-        this.previews = [];
+        const files = event.target.files;
 
-        if (this.selectedFiles && this.selectedFiles[0]) {
-            const numberOfFiles = this.selectedFiles.length;
-            for (let i = 0; i < numberOfFiles; i++) {
-                const reader = new FileReader();
+        if (!files || files.length === 0) {
+            return;
+        }
 
-                reader.onload = (e: any) => {
-                    console.log(e.target.result);
-                    this.previews.push(e.target.result);
-                };
-
-                reader.readAsDataURL(this.selectedFiles[i]);
-                this.upload(i, this.selectedFiles[i]);
+        if (this.singleImage) {
+            const file = files[0];
+            const fileName = "main." + file.name.split('.').pop();
+            this.showImage(file);
+            this.upload(file, fileName);
+        }
+        else {
+            for (const file of files) {
+                const fileName = file.name;
+                this.showImage(file);
+                this.upload(file, fileName);
             }
         }
     }
 
-    upload(idx: number, file: File): void {
-        this.progressInfos[idx] = { value: 0, fileName: file.name };
+    showImage(file: File): void {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+            this.previews.push(e.target.result);
+            this.mainImagePath = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
 
+    upload(file: File, fileName: string): void {
         if (file) {
-            this.uploadService.upload(this.blogpostId, file).subscribe({
-                next: (event: any) => {
-                    if (event.type === HttpEventType.UploadProgress) {
-                        this.progressInfos[idx].value = Math.round(100 * event.loaded / event.total);
-                    } else if (event instanceof HttpResponse) {
-                        const msg = 'Uploaded the file successfully: ' + file.name;
-                        this.message.push(msg);
-                        //this.imageInfos = this.uploadService.getFiles();
+            this.uploadService
+                .upload(file, this.blogpostId, fileName, 0.25)
+                .subscribe({
+                    next: (event: any) => {
+                        if (event.type === HttpEventType.UploadProgress) {
+                        } else if (event instanceof HttpResponse) {
+                        }
+                    },
+                    error: (err: any) => {
                     }
-                },
-                error: (err: any) => {
-                    this.progressInfos[idx].value = 0;
-                    const msg = 'Could not upload the file: ' + file.name;
-                    this.message.push(msg);
-                }
-            });
+                });
         }
     }
 
-    // uploadFiles(): void {
-    //     this.message = [];
-
-    //     if (this.selectedFiles) {
-    //         for (let i = 0; i < this.selectedFiles.length; i++) {
-    //             this.upload(i, this.selectedFiles[i]);
-    //         }
-    //     }
-    // }
-
-    onClick(): void {
+    onClick($event: any): void {
+        $event.stopPropagation();
 		const input = this.fileInput.nativeElement;
 		input.value = null;
 		input.click();
 	}
+
+    addImage(): void {
+		const input = this.fileInput.nativeElement;
+		input.value = null;
+		input.click();
+	}
+
+    selectImage(image: string): void {
+        this.selectedImage = image === this.selectedImage ? null : image;
+	}
+
+    isImageSelected(image: string): boolean {
+        return this.selectedImage === image;
+	}   
+
+    deleteSelectedImage(image: string): boolean {
+        return this.selectedImage === image;
+	}       
 }

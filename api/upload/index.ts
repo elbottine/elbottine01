@@ -6,6 +6,7 @@ import { generateReadOnlySASUrl } from './azure-storage-blob-sas-url';
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<any> {
 
     console.log(`l1 ====================================================`);
+    console.log(`req.method: ${req.method}`);
     console.log(`req.query: ${req.query}`);
     //console.log(`l3 process.env: ${JSON.stringify(req, null, 4)}`);
     console.log(`l4 ====================================================`);

@@ -81,6 +81,8 @@ import { Component } from '@angular/core';
         <img src="/assets/logo2.jpg" style="width:60px;">
     </div>
 </div>
+
+</div>
 `
 })
 export class PageComponent {}

@@ -6,7 +6,8 @@ import { Blogpost } from './model';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { map } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
-import { IAlbum, Lightbox } from 'ngx-lightbox';
+import { ModalGalleryRef, ModalGalleryService, Image, ModalGalleryConfig, PlainLibConfig, PlainGalleryStrategy, LineLayout, PlainGalleryConfig, GridLayout } from '@ks89/angular-modal-gallery';
+//import { IAlbum, Lightbox } from 'ngx-lightbox';
 
 @Component({
     template: `
@@ -17,11 +18,18 @@ import { IAlbum, Lightbox } from 'ngx-lightbox';
 		<h2 class=" my-3">{{model.title}}</h2>
 		<div class="card-text" [innerHTML]="model.text"></div>
 
-        <div class="imgcontainer">
+        <ks-plain-gallery [id]="204" 
+            [images]="images"
+            [config]="libConfigPlainGalleryRowATags"
+              
+            (clickImage)="onShow(204, $event)">
+        </ks-plain-gallery>
+
+        <!-- <div class="imgcontainer">
             <div class="gallery" *ngFor="let path of model.paths; let i=index">
                 <img src="{{path}}" (click)="open(i)" />
             </div>
-        </div>
+        </div> -->
 
         <!-- <div class="w-auto" style="min-height: 0px;background-color: #eee;">
             <img *ngFor="let path of model.paths" [src]="path" class="preview" style="width: 200px; height: 200px; object-fit: cover;" />
@@ -71,7 +79,9 @@ export class BlogpostReadComponent implements OnInit {
         private blogpostService: BlogpostService,
         private activatedRoute: ActivatedRoute,
         private accountService: AuthService,
-        private _lightbox: Lightbox)
+        // private _lightbox: Lightbox
+        private modalGalleryService: ModalGalleryService
+        )
     { }
 
     model: Blogpost;
@@ -90,7 +100,11 @@ export class BlogpostReadComponent implements OnInit {
         this.blogpostService
             .get(this.id)
             .subscribe((b: Blogpost) => {
+                let i = 0;
                 this.model = b;
+                this.images = b.paths.map(p =>
+                    new Image(i++, { img: p }, { img: p })     
+                );
             });
     }
 
@@ -98,21 +112,39 @@ export class BlogpostReadComponent implements OnInit {
         return blogpost.id && this.accountService.isLogged;
     }
 
-
-    
-      open(index: number): void {
+    open(index: number): void {
         // open lightbox
-        var xxx = [<IAlbum> {
-            src: this.model.paths[index],
-            caption: '',
-            thumb: this.model.paths[index]
-        }];
-        this._lightbox.open(xxx, 0);
-      }
+        // var xxx = [<IAlbum> {
+        //     src: this.model.paths[index],
+        //     caption: '',
+        //     thumb: this.model.paths[index]
+        // }];
+        //this._lightbox.open(xxx, 0);
+    }
     
-      close(): void {
+    close(): void {
         // close lightbox programmatically
-        this._lightbox.close();
-      }
+        //this._lightbox.close();
+    }
       
+    images: Image[] = [];
+    
+    libConfigPlainGalleryRowATags: PlainLibConfig = {
+        // plainGalleryConfig: {
+        //     strategy: PlainGalleryStrategy.ROW,
+        //    // layout: new GridLayout({width: '100px', height: '100px'}, {length: 4, wrap: true}, 'flex-start'),
+        //     //advanced: {aTags: true, additionalBackground: '50% 50%/cover'}
+        // } as PlainGalleryConfig
+        plainGalleryConfig: {
+            strategy: PlainGalleryStrategy.GRID,
+            layout: new GridLayout({ width: 'auto', height: '200px' }, { length: 1, wrap: true } )
+            
+          }
+    };
+      
+    onShow(id: number, index: number): void {
+        const images: Image[] = this.images
+        var params = { id, images, currentImage: images[index] };
+        const dialogRef: ModalGalleryRef = this.modalGalleryService.open(params) as ModalGalleryRef;
+    }
 }
