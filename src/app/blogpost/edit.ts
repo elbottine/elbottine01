@@ -24,25 +24,29 @@ import { AuthService } from '../auth/auth.service';
 			required />
 	</div>
 
-    <app-upload-images [blogpostId]="id" [previews]="model.paths" [singleImage]=true></app-upload-images>
+	<div>
+        <label for="title" class="form-label h3">Photo principale</label>
+        <app-upload-images [blogpostId]="id" [previews]="model.paths" [singleImage]=true></app-upload-images>
+	</div>
 
 	<div>
         <label for="title" class="form-label h3">Texte</label>
     	<angular-editor [placeholder]="'Entrer le texte ici...'" style="min-height: 500px;"
 			*ngIf="model" 
-			[(ngModel)]="model.text" 
-			id="text" name="text" 
-			required>
+			[(ngModel)]="model.text"
+			id="text" name="text">
 		</angular-editor>
 	</div>
 
-    <label for="title" class="form-label h3">Photos</label>
-	<app-upload-images [blogpostId]="id" [previews]="model.paths" [singleImage]=false></app-upload-images>
+	<div>
+        <label for="title" class="form-label h3">Photos</label>
+        <app-upload-images [blogpostId]="id" [previews]="model.paths" [singleImage]=false></app-upload-images>
+	</div>
 
     <div class="d-flex align-items-end">
         <div class="text-muted">{{model?.createdBy}} - {{model?.createdAtDate}}</div>
         <div class="ms-auto">
-            <button class="btn btn-danger" [routerLink]="['/blogpost', 'read', model?.id]" [disabled]="!model?.id">Visualiser</button>		
+            <button class="btn btn-danger" [routerLink]="['/blogpost', 'read', id]" [disabled]="!id">Visualiser</button>		
             <button class="btn btn-primary" [disabled]="!model || !dirty || !MyForm.valid" (click)="apply()">Sauver</button>
             <button class="btn btn-danger" routerLink="/blogpost/search">Fermer</button>		
         </div>
@@ -82,6 +86,7 @@ export class BlogpostEditComponent implements OnInit {
                 .subscribe((b: Blogpost) => {
                     this.modelCopy = b.clone();
                     this.model = b;
+                    this.id = b.id;
                 });
         } else {
             const blogpost = new Blogpost();
@@ -96,17 +101,32 @@ export class BlogpostEditComponent implements OnInit {
 
     apply(): void {
         const model = this.model.clone();
-        this.blogpostService.upsert(model).subscribe(
-            (m) => {
-                this.dialogService.success('Blog sauvegardé');
-                this.model = m;
+        this.blogpostService.upsert(model).subscribe({
+            next: (b) => {
+                //this.dialogService.success('Blog sauvegardé');
+                this.modelCopy = b.clone();
+                this.model = b;
+                this.id = b.id;
             },
-            (error: any) => {
+            error: (error: any) => {
                 error = error.error || error;
                 const message = error.ExceptionMessage || error.message || error.Message;
                 this.dialogService.error(message, 'Erreur technique');
-            }
-        );
+            },
+            complete: () => console.info('complete') 
+        })
+        // this.blogpostService.upsert(model).subscribe(
+        //     (m) => {
+        //         //this.dialogService.success('Blog sauvegardé');
+        //         this.model = m;
+        //         this.id = m.id;
+        //     },
+        //     (error: any) => {
+        //         error = error.error || error;
+        //         const message = error.ExceptionMessage || error.message || error.Message;
+        //         this.dialogService.error(message, 'Erreur technique');
+        //     }
+        // );
     }
 
     deleteBlogpost(node: Blogpost, $event: any): void {

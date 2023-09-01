@@ -13,6 +13,7 @@ export class SpinnerService {
 
 	public incrementRequestCount() {
 		this.count += 1;
+        console.log('>>> incrementRequestCount', this.count);
 		this.notifyChange();
 	}
 
@@ -20,6 +21,7 @@ export class SpinnerService {
 		if (this.count >= 1) {
 			this.count -= 1;
 		}
+        console.log('>>> decrementRequestCount', this.count);
 		this.notifyChange();
 	}
 

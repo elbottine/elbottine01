@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { ApplicationRef, Component, OnInit } from '@angular/core';
 import { SpinnerService } from './spinner.service';
 
 @Component({
@@ -82,7 +82,7 @@ import { SpinnerService } from './spinner.service';
 }`]
 })
 export class SpinnerComponent implements OnInit {
-	constructor(private spinnerService: SpinnerService) {
+	constructor(private spinnerService: SpinnerService, private appRef: ApplicationRef) {
 	}
 
 	private showTimer: any;
@@ -103,6 +103,7 @@ export class SpinnerComponent implements OnInit {
 		}
 		this.showTimer = undefined;
 		this.show = false;
+        setTimeout(() => this.appRef.tick(), 150);       
 	}
 
 	private showSpinnerElement(show: boolean) {
