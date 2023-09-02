@@ -48,24 +48,24 @@ import { AuthService } from '../auth/auth.service';
 })
 export class HeaderComponent {
 
-    constructor(private accountService: AuthService) {}
+    constructor(private authService: AuthService) {}
 
     @ViewChild('dropdown', { static: true }) dropdown: any;
 
     get isLogged(): boolean {
-        return this.accountService.isLogged;
+        return this.authService.isLogged;
     }
 
     get userName(): string {
-        return this.accountService.user ? this.accountService.user.name : "";
+        return this.authService.user ? this.authService.user.name : "";
     }
 
     login() {
-        this.accountService.login();
+        this.authService.login();
     }
 
     logout() {
-        this.accountService.logout();
+        this.authService.logout();
     }
 
     close() {

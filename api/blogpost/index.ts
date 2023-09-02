@@ -8,9 +8,10 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         let response = null;
         let id = null;
 
-        context.log(`............................................`);
+        context.log(`################################################################`);
+        context.log(`context.bindingData.id: ${context.bindingData.id}`);
         context.log(`blogpost req: ${JSON.stringify(req)}`);
-        context.log(`............................................`);
+        context.log(`################################################################`);
 
         await db.init();
 
@@ -48,10 +49,11 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 response = await db.addItem(req?.body);
                 break;
             case "DELETE":
-                if (!req?.query?.id && !(req?.body && req?.body?.id)) {
-                    throw Error("No id found");
+                id = context.bindingData.id;
+                if (!id) {
+                    throw Error("No document id given");
                 }
-                response = await db.deleteItemById(req?.body?.id);
+                response = await db.deleteItemById(id);
                 break;
             default:
                 throw Error(`${req.method} not allowed`)

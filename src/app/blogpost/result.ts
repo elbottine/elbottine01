@@ -1,33 +1,30 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { Blogpost, BlogpostsFilter } from './model';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
 	selector: 'xyz-search-result',
 	template: `
-<div class="d-grid gap-3">
-    <div class="rounded shadow-sm" *ngFor="let model of blogposts">
-        <div class="d-grid gap-3 p-3">
-            <h3>{{model.title}}</h3>
-            <div [innerHTML]="model.text.substr(0, 500)"></div>
-            <div class="d-flex align-items-end">
-                <div class="text-muted">{{model.createdBy}} - {{model.createdAtDate}}</div>
-                <div class="ms-auto">
-                <button class="btn btn-outline-primary" [routerLink]="['/blogpost', 'read', model.id]">La suite...</button>
-                <button class="btn btn-outline-primary" [routerLink]="['/blogpost', 'edit', model.id]" *ngIf="canEdit(model)">Modifier</button>
-                </div>
+<div class="card my-4 flex-row" *ngFor="let model of blogposts">
+    <!-- <img class="card-img-left debug" [src]="model.mainImagePath" style="width:200px; heigth:200px;"> -->
+    <div class="card-body">
+        <h3 class="card-title">{{model.title}}</h3>
+        <div [innerHTML]="model.shortText"></div>
+        <div class="d-flex align-items-end">
+            <div class="text-muted">{{model.createdBy}} - {{model.createdAtDate}}</div>
+            <div class="ms-auto">
+            <button class="btn btn-outline-primary" [routerLink]="['/blogpost', 'read', model.id]">La suite...</button>
+            <button class="btn btn-outline-primary" [routerLink]="['/blogpost', 'edit', model.id]" *ngIf="canEdit(model)">Modifier</button>
             </div>
-        </div>        
+        </div>
     </div>
 </div>
-
 `
 })
 export class SearchResultComponent {
 
-	constructor(private router: Router, private accountService: AuthService) { }
+	constructor(private router: Router, private authService: AuthService) { }
 
 	@Input()
 	model: BlogpostsFilter;
@@ -38,11 +35,7 @@ export class SearchResultComponent {
 	htmlContent = '';
 
     canEdit(blogpost: Blogpost) {
-        return blogpost.id && this.accountService.isLogged;
-    }
-
-    get isLogged() {
-        return this.accountService.isLogged;
+        return blogpost.id && this.authService.canEdit;
     }
 
 	// <!--  (click)="viewDetail(item.id, $event)"> -->

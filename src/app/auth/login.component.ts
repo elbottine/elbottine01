@@ -10,13 +10,13 @@ import { AuthService, UserInfo } from './auth.service';
           Login Here
       </div>
 
-      <div *ngIf="isLoggedin !== true">
+      <div *ngIf="!isLogged">
         <div class="card-body">
             <button type="button" (click)="login()" class="btn btn-primary btn-block">Signin with Facebook</button>
         </div>
       </div>
 
-      <div *ngIf="isLoggedin === true">
+      <div *ngIf="isLogged">
         <div>
           <h4>{{ user }}</h4>
         </div>

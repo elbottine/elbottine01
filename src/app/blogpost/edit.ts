@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService } from 'src/app/shared/dialog.service';
 import { BlogpostService } from './service';
 import { Blogpost } from './model';
@@ -25,12 +25,12 @@ import { AuthService } from '../auth/auth.service';
 	</div>
 
 	<div>
-        <label for="title" class="form-label h3">Photo principale</label>
+        <label for="title" class="form-label h3">Photo principale (optionnel)</label>
         <app-upload-images [blogpostId]="id" [previews]="model.paths" [singleImage]=true></app-upload-images>
 	</div>
 
 	<div>
-        <label for="title" class="form-label h3">Texte</label>
+        <label for="title" class="form-label h3">Texte (optionnel)</label>
     	<angular-editor [placeholder]="'Entrer le texte ici...'" style="min-height: 500px;"
 			*ngIf="model" 
 			[(ngModel)]="model.text"
@@ -39,7 +39,7 @@ import { AuthService } from '../auth/auth.service';
 	</div>
 
 	<div>
-        <label for="title" class="form-label h3">Photos</label>
+        <label for="title" class="form-label h3">Photos (optionnel)</label>
         <app-upload-images [blogpostId]="id" [previews]="model.paths" [singleImage]=false></app-upload-images>
 	</div>
 
@@ -48,6 +48,7 @@ import { AuthService } from '../auth/auth.service';
         <div class="ms-auto">
             <button class="btn btn-danger" [routerLink]="['/blogpost', 'read', id]" [disabled]="!id">Visualiser</button>		
             <button class="btn btn-primary" [disabled]="!model || !dirty || !MyForm.valid" (click)="apply()">Sauver</button>
+            <button class="btn btn-primary" (click)="delete()">Suprimer</button>
             <button class="btn btn-danger" routerLink="/blogpost/search">Fermer</button>		
         </div>
     </div>
@@ -63,7 +64,8 @@ export class BlogpostEditComponent implements OnInit {
         private blogpostService: BlogpostService,
         private dialogService: DialogService,
         private activatedRoute: ActivatedRoute,
-        private accountService: AuthService
+        private authService: AuthService,
+        private router: Router
     ) { }
 
     private modelCopy: Blogpost;
@@ -83,30 +85,30 @@ export class BlogpostEditComponent implements OnInit {
         if (this.id) {
             this.blogpostService
                 .get(this.id)
-                .subscribe((b: Blogpost) => {
-                    this.modelCopy = b.clone();
-                    this.model = b;
-                    this.id = b.id;
+                .subscribe((model: Blogpost) => {
+                    this.modelCopy = model.clone();
+                    this.model = model;
                 });
         } else {
-            const blogpost = new Blogpost();
+            const model = new Blogpost();
             //blogpost.id = (new Date()).toISOString().replace(/[^0-9]/g, '');
-            blogpost.createdBy = this.accountService.user.name;
-            var date = new Date();
-            blogpost.createdAt = new Date().toUTCString(); // .toLocaleDateString('fr-FR');
-            this.modelCopy = blogpost.clone();
-            this.model = blogpost;
+            model.createdBy = this.authService.user.name;
+            model.createdAt = new Date().toUTCString(); // .toLocaleDateString('fr-FR');
+            this.modelCopy = model.clone();
+            this.model = model;
         }
     }
 
     apply(): void {
         const model = this.model.clone();
+        model.createdBy = this.authService.user.name;
+        model.createdAt = new Date().toUTCString();
         this.blogpostService.upsert(model).subscribe({
-            next: (b) => {
+            next: model => {
                 //this.dialogService.success('Blog sauvegardé');
-                this.modelCopy = b.clone();
-                this.model = b;
-                this.id = b.id;
+                this.modelCopy = model.clone();
+                this.model = model;
+                this.id = model.id;
             },
             error: (error: any) => {
                 error = error.error || error;
@@ -114,32 +116,23 @@ export class BlogpostEditComponent implements OnInit {
                 this.dialogService.error(message, 'Erreur technique');
             },
             complete: () => console.info('complete') 
-        })
-        // this.blogpostService.upsert(model).subscribe(
-        //     (m) => {
-        //         //this.dialogService.success('Blog sauvegardé');
-        //         this.model = m;
-        //         this.id = m.id;
-        //     },
-        //     (error: any) => {
-        //         error = error.error || error;
-        //         const message = error.ExceptionMessage || error.message || error.Message;
-        //         this.dialogService.error(message, 'Erreur technique');
-        //     }
-        // );
+        });
     }
 
-    deleteBlogpost(node: Blogpost, $event: any): void {
-        $event.stopPropagation();
-        this.dialogService.confirm('Information', 'Suprimer le blog ?')
-            .then(result => result && this.delete(node));
+    delete(): void {
+        this.dialogService.confirm('Confirmation', "Suprimer l'événement ?")
+            .then(result => {
+                if (result) {
+                    this.deleteBlogpost();
+                }
+            });
     }
 
-
-    private delete(node: Blogpost): void {
-        this.blogpostService.delete(node.id)
+    deleteBlogpost(): void {
+        this.blogpostService.delete(this.model.id)
             .subscribe(
                 (_: any) => {
+                    this.router.navigate(['blogpost/search'])
                     this.dialogService.success('Blog suprimée');
                 }
             );

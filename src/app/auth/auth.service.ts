@@ -14,13 +14,13 @@ export class UserInfo {
     authToken: string;
     createdAt: number;
 
-    get canEdit() {
-        return true;
-    }
+    // get canEdit() {
+    //     return true;
+    // }
 
-    get canRead() {
-        return true;
-    }
+    // get canRead() {
+    //     return true;
+    // }
 }
 
 @Injectable({
@@ -40,6 +40,10 @@ export class AuthService {
 
     get isLogged(): boolean {
         return !!this._user;
+    }
+
+    get canEdit(): boolean {
+        return this._user?.email.toLowerCase() === "schikh@hotmail.com";
     }
 
     get user(): UserInfo {

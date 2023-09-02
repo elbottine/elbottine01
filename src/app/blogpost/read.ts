@@ -7,7 +7,6 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { map } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { ModalGalleryRef, ModalGalleryService, Image, ModalGalleryConfig, PlainLibConfig, PlainGalleryStrategy, LineLayout, PlainGalleryConfig, GridLayout } from '@ks89/angular-modal-gallery';
-//import { IAlbum, Lightbox } from 'ngx-lightbox';
 
 @Component({
     template: `
@@ -17,7 +16,7 @@ import { ModalGalleryRef, ModalGalleryService, Image, ModalGalleryConfig, PlainL
 
     <h2 class="my-3">{{model.title}}</h2>
 
-    <img *ngIf="mainImagePath"  [src]="mainImagePath" class="singleImageItem" />
+    <img *ngIf="mainImagePath" [src]="mainImagePath" class="singleImageItem" />
 
     <div class="card-text" [innerHTML]="model.text"></div>
 
@@ -38,40 +37,14 @@ import { ModalGalleryRef, ModalGalleryService, Image, ModalGalleryConfig, PlainL
 
 </form>
 `,
-    styles: [`.form-control.ng-touched.ng-invalid{border-color: red;}`,
-    `
-	.imgcontainer {
-	  max-width: 1170px;
-	  width: 100%;
-	  padding-right: 15px;
-	  padding-left: 15px;
-	  margin-right: auto;
-	  margin-left: auto;
-	}
-
-	.imgcontainer .gallery img {
-	  float: left;
-	  //width: 20%;
-	  //height: auto;
-      max-width: 200px;
-      max-height: 200px;
-	 // border: 2px solid #fff;
-	  -webkit-transition: -webkit-transform .15s ease;
-	  -moz-transition: -moz-transform .15s ease;
-	  -o-transition: -o-transform .15s ease;
-	  -ms-transition: -ms-transform .15s ease;
-	  transition: transform .15s ease;
-	  position: relative;
-	}
-  `]
+    styles: ['.form-control.ng-touched.ng-invalid{border-color: red;}']
 })
 export class BlogpostReadComponent implements OnInit {
 
     constructor(
         private blogpostService: BlogpostService,
         private activatedRoute: ActivatedRoute,
-        private accountService: AuthService,
-        // private _lightbox: Lightbox
+        private authService: AuthService,
         private modalGalleryService: ModalGalleryService
         )
     { }
@@ -104,7 +77,7 @@ export class BlogpostReadComponent implements OnInit {
     }
 
     canEdit(blogpost: Blogpost) {
-        return blogpost.id && this.accountService.isLogged;
+        return blogpost.id && this.authService.canEdit;
     }
 
     open(index: number): void {

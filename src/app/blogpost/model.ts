@@ -49,6 +49,15 @@ export class Blogpost {
 	clone(): Blogpost {
 		return new Blogpost(this);
 	}
+
+    get shortText(): string {
+        return this.text?.substr(0, 500);
+    }
+
+    get mainImagePath(): string {
+        const regex = /\/main\.\w/;
+        return this.paths.find(f => regex.test(f));
+    }
 }
 
 export class BlogpostsFilter extends FilterBase {

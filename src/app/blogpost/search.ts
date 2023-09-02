@@ -1,11 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map, startWith, switchMap, shareReplay, tap } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Blogpost, BlogpostsFilter } from './model';
 import { BlogpostService } from './service';
-import { DialogService } from 'src/app/shared/dialog.service';
-import { LocalStorageService } from 'src/app/shared/local-storage.service';
-import { ComponentBase } from '../ComponentBase';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
@@ -55,7 +52,7 @@ import { AuthService } from '../auth/auth.service';
 
     <div class="d-flex align-items-end">
         <h1 class="mt-4">Evénements</h1>
-        <div class="ms-auto" *ngIf="isLogged">
+        <div class="ms-auto" *ngIf="canEdit">
             <button class="btn btn-danger" routerLink="/blogpost/edit">Ajouter un événement</button>		
         </div>
     </div>
@@ -81,14 +78,12 @@ import { AuthService } from '../auth/auth.service';
 </div>
 `
 })
-export class BlogpostSearchComponent extends ComponentBase implements OnInit {
+export class BlogpostSearchComponent implements OnInit {
 
 	constructor(
 		private blogpostService: BlogpostService,
-        accountService: AuthService
-	) {
-        super(accountService);
-	}
+        private authService: AuthService
+	) {	}
 
 	blogposts$: Observable<Blogpost[]>;
 	model: BlogpostsFilter;
@@ -107,6 +102,10 @@ export class BlogpostSearchComponent extends ComponentBase implements OnInit {
 
 		this.blogpostService.searchBlogposts(new BlogpostsFilter({}));
 	}
+
+    get canEdit() {
+        return this.authService.canEdit;
+    }
 
 	onExecuteSearch(): void {
 		this.model.page = 1;
