@@ -360,17 +360,7 @@ h1 {
 
 
 
-// // navbar background color
-// @media (min-width: 434px) {
-//     .navbar-collapse{
-//         background-color: #2b3050;
-//     }  
-//   }
-// @media (min-width: 768px) {
-//     .navbar-collapse{
-//         background-color: unset;
-//     }  
-//   }
+
 
 
 
@@ -403,6 +393,14 @@ h1 {
     object-fit: cover;
 }
 
-.navbar-collapse {
-   background-color: #2b3050;
-}  
+// navbar background color
+@media (min-width: 434px) {
+    .navbar-collapse{
+        background-color: #2b3050;
+    }  
+  }
+@media (min-width: 768px) {
+    .navbar-collapse{
+        background-color: unset;
+    }  
+  }
