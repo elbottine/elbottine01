@@ -25,11 +25,12 @@ export class Blogpost {
 
 	title: string;
 	text: string;
-	paths: string[];
+	paths: string[]; //TODO:rename
 	createdAt: string;
 	createdBy: string;
 	updatedAt: string;
 	updatedBy: string;
+    mainImagePath: string;
 
 	get createdAtDate(): string {
 		return new Date(Date.parse(this.createdAt))
@@ -54,10 +55,10 @@ export class Blogpost {
         return this.text?.substr(0, 500);
     }
 
-    get mainImagePath(): string {
-        const regex = /\/main\.\w/;
-        return this.paths.find(f => regex.test(f));
-    }
+    // get mainImagePath(): string {
+    //     const regex = /\/main\.\w/;
+    //     return this.paths.find(f => regex.test(f));
+    // }
 }
 
 export class BlogpostsFilter extends FilterBase {

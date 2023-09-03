@@ -16,14 +16,15 @@ export const httpTrigger: AzureFunction = async function (context: Context, req:
 
     const containerName = 'blogposts-blobs';
     let id: string = null;
-    let filename: string = null;
+    let fileName: string = null;
+    let response: string = null;
 
     try {
         switch (req.method) {
             case "POST":
                 id = context.bindingData.id;
-                filename = context.bindingData.filename;
-                if (!req?.body) {
+                fileName = context.bindingData.filename;
+                if (!req || !req.body) {
                     throw Error("No document found");
                 }
 
@@ -31,24 +32,26 @@ export const httpTrigger: AzureFunction = async function (context: Context, req:
                 const boundary = multipart.getBoundary(req.headers["content-type"]);
                 const parts = multipart.Parse(bodyBuffer, boundary);
         
-                if (!parts || parts.length === 0 || !parts[0]) {
+                if (!parts || parts.length === 0 || !parts[0] || !parts[0].data) {
                     throw Error('File buffer is incorrect');
                 }
-                const buffer = parts[0]?.data;
+                const buffer = parts[0].data;
 
-                await saveBlob(containerName, `${id}\\${filename}`, buffer);
+                response = await saveBlob(containerName, id, fileName, buffer);
                 break;
             case "DELETE":
                 id = context.bindingData.id;
-                filename = context.bindingData.filename;
-                if (!filename) {
+                fileName = context.bindingData.filename;
+                if (!fileName) {
                     throw Error("No filename given");
                 }
-                await deleteBlob(containerName, `${id}\\${filename}`);
+                response = await deleteBlob(containerName, id, fileName);
                 break;
             default:
                 throw Error(`method ${req.method} not allowed`)
         }
+
+        context.res.body = response;
     } catch (err) {
         context.log.error(err.message);
         context.res.body = { error: `${err.message}` };
@@ -65,7 +68,7 @@ export const httpTrigger: AzureFunction = async function (context: Context, req:
         context.res.status = HTTP_CODES.BAD_REQUEST
     }
 
-    const fileName = req.query?.filename;
+    //const fileName = req.query?.filename;
     if (!fileName) {
         context.res.body = `filename is not defined`;
         context.res.status = HTTP_CODES.BAD_REQUEST

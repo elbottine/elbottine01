@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { FileUploadService } from './file-upload.service';
 
@@ -58,7 +58,7 @@ export class UploadImagesComponent implements OnInit {
     @Input()
     blogpostId: string;
 
-    constructor(private uploadService: FileUploadService) { }
+    constructor(private uploadService: FileUploadService, private ref: ChangeDetectorRef) { }
 
     ngOnInit(): void {
         if (!this.previews) {
@@ -82,16 +82,12 @@ export class UploadImagesComponent implements OnInit {
         if (this.singleImage) {
             const file = files[0];
             const fileName = "main." + file.name.split('.').pop();
-            //this.showImage(file);
-            this.upload(file, fileName);
-            //this.previews.push(e.target.result);
-            this.mainImagePath = fileName;
+            this.uploadImage(file, fileName, true);
         }
         else {
             for (const file of files) {
                 const fileName = file.name;
-                //this.showImage(file);
-                this.upload(file, fileName);
+                this.uploadImage(file, fileName, false);
             }
         }
     }
@@ -104,20 +100,23 @@ export class UploadImagesComponent implements OnInit {
         reader.readAsDataURL(file);
     }
 
-    upload(file: File, fileName: string): void {
-        if (file) {
-            this.uploadService
-                .upload(file, this.blogpostId, fileName, 0.25)
-                .subscribe({
-                    next: event => {
-                        if (event.type === HttpEventType.UploadProgress) {
-                        } else if (event instanceof HttpResponse) {
-                        }
-                    },
-                    error: (err: any) => {
+    uploadImage(file: File, fileName: string, main: boolean): void {
+        this.uploadService
+            .upload(file, this.blogpostId, fileName, 0.25)
+            .subscribe({
+                next: imagePath => {
+                    var index = this.previews.indexOf(imagePath);
+                    if (index === -1) {
+                        this.previews.push(imagePath);
                     }
-                });
-        }
+                    if (main) {
+                        this.mainImagePath = imagePath + "?"  + new Date().getTime();
+                    }
+                },
+                error: (error: any) => {
+                    alert(error.message);
+                }
+            });
     }
 
     onClick($event: any): void {
@@ -142,6 +141,7 @@ export class UploadImagesComponent implements OnInit {
                     this.mainImagePath = null;
                 },
                 error: (error: any) => {
+                    alert(error.message);
                 }
             });
 	}
@@ -155,10 +155,12 @@ export class UploadImagesComponent implements OnInit {
                     var index = this.previews.indexOf(this.selectedImagePath);
                     if (index !== -1) {
                         this.previews.splice(index, 1);
+                        this.previews = this.previews.map(x => x);
                     }
                     this.selectedImagePath = null;
                 },
                 error: (error: any) => {
+                    alert(error.message);
                 }
             });
 	}

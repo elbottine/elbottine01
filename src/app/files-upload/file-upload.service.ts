@@ -9,7 +9,7 @@ export class FileUploadService {
 
     constructor(private httpClient: HttpClient) { }
 
-    upload(file: File, folder: string, fileName: string, quality: number): Observable<HttpEvent<any>> {
+    upload(file: File, folder: string, fileName: string, quality: number): Observable<string> {
         return from(createImageBitmap(file)).pipe(
             map(this.getCanvas),
             switchMap(canvas => this.toBlob(canvas, file.name, file.type, quality)),            
@@ -24,23 +24,19 @@ export class FileUploadService {
     //     return request;
     // }
 
-    delete(folder: string, fileName: string): Observable<any> {
-        return this.httpClient.delete(`api/blob/${folder}/${fileName}`);
+    delete(folder: string, fileName: string): Observable<string> {
+        return this.httpClient.delete(`api/blob/${folder}/${fileName}`, {responseType: 'text'});
     }    
 
-    private post(blob: Blob, folder: string, fileName: string): Observable<HttpEvent<any>> {
+    private post(blob: Blob, folder: string, fileName: string): Observable<string> {
         const formData: FormData = new FormData();
         formData.append('file', blob);
-        const req = new HttpRequest('POST', `api/blob/${folder}/${fileName}`, formData, {
-            //reportProgress: true,
-            responseType: 'json'
-        });
-        return this.httpClient.request(req);
-        // var request = this.httpClient
-        // .post(
-        //     "url/to/backend/upload",
-        //     formData
-        // );
+        // const req = new HttpRequest('POST', `api/blob/${folder}/${fileName}`, formData, {
+        //     //reportProgress: true,
+        //     //responseType: 'json'
+        // });
+        // return this.httpClient.request(req);
+        return this.httpClient.post(`api/blob/${folder}/${fileName}`, formData, {responseType: 'text'});
     }
 
     private toBlob(canvas: HTMLCanvasElement, fileName: string, fileType: string, quality: number): Observable<File> {

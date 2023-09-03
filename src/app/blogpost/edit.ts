@@ -26,7 +26,12 @@ import { AuthService } from '../auth/auth.service';
 
 	<div>
         <label for="title" class="form-label h3">Photo principale (optionnel)</label>
-        <app-upload-images [blogpostId]="id" [previews]="model.paths" [singleImage]=true></app-upload-images>
+        <app-upload-images [blogpostId]="id" 
+            [previews]="model.paths"
+            [singleImage]=true>
+        </app-upload-images>
+        <!-- [mainImagePath]="model.mainImagePath" -->
+        <!-- (updateMainImage)="updateMainImage($event)" -->
 	</div>
 
 	<div>
@@ -40,8 +45,12 @@ import { AuthService } from '../auth/auth.service';
 
 	<div>
         <label for="title" class="form-label h3">Photos (optionnel)</label>
-        <app-upload-images [blogpostId]="id" [previews]="model.paths" [singleImage]=false></app-upload-images>
-	</div>
+        <app-upload-images [blogpostId]="id"
+            [previews]="model.paths"
+            [singleImage]=false>
+        </app-upload-images>
+        <!-- (updateImageLigt)="imageListUpdated($event)" -->
+    </div>
 
     <div class="d-flex align-items-end">
         <div class="text-muted">{{model?.createdBy}} - {{model?.createdAtDate}}</div>
@@ -136,6 +145,14 @@ export class BlogpostEditComponent implements OnInit {
                     this.dialogService.success('Blog suprimée');
                 }
             );
+    }
+
+    updateMainImage(imagePath: string) {
+        this.model.mainImagePath = imagePath;
+    }
+
+    updateImageLigt(imagePaths: string[]) {
+        this.model.paths = imagePaths;
     }
 
     get dirty(): boolean {

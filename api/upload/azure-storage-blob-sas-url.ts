@@ -37,14 +37,18 @@ export const getBlobPaths = async (containerName: string, path: string) => {
     return filesList;
 };
 
-export const saveBlob = async (containerName: string, fileName: string, buffer: Buffer) => {
+export const saveBlob = async (containerName: string, folder: string, fileName: string, buffer: Buffer) => {
     const containerClient = getContainerClient(containerName);
-    const blockBlobClient = containerClient.getBlockBlobClient(fileName);
-    await blockBlobClient.uploadData(buffer);    
+    const blockBlobClient = containerClient.getBlockBlobClient(`${folder}\\${fileName}`);
+    await blockBlobClient.uploadData(buffer);
+    return `${containerClient.url}/${folder}/${fileName}`;
 };
 
-export const deleteBlob = async (containerName: string, fileName: string) => {
+export const deleteBlob = async (containerName: string, folder: string, fileName: string) => {
     const containerClient = getContainerClient(containerName);
-    const blockBlobClient = containerClient.getBlockBlobClient(fileName);
-    blockBlobClient.delete();
+    const blockBlobClient = containerClient.getBlockBlobClient(`${folder}\\${fileName}`);
+    if (await blockBlobClient.exists()) {
+        await blockBlobClient.delete();
+    }
+    return `${containerClient.url}/${folder}/${fileName}`;
 };
