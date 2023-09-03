@@ -1,4 +1,4 @@
-import { BlobSASPermissions, BlobServiceClient, ContainerClient, SASProtocol } from "@azure/storage-blob";
+import { BlobSASPermissions, BlobServiceClient, BlockBlobClient, ContainerClient, SASProtocol } from "@azure/storage-blob";
 
 export const generateReadOnlySASUrl = async (connectionString: string, containerName: string, filename: string) => {
 
@@ -35,4 +35,16 @@ export const getBlobPaths = async (containerName: string, path: string) => {
         //console.log(`https://schistorageaccount01.blob.core.windows.net/${blob.name}   ${blobClient.url}`);
     }
     return filesList;
+};
+
+export const saveBlob = async (containerName: string, fileName: string, buffer: Buffer) => {
+    const containerClient = getContainerClient(containerName);
+    const blockBlobClient = containerClient.getBlockBlobClient(fileName);
+    await blockBlobClient.uploadData(buffer);    
+};
+
+export const deleteBlob = async (containerName: string, fileName: string) => {
+    const containerClient = getContainerClient(containerName);
+    const blockBlobClient = containerClient.getBlockBlobClient(fileName);
+    blockBlobClient.delete();
 };

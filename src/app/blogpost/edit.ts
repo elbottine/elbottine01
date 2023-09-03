@@ -46,10 +46,10 @@ import { AuthService } from '../auth/auth.service';
     <div class="d-flex align-items-end">
         <div class="text-muted">{{model?.createdBy}} - {{model?.createdAtDate}}</div>
         <div class="ms-auto">
-            <button class="btn btn-danger" [routerLink]="['/blogpost', 'read', id]" [disabled]="!id">Visualiser</button>		
+            <button class="btn btn-danger" (click)="delete()">Suprimer</button>
+            <button class="btn btn-primary" [routerLink]="['/blogpost', 'read', id]" [disabled]="!id">Visualiser</button>		
             <button class="btn btn-primary" [disabled]="!model || !dirty || !MyForm.valid" (click)="apply()">Sauver</button>
-            <button class="btn btn-primary" (click)="delete()">Suprimer</button>
-            <button class="btn btn-danger" routerLink="/blogpost/search">Fermer</button>		
+            <button class="btn btn-primary" routerLink="/blogpost/search">Fermer</button>		
         </div>
     </div>
 

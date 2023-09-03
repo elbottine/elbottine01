@@ -7,21 +7,23 @@
         "dataType": "binary",
         "name": "req",
         "methods": [
-          "post"
-        ]    
+            "post",
+            "delete"
+        ],
+        "route": "blob/{id}/{filename}"
       },
       {
         "type": "http",
         "direction": "out",
         "name": "$return"
       },
-      {
-        "name": "storage",
-        "type": "blob",
-        "path": "blogposts-blobs/{filename}",
-        "direction": "out",
-        "connection": "storageaccount"  
-      }
+    //   {
+    //     "name": "storage",
+    //     "type": "blob",
+    //     "path": "blogposts-blobs/{filename}",
+    //     "direction": "out",
+    //     "connection": "storageaccount"  
+    //   }
     ],
     "scriptFile": "../dist/upload/index.js"
   }

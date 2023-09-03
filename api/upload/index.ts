@@ -1,15 +1,61 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import HTTP_CODES from "http-status-enum";
 import * as multipart from "parse-multipart";
-import { generateReadOnlySASUrl } from './azure-storage-blob-sas-url';
+import { deleteBlob, generateReadOnlySASUrl, saveBlob } from './azure-storage-blob-sas-url';
 
-const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<any> {
+export const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<any> {
 
     console.log(`l1 ====================================================`);
+    context.log(`context.bindingData.id: ${JSON.stringify(context.bindingData)}`);
+    //context.log(`blogpost req: ${JSON.stringify(req)}`);
+
     console.log(`req.method: ${req.method}`);
     console.log(`req.query: ${req.query}`);
     //console.log(`l3 process.env: ${JSON.stringify(req, null, 4)}`);
     console.log(`l4 ====================================================`);
+
+    const containerName = 'blogposts-blobs';
+    let id: string = null;
+    let filename: string = null;
+
+    try {
+        switch (req.method) {
+            case "POST":
+                id = context.bindingData.id;
+                filename = context.bindingData.filename;
+                if (!req?.body) {
+                    throw Error("No document found");
+                }
+
+                const bodyBuffer = Buffer.from(req.body);
+                const boundary = multipart.getBoundary(req.headers["content-type"]);
+                const parts = multipart.Parse(bodyBuffer, boundary);
+        
+                if (!parts || parts.length === 0 || !parts[0]) {
+                    throw Error('File buffer is incorrect');
+                }
+                const buffer = parts[0]?.data;
+
+                await saveBlob(containerName, `${id}\\${filename}`, buffer);
+                break;
+            case "DELETE":
+                id = context.bindingData.id;
+                filename = context.bindingData.filename;
+                if (!filename) {
+                    throw Error("No filename given");
+                }
+                await deleteBlob(containerName, `${id}\\${filename}`);
+                break;
+            default:
+                throw Error(`method ${req.method} not allowed`)
+        }
+    } catch (err) {
+        context.log.error(err.message);
+        context.res.body = { error: `${err.message}` };
+        context.res.status = HTTP_CODES.INTERNAL_SERVER_ERROR;
+    }
+
+    return context.res;
 
     // get connection string to Azure Storage from environment variables
     // Replace with DefaultAzureCredential before moving to production
@@ -77,5 +123,3 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
     return context.res;
 };
-
-export default httpTrigger

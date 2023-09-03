@@ -15,6 +15,7 @@ import { FileUploadService } from './file-upload.service';
         </div>
         <div class="col-auto" xxxstyle="height: 100px;">
             <button type="button" class="btn btn-primary btn-block" (click)="addImage()" [disabled]="!blogpostId"><i class="bi-camera"></i></button>
+            <button type="button" class="btn btn-primary btn-block" (click)="deleteMainImage()" [disabled]="!blogpostId || !mainImagePath"><i class="bi-trash"></i></button>
         </div>
     </div>
 </div>
@@ -33,6 +34,7 @@ import { FileUploadService } from './file-upload.service';
         </div>
         <div class="col-auto">
             <button type="button" class="btn btn-primary btn-block" (click)="addImage()" [disabled]="!blogpostId"><i class="bi-camera"></i></button>
+            <button type="button" class="btn btn-primary btn-block" (click)="deleteSelectedImage()" [disabled]="!blogpostId || !selectedImagePath"><i class="bi-trash"></i></button>
         </div>
     </div>
 </div>
@@ -41,8 +43,7 @@ import { FileUploadService } from './file-upload.service';
 })
 export class UploadImagesComponent implements OnInit {
 
-    imageItems: string[];
-    selectedImage: string;
+    selectedImagePath: string;
     mainImagePath: string;
 
     @Input()
@@ -81,13 +82,15 @@ export class UploadImagesComponent implements OnInit {
         if (this.singleImage) {
             const file = files[0];
             const fileName = "main." + file.name.split('.').pop();
-            this.showImage(file);
+            //this.showImage(file);
             this.upload(file, fileName);
+            //this.previews.push(e.target.result);
+            this.mainImagePath = fileName;
         }
         else {
             for (const file of files) {
                 const fileName = file.name;
-                this.showImage(file);
+                //this.showImage(file);
                 this.upload(file, fileName);
             }
         }
@@ -97,7 +100,6 @@ export class UploadImagesComponent implements OnInit {
         const reader = new FileReader();
         reader.onload = (e: any) => {
             this.previews.push(e.target.result);
-            this.mainImagePath = e.target.result;
         };
         reader.readAsDataURL(file);
     }
@@ -107,7 +109,7 @@ export class UploadImagesComponent implements OnInit {
             this.uploadService
                 .upload(file, this.blogpostId, fileName, 0.25)
                 .subscribe({
-                    next: (event: any) => {
+                    next: event => {
                         if (event.type === HttpEventType.UploadProgress) {
                         } else if (event instanceof HttpResponse) {
                         }
@@ -131,15 +133,41 @@ export class UploadImagesComponent implements OnInit {
 		input.click();
 	}
 
+    deleteMainImage(): void {
+        var fileName = this.mainImagePath.split('/').pop();
+        this.uploadService
+            .delete(this.blogpostId, fileName)
+            .subscribe({
+                next: _ => {
+                    this.mainImagePath = null;
+                },
+                error: (error: any) => {
+                }
+            });
+	}
+
+    deleteSelectedImage(): void {
+        var fileName = this.selectedImagePath.split('/').pop();
+        this.uploadService
+            .delete(this.blogpostId, fileName)
+            .subscribe({
+                next: _ => {
+                    var index = this.previews.indexOf(this.selectedImagePath);
+                    if (index !== -1) {
+                        this.previews.splice(index, 1);
+                    }
+                    this.selectedImagePath = null;
+                },
+                error: (error: any) => {
+                }
+            });
+	}
+
     selectImage(image: string): void {
-        this.selectedImage = image === this.selectedImage ? null : image;
+        this.selectedImagePath = image === this.selectedImagePath ? null : image;
 	}
 
     isImageSelected(image: string): boolean {
-        return this.selectedImage === image;
+        return this.selectedImagePath === image;
 	}   
-
-    deleteSelectedImage(image: string): boolean {
-        return this.selectedImage === image;
-	}       
 }

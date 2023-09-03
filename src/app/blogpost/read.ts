@@ -29,7 +29,7 @@ import { ModalGalleryRef, ModalGalleryService, Image, ModalGalleryConfig, PlainL
     <div class="d-flex align-items-end">
         <div class="text-muted">{{model.createdBy}} - {{model.createdAtDate}}</div>
         <div class="ms-auto">
-            <button class="btn btn-outline-primary" [routerLink]="['/blogpost', 'edit', model.id]" *ngIf="canEdit(model)">Modifier</button>
+            <button class="btn btn-primary" [routerLink]="['/blogpost', 'edit', model.id]" *ngIf="canEdit(model)">Modifier</button>
         </div>
     </div>        
 

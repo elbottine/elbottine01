@@ -31,7 +31,7 @@ import { AuthService } from '../auth/auth.service';
   </div>
   <div class="row my-3">
     <div class="col">
-      <button class="btn btn-sm btn-outline-primary" >Launch demo modal</button>
+      <button class="btn btn-sm btn-primary" >Launch demo modal</button>
     </div>
   </div>
 </div> -->
@@ -63,12 +63,12 @@ import { AuthService } from '../auth/auth.service';
     </div>
     <!--
     <div class="my-3">
-        <button type="button" class="btn btn-outline-primary" style="width: 160px"
+        <button type="button" class="btn btn-primary" style="width: 160px"
             (click)="previousPage()" [disabled]="!model.previousPageAvailable">
             <i class="fas fa-caret-left fa-lg mr-1"></i>
             &lt;&lt;
         </button>
-        <button type="button" class="btn btn-outline-primary" style="width: 160px"
+        <button type="button" class="btn btn-primary" style="width: 160px"
             (click)="nextPage()" [disabled]="!model.nextPageAvailable">
             &gt;&gt;
             <i class="fas fa-caret-right fa-lg ml-1"></i>
