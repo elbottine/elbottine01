@@ -53,7 +53,7 @@ import { AuthService } from '../auth/auth.service';
     </div>
 
     <div class="d-flex align-items-end">
-        <div class="text-muted">{{model?.createdBy}} - {{model?.createdAtDate}}</div>
+        <div class="text-muted">{{model?.createdBy}} - {{model?.updatedAtDate}}</div>
         <div class="ms-auto">
             <button class="btn btn-danger" (click)="delete()">Suprimer</button>
             <button class="btn btn-primary" [routerLink]="['/blogpost', 'read', id]" [disabled]="!id">Visualiser</button>		

@@ -31,7 +31,7 @@ import { ModalGalleryRef, ModalGalleryService, Image, ModalGalleryConfig, PlainL
         <div class="ms-auto">
             <button class="btn btn-primary" [routerLink]="['/blogpostn', 'edit', model.id]" *ngIf="canEdit(model)">Modifier</button>
         </div>
-    </div>        
+    </div>
 
 </div>
 
