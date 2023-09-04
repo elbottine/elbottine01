@@ -32,8 +32,8 @@ export class Blogpost {
 	updatedBy: string;
     mainImagePath: string;
 
-	get createdAtDate(): string {
-		return new Date(Date.parse(this.createdAt))
+	get updatedAtDate(): string {
+		return new Date(Date.parse(this.updatedAt))
         .toLocaleDateString('fr-FR', 
             {
                 weekday: 'long',

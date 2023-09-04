@@ -12,7 +12,7 @@ import { AuthService } from '../auth/auth.service';
         <h3 class="card-title">{{model.title}}</h3>
         <div [innerHTML]="model.shortText"></div>
         <div class="d-flex align-items-end">
-            <div class="text-muted">{{model.createdBy}} - {{model.createdAtDate}}</div>
+            <div class="text-muted">{{model.updatedBy}} - {{model.updatedAtDate}}</div>
             <div class="ms-auto">
             <button class="btn btn-primary" [routerLink]="['/blogpost', 'read', model.id]">La suite...</button>
             <button class="btn btn-primary" [routerLink]="['/blogpost', 'edit', model.id]" *ngIf="canEdit(model)">Modifier</button>

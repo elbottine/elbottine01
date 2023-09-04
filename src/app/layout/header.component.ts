@@ -62,7 +62,7 @@ import { AuthService } from '../auth/auth.service';
             </li>
 
             <li class="nav-item" *ngIf="isLogged">
-                <a class="nav-link" routerLink="" (click)="logout()" ngbTooltip="Déconnexion" placement="bottom">
+                <a class="nav-link m-2 text-nowrap" routerLink="" (click)="logout()" ngbTooltip="Déconnexion" placement="bottom">
                     <i class="bi bi-person-square"></i>
     	            {{ userName }}
                 </a>
