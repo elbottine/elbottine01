@@ -32,7 +32,7 @@ import { AuthService } from '../auth/auth.service';
 </nav> -->
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark stipes">
-    <a class="navbar-brand" href="#">
+    <a class="XXXnavbar-brand" href="#">
         <img src="/assets/logo.png" class="mx-2" style="width:50px;">
         <img src="/assets/logo-text.png" class="mx-2" style="width:200px;">
     </a>
