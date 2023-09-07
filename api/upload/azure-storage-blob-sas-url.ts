@@ -29,10 +29,15 @@ export const getContainerClient = (containerName: string) => {
 export const getBlobPaths = async (containerName: string, path: string) => {
     const filesList = [];
     const containerClient = getContainerClient(containerName);
-    for await (const blob of containerClient.listBlobsFlat({ prefix: path + "/" })) {
-        //let blobClient = await containerClient.getBlobClient(blob.name);
+    const listOptions = {
+        includeMetadata: false,
+        includeSnapshots: false,
+        includeTags: false,
+        includeVersions: false,
+        prefix: path + "/"
+      };
+    for await (const blob of containerClient.listBlobsFlat(listOptions)) {
         filesList.push(`${containerClient.url}/${blob.name}`);
-        //console.log(`https://schistorageaccount01.blob.core.windows.net/${blob.name}   ${blobClient.url}`);
     }
     return filesList;
 };

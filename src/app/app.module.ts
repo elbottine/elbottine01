@@ -9,13 +9,11 @@ import { SharedModule } from './shared/shared.module';
 import { SpinnerModule } from './spinner/spinner.module';
 import { GlobalErrorHandler } from './utils/global-error-handler';
 import { NoCacheInterceptor } from './utils/no-cache-interceptor';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BlogpostModule } from './blogpost/module';
 import { HomeModule } from './home/module';
 import { SocialLoginModule, SocialAuthServiceConfig, FacebookLoginProvider } from '@abacritt/angularx-social-login';
 import { AuthModule } from './auth/module';
 import { AuthInterceptorService } from './auth/interceptor';
-import { TeamModule } from './team/module';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -30,7 +28,6 @@ const routes: Routes = [
         SocialLoginModule,
         AuthModule,
         HomeModule,
-        TeamModule,
         //AccountModule,
         BlogpostModule,
         LayoutModule,

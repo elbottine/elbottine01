@@ -64,8 +64,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         };
 
     } catch (err) {
-        context.log(`*** Err: ${err}`);
-        context.log(`*** Error throw: ${JSON.stringify(err)}`);
+        context.log(`*** Error ${JSON.stringify(err)}`);
         context.res = {
             status: 501,
             body: err,

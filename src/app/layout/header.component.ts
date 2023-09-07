@@ -60,7 +60,7 @@ import { AuthService } from '../auth/auth.service';
                 <a class="nav-link m-2" ngbDropdownToggle role="button" routerLinkActive="active">Notre CLUB</a>
                 <ul ngbDropdownMenu>
                     <li><a ngbDropdownItem routerLink="team" routerLinkActive="active">L'équipe</a></li>
-                    <li><a ngbDropdownItem>Boutique</a></li>
+                    <li><a ngbDropdownItem routerLink="store" routerLinkActive="active">Boutique</a></li>
                     <li><a ngbDropdownItem>Inscription</a></li>
                     <li><a ngbDropdownItem>Nous Contacter</a></li>
                     <li><hr class="dropdown-divider"></li>
