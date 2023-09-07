@@ -36,11 +36,17 @@ import { AuthService } from '../auth/auth.service';
         <img src="/assets/logo.png" class="mx-2" style="width:50px;">
         <img src="/assets/logo-text.png" class="mx-2" style="width:200px;">
     </a>
-    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav ms-auto"> -->
+
+    <button class="navbar-toggler" type="button" (click)="collapsed = !collapsed">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse" [class.collapse]="collapsed" id="navbarContent">
+      <ul class="navbar-nav ms-auto">
 
             <li class="nav-item">
                 <a class="nav-link m-2" routerLink="home" routerLinkActive="active">Accueil</a>
@@ -50,9 +56,36 @@ import { AuthService } from '../auth/auth.service';
                 <a class="nav-link m-2" routerLink="blogpost/search" routerLinkActive="active">Evénements</a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link m-2" routerLink="team" routerLinkActive="active">Contacts</a>
+            <li class="nav-item" ngbDropdown>
+                <a class="nav-link m-2" ngbDropdownToggle role="button" routerLinkActive="active">Notre CLUB</a>
+                <ul ngbDropdownMenu>
+                    <li><a ngbDropdownItem routerLink="team" routerLinkActive="active">L'équipe</a></li>
+                    <li><a ngbDropdownItem>Boutique</a></li>
+                    <li><a ngbDropdownItem>Inscription</a></li>
+                    <li><a ngbDropdownItem>Nous Contacter</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a ngbDropdownItem href="https://www.facebook.com/groups/373720320310075/"><i class="bi bi-facebook"></i> Facebook</a></li>
+                </ul>                
             </li>
+
+<!-- 
+* Accueil
+* Agenda/Programmes
+* Souvenirs
+* Notre CLUB
+	* Notre Equipe
+	* Dans la rubrique :Nous contacter
+	* formulaire d’inscription
+	* Notre boutique
+	* Liens utiles
+		FFBMP
+		ADEPS
+		Wandelsport Vlanderen
+		Météo
+
+	Clubs amis
+	Suivez l’actualité sur facebook
+-->
 
             <li class="nav-item" *ngIf="!isLogged">
                 <a class="nav-link m-2 text-nowrap" routerLink="" (click)="login()" ngbTooltip="Connexion" placement="bottom">
@@ -76,6 +109,8 @@ export class HeaderComponent {
 
     constructor(private authService: AuthService) {}
 
+    collapsed = false;
+
     @ViewChild('dropdown', { static: true }) dropdown: any;
 
     get isLogged(): boolean {
@@ -97,4 +132,11 @@ export class HeaderComponent {
     close() {
         this.dropdown.close();
     }
+
+    // add belove code
+  navbarCollapsed = true;
+
+  toggleNavbarCollapsing() {
+    this.navbarCollapsed = !this.navbarCollapsed;
+  }
 }

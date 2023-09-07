@@ -3,7 +3,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router, RouterModule, Routes } from '@angular/router';
-import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { SharedModule } from './shared/shared.module';
@@ -37,12 +36,12 @@ const routes: Routes = [
         LayoutModule,
         //TransactionModule,
         BrowserModule,
-        NgbModule,
+        //NgbModule,
         HttpClientModule,
         SpinnerModule,
         SharedModule,
         BrowserAnimationsModule,
-        ToastrModule.forRoot({ positionClass: 'toast-bottom-left' }),
+        //ToastrModule.forRoot({ positionClass: 'toast-bottom-left' }),
         RouterModule,
         RouterModule.forRoot(routes, { useHash: true, enableTracing: false })
     ],

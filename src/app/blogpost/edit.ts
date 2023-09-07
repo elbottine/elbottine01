@@ -5,6 +5,7 @@ import { BlogpostService } from './service';
 import { Blogpost } from './model';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { AuthService } from '../auth/auth.service';
+import { ToastService } from '../shared/toast-service';
 
 @Component({
     template: `
@@ -74,7 +75,8 @@ export class BlogpostEditComponent implements OnInit {
         private dialogService: DialogService,
         private activatedRoute: ActivatedRoute,
         private authService: AuthService,
-        private router: Router
+        private router: Router,
+        private toastService: ToastService
     ) { }
 
     private modelCopy: Blogpost;
@@ -84,6 +86,7 @@ export class BlogpostEditComponent implements OnInit {
     ngOnInit() {
         this.parseRouteParameters();
         this.get();
+        this.toastService.error('sfsdfsdfsf sfsdfsf');
     }
 
     private parseRouteParameters() {
@@ -114,7 +117,7 @@ export class BlogpostEditComponent implements OnInit {
         model.createdAt = new Date().toUTCString();
         this.blogpostService.upsert(model).subscribe({
             next: model => {
-                //this.dialogService.success('Blog sauvegardé');
+                //this.toastService.success('Blog sauvegardé');
                 this.modelCopy = model.clone();
                 this.model = model;
                 this.id = model.id;
@@ -122,7 +125,7 @@ export class BlogpostEditComponent implements OnInit {
             error: (error: any) => {
                 error = error.error || error;
                 const message = error.ExceptionMessage || error.message || error.Message;
-                this.dialogService.error(message, 'Erreur technique');
+                this.toastService.error(message, 'Erreur technique');
             },
             complete: () => console.info('complete') 
         });
@@ -142,7 +145,7 @@ export class BlogpostEditComponent implements OnInit {
             .subscribe(
                 (_: any) => {
                     this.router.navigate(['blogpost/search'])
-                    this.dialogService.success('Blog suprimée');
+                    this.toastService.success('Blog suprimée');
                 }
             );
     }

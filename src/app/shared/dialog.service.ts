@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from 'ngx-toastr';
 import { ConfirmationDialogComponent } from './confirmation-dialog.component';
+import { ToastService } from './toast-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DialogService {
 
-	constructor(private modalService: NgbModal, private toastr: ToastrService) {}
+	constructor(private modalService: NgbModal, private toastService: ToastService) {}
 
 	confirm(
 		title: string,
@@ -33,19 +33,21 @@ export class DialogService {
 		});
 	}
 
-	success(content: string, title: string = 'Info') {
-		this.toastr.success(content, title);
-	}
+	// success(content: string, title: string = 'Info') {
+	// 	//this.toastr.success(content, title);
+    //     this.toastService.show(content, { classname: 'bg-success text-light', delay: 10000 });
+	// }
 
-	error(content: string, title: string = 'Erreur') {
-		this.toastr.error(content, title, { onActivateTick: true, enableHtml: true });
-	}
+	// error(content: string, title: string = 'Erreur') {
+	// 	//this.toastr.error(content, title, { onActivateTick: true, enableHtml: true });
+    //     this.toastService.show(content, { classname: 'bg-danger text-light', delay: 15000 });
+	// }
 
-	warning(content: string, title: string = 'Info') {
-		this.toastr.warning(content, title);
-	}
+	// warning(content: string, title: string = 'Info') {
+    //     this.toastService.show(content, { classname: 'bg-danger text-light', delay: 15000 });
+	// }
 
-	info(content: string, title: string = 'Info') {
-		this.toastr.info(content, title);
-	}
+	// info(content: string, title: string = 'Info') {
+    //     this.toastService.show(content, { classname: 'bg-danger text-light', delay: 15000 });
+	// }
 }

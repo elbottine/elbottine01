@@ -1,3 +1,5 @@
+$topnav-background-color: #2b3050;
+
 /* Show border arround element  for debugging */
 .debug {
 	border: 1px solid red;
@@ -112,6 +114,17 @@ h1 {
     // --bs-bg-opacity: 1;
     //background-color: #2b3050 !important;
 }
+
+// .dropdown-item {
+// 	color: #ffffff !important;
+// }
+
+// .dropdown-menu {
+//     background-color: $topnav-background-color !important;
+// }
+
+
+
 
 
 /* cursor in search screen result */
@@ -279,53 +292,53 @@ h1 {
 
 
 
-.grid-container {
-    display: grid;                                                /* 1 */
-    grid-auto-rows: 200px;                                         /* 2 */
-    grid-gap: 10px;                                               /* 3 */
-    grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));   /* 4 */
-  }
+// .grid-container {
+//     display: grid;                                                /* 1 */
+//     grid-auto-rows: 200px;                                         /* 2 */
+//     grid-gap: 10px;                                               /* 3 */
+//     grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));   /* 4 */
+//   }
   
-  .short {
-    grid-row: span 1;                                             /* 5 */
-    background-color: green;
-  }
+//   .short {
+//     grid-row: span 1;                                             /* 5 */
+//     background-color: green;
+//   }
   
-  .shortlarge {
-    grid-row: span 1;                                             /* 5 */
-    grid-column: span 2;                                             /* 5 */
-    background-color: green;
-  }
+//   .shortlarge {
+//     grid-row: span 1;                                             /* 5 */
+//     grid-column: span 2;                                             /* 5 */
+//     background-color: green;
+//   }
   
-  .tall {
-    grid-row: span 2;
-    background-color: crimson;
-  }
+//   .tall {
+//     grid-row: span 2;
+//     background-color: crimson;
+//   }
   
-  .taller {
-    grid-row: span 3;
-    background-color: blue;
-  }
+//   .taller {
+//     grid-row: span 3;
+//     background-color: blue;
+//   }
   
-  .tallest {
-    grid-row: span 4;
-    background-color: gray;
-  }
+//   .tallest {
+//     grid-row: span 4;
+//     background-color: gray;
+//   }
   
-  .grid-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3em;
-    font-weight: bold;
-    color: white;
-  }
+//   .grid-item {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     font-size: 1.3em;
+//     font-weight: bold;
+//     color: white;
+//   }
 
 
 
 
 
-  .grid-wrapper > div {
+.grid-wrapper > div {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -398,9 +411,9 @@ h1 {
     .navbar-collapse{
         background-color: #2b3050;
     }  
-  }
+}
 @media (min-width: 768px) {
     .navbar-collapse{
         background-color: unset;
     }  
-  }
+}

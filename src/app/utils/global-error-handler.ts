@@ -1,5 +1,5 @@
 import { ErrorHandler, Inject, Injectable, Injector, NgZone } from '@angular/core';
-import { DialogService } from '../shared/dialog.service';
+import { ToastService } from '../shared/toast-service';
 
 @Injectable()
 export class GlobalErrorHandler extends ErrorHandler {
@@ -11,14 +11,14 @@ export class GlobalErrorHandler extends ErrorHandler {
 		super();
 	}
 
-	private get dialogService(): DialogService {
-		return this.injector.get(DialogService);
+	private get toastService(): ToastService {
+		return this.injector.get(ToastService);
 	}
 
 	override handleError(error: any): void {
 		error = error.error || error;
         const message = error.ExceptionMessage || error.message || error.Message;
-		this.dialogService.error(message, 'Erreur technique');
+		this.toastService.error(message, 'Erreur technique');
 		super.handleError(error);
 	}
 }
