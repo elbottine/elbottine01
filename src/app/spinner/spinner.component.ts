@@ -18,6 +18,20 @@ import { SpinnerService } from './spinner.service';
     <div></div>
     <div></div>
     <div></div>
+
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+
     </div>
     </div>`,
 	styles: [`
@@ -59,18 +73,30 @@ import { SpinnerService } from './spinner.service';
 	background: rgb(42, 54, 60);
 }
 
-.ctr-spinner div:nth-child(1)  { transform: rotate(0deg);   animation-delay: -1.1s; }
-.ctr-spinner div:nth-child(2)  { transform: rotate(30deg);  animation-delay:   -1s; }
-.ctr-spinner div:nth-child(3)  { transform: rotate(60deg);  animation-delay: -0.9s; }
-.ctr-spinner div:nth-child(4)  { transform: rotate(90deg);  animation-delay: -0.8s; }
-.ctr-spinner div:nth-child(5)  { transform: rotate(120deg); animation-delay: -0.7s; }
-.ctr-spinner div:nth-child(6)  { transform: rotate(150deg); animation-delay: -0.6s; }
-.ctr-spinner div:nth-child(7)  { transform: rotate(180deg); animation-delay: -0.5s; }
-.ctr-spinner div:nth-child(8)  { transform: rotate(210deg); animation-delay: -0.4s; }
-.ctr-spinner div:nth-child(9)  { transform: rotate(240deg); animation-delay: -0.3s; }
-.ctr-spinner div:nth-child(10) { transform: rotate(270deg); animation-delay: -0.2s; }
-.ctr-spinner div:nth-child(11) { transform: rotate(300deg); animation-delay: -0.1s; }
-.ctr-spinner div:nth-child(12) { transform: rotate(330deg); animation-delay:    0s; }
+.ctr-spinner div:nth-child(1)  { transform: rotate(0deg);   animation-delay: -1.15s; }
+.ctr-spinner div:nth-child(2)  { transform: rotate(15deg);  animation-delay: -1.10s; }
+.ctr-spinner div:nth-child(3)  { transform: rotate(30deg);  animation-delay: -1.05s; }
+.ctr-spinner div:nth-child(4)  { transform: rotate(45deg);  animation-delay: -1.00s; }
+.ctr-spinner div:nth-child(5)  { transform: rotate(60deg);  animation-delay: -0.95s; }
+.ctr-spinner div:nth-child(6)  { transform: rotate(75deg);  animation-delay: -0.90s; }
+.ctr-spinner div:nth-child(7)  { transform: rotate(90deg);  animation-delay: -0.85s; }
+.ctr-spinner div:nth-child(8)  { transform: rotate(105deg); animation-delay: -0.80s; }
+.ctr-spinner div:nth-child(9)  { transform: rotate(120deg); animation-delay: -0.75s; }
+.ctr-spinner div:nth-child(10)  { transform: rotate(135deg); animation-delay: -0.70s; }
+.ctr-spinner div:nth-child(11)  { transform: rotate(150deg); animation-delay: -0.65s; }
+.ctr-spinner div:nth-child(12)  { transform: rotate(165deg); animation-delay: -0.60s; }
+.ctr-spinner div:nth-child(13)  { transform: rotate(180deg); animation-delay: -0.55s; }
+.ctr-spinner div:nth-child(14)  { transform: rotate(195deg); animation-delay: -0.50s; }
+.ctr-spinner div:nth-child(15)  { transform: rotate(210deg); animation-delay: -0.45s; }
+.ctr-spinner div:nth-child(16)  { transform: rotate(225deg); animation-delay: -0.40s; }
+.ctr-spinner div:nth-child(17)  { transform: rotate(240deg); animation-delay: -0.35s; }
+.ctr-spinner div:nth-child(18)  { transform: rotate(255deg); animation-delay: -0.30s; }
+.ctr-spinner div:nth-child(19) { transform: rotate(270deg); animation-delay: -0.25s; }
+.ctr-spinner div:nth-child(20)  { transform: rotate(285deg); animation-delay: -0.20s; }
+.ctr-spinner div:nth-child(21) { transform: rotate(300deg); animation-delay: -0.15s; }
+.ctr-spinner div:nth-child(22)  { transform: rotate(315deg); animation-delay: -0.10s; }
+.ctr-spinner div:nth-child(23) { transform: rotate(330deg); animation-delay: -0.05s; }
+.ctr-spinner div:nth-child(24)  { transform: rotate(345deg); animation-delay:  0s; }
 
 @keyframes ctr-spinner {
 	0% {
