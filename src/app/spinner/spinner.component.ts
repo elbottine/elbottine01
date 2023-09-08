@@ -6,18 +6,18 @@ import { SpinnerService } from './spinner.service';
 	template: `
 	<div class="ctr-spinner-container" *ngIf="show">
     <div class="ctr-spinner">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
     </div>
     </div>`,
 	styles: [`

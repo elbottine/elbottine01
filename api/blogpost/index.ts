@@ -22,8 +22,14 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                     const blogPost = await db.findItemById(id);
                     blogPost.paths = await getBlobPaths('blogposts-blobs', id);
                     response = blogPost;
-                } else if (req?.query) {
-                    response = { blogposts: await db.findItems(req?.query) }; // ?????????????????
+                } else if (req.query) {
+
+                    console.log(`>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> req.query.title1: ${req.query.title}`);
+                    console.log(`>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> req.query.title2: ${req.query.title ? "A" : "B"}`);
+                    var filter = req.query.title ? {title: {$regex: `.*'${req.query.title}'.*`, $options: 'i'}} : null;
+                    console.log(`>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> filter ${JSON.stringify(filter)}`);
+
+                    response = { blogposts: await db.findItems(req.query) }; // ?????????????????
                 } else {
                 }          
             break;

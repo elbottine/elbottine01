@@ -19,7 +19,8 @@ export class DialogService {
 	): Promise<any> {
 		const modalRef = this.modalService.open(ConfirmationDialogComponent, {
 			size: dialogSize,
-			backdrop: 'static'
+			backdrop: 'static',
+            centered: true
 		});
 		modalRef.componentInstance.title = title;
 		modalRef.componentInstance.message = message;

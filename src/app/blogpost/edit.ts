@@ -86,7 +86,6 @@ export class BlogpostEditComponent implements OnInit {
     ngOnInit() {
         this.parseRouteParameters();
         this.get();
-        this.toastService.error('sfsdfsdfsf sfsdfsf');
     }
 
     private parseRouteParameters() {
@@ -117,10 +116,10 @@ export class BlogpostEditComponent implements OnInit {
         model.createdAt = new Date().toUTCString();
         this.blogpostService.upsert(model).subscribe({
             next: model => {
-                //this.toastService.success('Blog sauvegardé');
                 this.modelCopy = model.clone();
                 this.model = model;
                 this.id = model.id;
+                this.toastService.error('Evénement sauvegardé');
             },
             error: (error: any) => {
                 error = error.error || error;
@@ -145,7 +144,7 @@ export class BlogpostEditComponent implements OnInit {
             .subscribe(
                 (_: any) => {
                     this.router.navigate(['blogpost/search'])
-                    this.toastService.success('Blog suprimée');
+                    this.toastService.success('Evénement suprimée');
                 }
             );
     }

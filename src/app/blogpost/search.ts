@@ -99,6 +99,7 @@ export class BlogpostSearchComponent implements OnInit {
 		        map(x => x.blogposts),
 //			    shareReplay(1)
 		    );
+        this.blogposts$.subscribe();
         this.search();
 	}
 
@@ -107,6 +108,7 @@ export class BlogpostSearchComponent implements OnInit {
     }
 
 	search(): void {
+        debugger;
 		this.blogpostService.searchBlogposts(this.model.clone());
 	}
 }
