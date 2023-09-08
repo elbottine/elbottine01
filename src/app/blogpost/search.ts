@@ -39,23 +39,26 @@ import { AuthService } from '../auth/auth.service';
 
 
 	<!-- <div class="p-2 debug">Flex item</div> -->
-	<!-- <form class="d-flex" style="display: none;">
-		<div class="p-2 text-nowrap">Filtrer le résultat:</div>
-		<input class="form-control me-1" type="search" [(ngModel)]="filter" name="search" (keyup)="onFilterChange($event.code)"/>
-		<button class="btn btn-primary" (click)="clearFilter()" xxxstyle="width: 40px;">
-			<i class="fa-solid fa-magnifying-glass"></i>
-			<i class="bi bi-search"></i>
-		</button>
-	</form> -->
 
 <div class="container">
 
     <div class="d-flex align-items-end">
         <h1 class="mt-4">Evénements</h1>
-        <div class="ms-auto" *ngIf="canEdit">
+        <!-- <div class="ms-auto" *ngIf="canEdit">
             <button class="btn btn-danger" routerLink="/blogpost/edit">Ajouter un événement</button>		
-        </div>
+        </div> -->
     </div>
+
+	<form class="d-flex mt-4" xxstyle="display: none;">
+		<div class="p-2">Recherche:</div>
+		<input class="form-control me-1" type="search" [(ngModel)]="model.title" name="search"/>
+		<button class="btn btn-primary" (click)="search()">
+			<i class="bi bi-search"></i>
+		</button>
+         <button *ngIf="canEdit" class="btn btn-danger text-nowrap" routerLink="/blogpost/edit">
+            Ajouter un événement
+        </button>
+	</form>
 
     <div class="search-result-table-area">
         <xyz-search-result [model]="model" [blogposts]="blogposts$ | async">
@@ -90,59 +93,20 @@ export class BlogpostSearchComponent implements OnInit {
 	filter: string;
 
 	ngOnInit(): void {
-		this.restoreFilter();
-		const list$ = this.blogpostService.getBlogposts$();
-
-		this.blogposts$ = list$.pipe(
-		    map(x => x.blogposts),
-//			shareReplay(1)
-		);
-
-        this.blogposts$.subscribe();
-
-		this.blogpostService.searchBlogposts(new BlogpostsFilter({}));
+		this.model = new BlogpostsFilter();
+        this.blogposts$ = this.blogpostService.getBlogposts$()
+            .pipe(
+		        map(x => x.blogposts),
+//			    shareReplay(1)
+		    );
+        this.search();
 	}
 
     get canEdit() {
         return this.authService.canEdit;
     }
 
-	onExecuteSearch(): void {
-		this.model.page = 1;
-		this.executeSearch();
-	}
-
-	onClearSearch(): void {
-		this.model.clear();
-	}
-
-	private restoreFilter(): void {
-		this.model = <BlogpostsFilter> {};
-	}
-
-	private saveFilter(): void {
-	}
-
-	previousPage(): void {
-		this.model.previousPage();
-		this.executeSearch();
-	}
-
-	nextPage(): void {
-		this.model.nextPage();
-		this.executeSearch();
-	}
-
-	private executeSearch(): void {
-		this.saveFilter();
+	search(): void {
 		this.blogpostService.searchBlogposts(this.model.clone());
-	}
-
-	onFilterChange(value: string): void {
-	}
-
-	clearFilter(): void {
-		this.filter = '';
-		this.onFilterChange('');
 	}
 }

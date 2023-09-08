@@ -88,8 +88,9 @@ export const findItemById = async (id) => {
     return await BlogpostModel.findById(id);
 };
 
-export const findItems = async (query = {}) => {
-    return await BlogpostModel.find(query).sort({'createdAt': -1});
+export const findItems = async (query: any) => {
+    var filter = {title: {$regex: '.*' +  query.title + '.*', $options: 'i'}};
+    return await BlogpostModel.find(filter).limit(20).sort({'createdAt': -1});
 };
 
 export const deleteItemById = async (id) => {

@@ -22,11 +22,11 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                     const blogPost = await db.findItemById(id);
                     blogPost.paths = await getBlobPaths('blogposts-blobs', id);
                     response = blogPost;
+                } else if (req?.query) {
+                    response = { blogposts: await db.findItems(req?.query) }; // ?????????????????
                 } else {
-                    const dbQuery = req?.query?.dbQuery || (req?.body && req?.body?.dbQuery);
-                    response = { blogposts: await db.findItems(dbQuery) }; // ?????????????????
                 }          
-                break;
+            break;
             case "PUT":
                 id = context.bindingData.id;
                 if (!id) {
@@ -64,6 +64,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         };
 
     } catch (err) {
+        context.log(`*** Error ${err}`);
         context.log(`*** Error ${JSON.stringify(err)}`);
         context.res = {
             status: 501,

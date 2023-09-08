@@ -25,7 +25,7 @@ export class Blogpost {
 
 	title: string;
 	text: string;
-	paths: string[]; //TODO:rename
+	paths: string[];
 	createdAt: string;
 	createdBy: string;
 	updatedAt: string;
@@ -54,25 +54,17 @@ export class Blogpost {
     get shortText(): string {
         return this.text?.substr(0, 500);
     }
-
-    // get mainImagePath(): string {
-    //     const regex = /\/main\.\w/;
-    //     return this.paths.find(f => regex.test(f));
-    // }
 }
 
 export class BlogpostsFilter extends FilterBase {
-	public constructor(init: Partial<BlogpostsFilter>) {
+	public constructor(init?: Partial<BlogpostsFilter>) {
 		super();
 		Object.assign(this, init);
 	}
 
+    title: string;
+    
 	clone(): BlogpostsFilter {
-		const c = new BlogpostsFilter(this);
-		return c;
+		return new BlogpostsFilter(this);
 	}
-}
-
-export class BlogpostHierarchyFilter {
-	ID: number;
 }
