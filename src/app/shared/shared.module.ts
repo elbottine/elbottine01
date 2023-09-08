@@ -9,7 +9,9 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
     { path: 'team',  component: HtmlContentComponent, data: {path: 'assets/html/team.html'} },
-    { path: 'store', component: HtmlContentComponent, data: {path: 'assets/html/store.html'} }
+    { path: 'store', component: HtmlContentComponent, data: {path: 'assets/html/store.html'} },
+    { path: 'contact', component: HtmlContentComponent, data: {path: 'assets/html/contact.html'} },
+    { path: 'register', component: HtmlContentComponent, data: {path: 'assets/html/register.html'} }
 ];
 
 @NgModule({
@@ -20,7 +22,6 @@ const routes: Routes = [
 	imports: [
 		CommonModule,
 		FormsModule,
-		//UtilsModule,
         CommonModule,
         NgbModule,
         ToastsContainer,

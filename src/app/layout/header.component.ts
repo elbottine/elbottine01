@@ -61,8 +61,8 @@ import { AuthService } from '../auth/auth.service';
                 <ul ngbDropdownMenu>
                     <li><a ngbDropdownItem routerLink="team" routerLinkActive="active">L'équipe</a></li>
                     <li><a ngbDropdownItem routerLink="store" routerLinkActive="active">Boutique</a></li>
-                    <li><a ngbDropdownItem>Inscription</a></li>
-                    <li><a ngbDropdownItem>Nous Contacter</a></li>
+                    <li><a ngbDropdownItem routerLink="register" routerLinkActive="active">Inscription</a></li>
+                    <li><a ngbDropdownItem routerLink="contact" routerLinkActive="active">Nous Contacter</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a ngbDropdownItem href="https://www.facebook.com/groups/373720320310075/"><i class="bi bi-facebook"></i> Facebook</a></li>
                 </ul>                
