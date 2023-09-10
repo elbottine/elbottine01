@@ -14,7 +14,10 @@ import { ModalGalleryRef, ModalGalleryService, Image, ModalGalleryConfig, PlainL
 
 <div class="container d-grid gap-5 my-5">
 
-    <h2 class="my-3">{{model.title}}</h2>
+    <div class="d-flex my-2">
+        <div class=""><h2>{{model.title}}</h2></div>
+        <div class="ms-auto"><h2>{{model.date | dateFormat}}</h2></div>
+    </div>
 
     <img *ngIf="mainImagePath" [src]="mainImagePath" class="singleImageItem" />
 
@@ -27,7 +30,7 @@ import { ModalGalleryRef, ModalGalleryService, Image, ModalGalleryConfig, PlainL
     </ks-plain-gallery>
     
     <div class="d-flex align-items-end">
-        <div class="text-muted">{{model.updatedBy}} - {{model.updatedAtDate}}</div>
+        <div class="text-muted">{{model.updatedBy}} - {{model.updatedAt | dateFormat: 'dt'}}</div>
         <div class="ms-auto">
             <button class="btn btn-primary" [routerLink]="['/blogpost', 'edit', model.id]" *ngIf="canEdit(model)">Modifier</button>
         </div>

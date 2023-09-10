@@ -1,5 +1,4 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
-import { BlobServiceClient } from "@azure/storage-blob";
 import { getBlobPaths } from "../upload/azure-storage-blob-sas-url";
 import * as db from "./db";
 
@@ -23,41 +22,29 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                     blogPost.paths = await getBlobPaths('blogposts-blobs', id);
                     response = blogPost;
                 } else if (req.query) {
-
-                    console.log(`>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> req.query.title1: ${req.query.title}`);
-                    console.log(`>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> req.query.title2: ${req.query.title ? "A" : "B"}`);
-                    var filter = req.query.title ? {title: {$regex: `.*'${req.query.title}'.*`, $options: 'i'}} : null;
-                    console.log(`>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> filter ${JSON.stringify(filter)}`);
-
                     response = { blogposts: await db.findItems(req.query) }; // ?????????????????
-                } else {
-                }          
-            break;
+                }
+                break;
             case "PUT":
                 id = context.bindingData.id;
                 if (!id) {
-                    throw Error("No document id given");
+                    throw Error("No document id");
                 }
-
-                var entry = await db.findItemById(id);
-                if (!entry) {
-                    throw Error(`Document '${id}' not found`);
+                if (!req?.body) {
+                    throw Error("No document");
                 }
-
-                entry.title = req.body.title;
-                entry.text = req.body.text;
-                response = await entry.save();
+                response = await db.updateItem(req.body);
                 break;
             case "POST":
                 if (!req?.body) {
-                    throw Error("No document found");
+                    throw Error("No document");
                 }
                 response = await db.addItem(req?.body);
                 break;
             case "DELETE":
                 id = context.bindingData.id;
                 if (!id) {
-                    throw Error("No document id given");
+                    throw Error("No document id");
                 }
                 response = await db.deleteItemById(id);
                 break;

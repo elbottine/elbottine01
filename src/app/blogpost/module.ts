@@ -13,6 +13,7 @@ import { BlogpostsSummaryComponent } from './latest';
 import { UploadImagesModule } from '../files-upload/module';
 //import { LightboxModule } from 'ngx-lightbox';
 import { GalleryModule } from '@ks89/angular-modal-gallery';
+import { SharedModule } from "../shared/shared.module";
 //import { NgxGalleryModule } from  'ngx-gallery';
 
 
@@ -37,35 +38,36 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  	imports: [
-		CommonModule,
-		FormsModule,
-		NgbModule,
-		UtilsModule,
+    declarations: [
+        BlogpostSearchComponent,
+        SearchResultComponent,
+        BlogpostEditComponent,
+        BlogpostReadComponent,
+        BlogpostsSummaryComponent
+    ],
+    // entryComponents: [
+    // 	BlogpostSearchComponent,
+    // 	BlogpostEditComponent,
+    // 	BlogpostReadComponent,
+    // 	BlogpostsSummaryComponent
+    // ],
+    exports: [
+        RouterModule,
+        AngularEditorModule,
+        SearchResultComponent,
+        BlogpostsSummaryComponent
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        NgbModule,
+        UtilsModule,
         UploadImagesModule,
-		AngularEditorModule,
+        AngularEditorModule,
         GalleryModule,
-		RouterModule,
-		RouterModule.forChild(routes)
-	],
-  	declarations: [
-		BlogpostSearchComponent,
-		SearchResultComponent,
-		BlogpostEditComponent,
-		BlogpostReadComponent,
-		BlogpostsSummaryComponent
-	],
-	// entryComponents: [
-	// 	BlogpostSearchComponent,
-	// 	BlogpostEditComponent,
-	// 	BlogpostReadComponent,
-	// 	BlogpostsSummaryComponent
-	// ],
-	exports: [
-		RouterModule,
-		AngularEditorModule,
-		SearchResultComponent,
-		BlogpostsSummaryComponent
-	]
+        RouterModule,
+        RouterModule.forChild(routes),
+        SharedModule
+    ]
 })
 export class BlogpostModule {}

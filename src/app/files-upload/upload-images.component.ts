@@ -5,7 +5,7 @@ import { FileUploadService } from './file-upload.service';
 @Component({
     selector: 'app-upload-images',
     template: `
-<div class="container" *ngIf="singleImage">
+<div class="container-fluid" *ngIf="singleImage">
     <div class="row">
         <div *ngIf="mainImagePath" class="col">
             <img [src]="mainImagePath" class="singleImageItem" />
@@ -19,7 +19,7 @@ import { FileUploadService } from './file-upload.service';
         </div>
     </div>
 </div>
-<div class="container" *ngIf="!singleImage">
+<div class="container-fluid" *ngIf="!singleImage">
     <div class="row">
         <div *ngIf="previews && previews.length" class="col d-flex flex-wrap">
             <div class="imageBox"

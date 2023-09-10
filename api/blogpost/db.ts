@@ -28,29 +28,24 @@ const baseConfig = {
     collection: "blogpost"   //Name of the Common Collection
 };
 
-const blogpostSchema = new Schema(
-    {
-        title:     { type: String, require: true },
-        text:      { type: String, require: true },
-        paths:     [{ type: String, require: true }],
-        createdAt: { type: Date, default: Date.UTC, index: true },
-        createdBy: { type: String, require: true },
-        updatedAt: { type: Date },
-        updatedBy: { type: String }
-        
-        // children: [{
-        //     familyName: String,
-        //     firstName: String,
-        //    gender: String,
-        //     grade: Number
-        // }],
-        // address: {
-        //     country: String,
-        //     state: String,
-        //     city: String
-        // }
-    });
+// const dateSchema = new Schema({
+//     year: { type: Number, required: true },
+//     month: { type: Number, required: true },
+//     day: { type: Number, required: true }
+// });
 
+const blogpostSchema = new Schema({
+    title:     { type: String, require: true },
+    date:      { type: Date, required: false },
+    text:      { type: String, require: true },
+    paths:     [{ type: String, require: true }],
+    createdAt: { type: Date, default: Date.UTC, index: true },
+    createdBy: { type: String, require: true },
+    updatedAt: { type: Date },
+    updatedBy: { type: String }
+});
+
+//export const DateModel = model("bottine", dateSchema, "date");
 export const BlogpostModel = model("bottine", blogpostSchema, "blogpost");
 
 export const init = async () => {
@@ -62,6 +57,7 @@ export const init = async () => {
 export const addItem = async (doc) => {
     const modelToInsert = new BlogpostModel();
     modelToInsert["title"]     = doc.title;
+    modelToInsert["date"]      = doc.date;
     modelToInsert["text"]      = doc.text;
     modelToInsert["paths"]     = doc.paths;
     modelToInsert["createdAt"] = doc.createdAt;
@@ -72,14 +68,15 @@ export const addItem = async (doc) => {
 };
 
 export const updateItem = async (doc) => {
-    var entry = await db.findItemById(doc._id);
+    var entry = await BlogpostModel.findById(doc._id);
     if (!entry) {
         throw Error(`Document '${doc._id}' not found`);
     }   
     entry.title = doc.title;
     entry.text = doc.text;
     entry.paths = doc.paths;
-    entry.updatedAt = Date.UTC;
+    entry.date = doc.date;
+    entry.updatedAt = new Date();
     entry.updatedBy = doc.updatedBy;
     return await entry.save();
 };

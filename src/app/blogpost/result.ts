@@ -9,10 +9,13 @@ import { AuthService } from '../auth/auth.service';
 <div class="card my-4 flex-row" *ngFor="let model of blogposts">
     <!-- <img class="card-img-left debug" [src]="model.mainImagePath" style="width:200px; heigth:200px;"> -->
     <div class="card-body">
-        <h3 class="card-title">{{model.title}}</h3>
+        <div class="card-title d-flex my-3">
+            <div class="p-2"><h3>{{model.title}}</h3></div>
+            <div class="ms-auto p-2"><h3>{{model.date| dateFormat}}</h3></div>
+        </div>
         <div [innerHTML]="model.shortText"></div>
         <div class="d-flex align-items-end">
-            <div class="text-muted">{{model.updatedBy}} - {{model.updatedAtDate}}</div>
+            <div class="text-muted">{{model.updatedBy}} - {{model.updatedAt | dateFormat: 'dt'}}</div>
             <div class="ms-auto">
             <button class="btn btn-primary" [routerLink]="['/blogpost', 'read', model.id]">La suite...</button>
             <button class="btn btn-primary" [routerLink]="['/blogpost', 'edit', model.id]" *ngIf="canEdit(model)">Modifier</button>

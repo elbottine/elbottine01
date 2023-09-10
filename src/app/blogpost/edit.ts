@@ -9,64 +9,84 @@ import { ToastService } from '../shared/toast-service';
 
 @Component({
     template: `
-<form #MyForm="ngForm">
-
 <div class="container">
-<div class="d-grid gap-5 my-5" *ngIf="model">
 
-	<h1 class="">Evénement</h1>
+<h1 class="my-4">Evénement</h1>
 
-	<div>
-        <label for="title" class="form-label h3">Titre</label>        
-		<input type="text" class="form-control" [placeholder]="'Entrer le titre ici...'" 
-			*ngIf="model"
-			id="title" name="title"
-			[(ngModel)]="model.title"
-			required />
-	</div>
-
-	<div>
-        <label for="title" class="form-label h3">Photo principale (optionnel)</label>
-        <app-upload-images [blogpostId]="id" 
-            [previews]="model.paths"
-            [singleImage]=true>
-        </app-upload-images>
-        <!-- [mainImagePath]="model.mainImagePath" -->
-        <!-- (updateMainImage)="updateMainImage($event)" -->
-	</div>
-
-	<div>
-        <label for="title" class="form-label h3">Texte (optionnel)</label>
-    	<angular-editor [placeholder]="'Entrer le texte ici...'" style="min-height: 500px;"
-			*ngIf="model" 
-			[(ngModel)]="model.text"
-			id="text" name="text">
-		</angular-editor>
-	</div>
-
-	<div>
-        <label for="title" class="form-label h3">Photos (optionnel)</label>
-        <app-upload-images [blogpostId]="id"
-            [previews]="model.paths"
-            [singleImage]=false>
-        </app-upload-images>
-        <!-- (updateImageLigt)="imageListUpdated($event)" -->
+<form #MyForm="ngForm" class="row g-4" *ngIf="model">
+  
+    <div class="col-md-8">
+        <label for="title" class="form-label h3">Titre</label>
+        <input type="text" class="form-control" 
+                [placeholder]="'Entrer le titre ici...'" 
+                id="title" name="title"
+                [(ngModel)]="model.title"
+                required />
+    </div>
+  
+    <div class="col-md-4">
+        <label for="date" class="form-label h3">Date</label>
+        <div class="input-group">
+            <input type="text" class="form-control"
+                placeholder="dd/mm/yyyy"
+                id="date" name="date"
+                [(ngModel)]="model.date"
+                ngbDatepicker
+                #d="ngbDatepicker"
+            />
+            <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+        </div> 
     </div>
 
-    <div class="d-flex align-items-end">
-        <div class="text-muted">{{model?.createdBy}} - {{model?.updatedAtDate}}</div>
+    <div class="col-12">
+        <label for="title" class="form-label h3">Photo principale (optionnel)</label>
+        <div class="input-group">
+            <app-upload-images class="w-100"
+                [blogpostId]="id" 
+                [previews]="model.paths"
+                [singleImage]=true>
+            </app-upload-images>
+            <!-- [mainImagePath]="model.mainImagePath" -->
+            <!-- (updateMainImage)="updateMainImage($event)" -->
+        </div>
+    </div>
+
+    <div class="col-12">
+        <label for="title" class="form-label h3">Texte (optionnel)</label>
+        <div class="input-group">
+            <angular-editor class="w-100"
+                [placeholder]="'Entrer le texte ici...'"
+                style="min-height: 500px;"
+                [(ngModel)]="model.text"
+                id="text" name="text">
+            </angular-editor>        
+        </div>
+    </div>
+
+    <div class="col-12">
+        <label for="title" class="form-label h3">Photos (optionnel)</label>
+        <div class="input-group">
+            <app-upload-images class="w-100"
+                [blogpostId]="id"
+                [previews]="model.paths"
+                [singleImage]=false>
+            </app-upload-images>
+            <!-- (updateImageLigt)="imageListUpdated($event)" -->        
+        </div>
+    </div>
+
+    <div class="col-12 d-flex align-items-end mb-4">
+        <div class="text-muted">{{model?.createdBy}} - {{model?.updatedAt | dateFormat }}</div>
         <div class="ms-auto">
             <button class="btn btn-danger" (click)="delete()">Suprimer</button>
             <button class="btn btn-primary" [routerLink]="['/blogpost', 'read', id]" [disabled]="!id">Visualiser</button>		
             <button class="btn btn-primary" [disabled]="!model || !dirty || !MyForm.valid" (click)="apply()">Sauver</button>
             <button class="btn btn-primary" routerLink="/blogpost/search">Fermer</button>		
         </div>
-    </div>
-
-</div>
-</div>
+    </div>  
 
 </form>
+</div>
 `})
 export class BlogpostEditComponent implements OnInit {
 
@@ -119,14 +139,15 @@ export class BlogpostEditComponent implements OnInit {
                 this.modelCopy = model.clone();
                 this.model = model;
                 this.id = model.id;
-                this.toastService.error('Evénement sauvegardé');
+                debugger;
+                this.toastService.success('Evénement sauvegardé');
             },
             error: (error: any) => {
                 error = error.error || error;
                 const message = error.ExceptionMessage || error.message || error.Message;
                 this.toastService.error(message, 'Erreur technique');
             },
-            complete: () => console.info('complete') 
+            complete: () => console.info('complete')
         });
     }
 
@@ -166,8 +187,8 @@ export class BlogpostEditComponent implements OnInit {
     config: AngularEditorConfig = {
         editable: true,
         spellcheck: true,
-        minHeight: '500px',       
-       // placeholder: 'Enter text here...',
+        minHeight: '500px',
+        // placeholder: 'Enter text here...',
         translate: 'no',
         defaultParagraphSeparator: 'p',
         defaultFontName: 'Arial',

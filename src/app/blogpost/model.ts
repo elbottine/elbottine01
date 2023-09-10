@@ -13,6 +13,17 @@ export class Blogpost {
 
     public constructor(init?: Partial<Blogpost>) {
 		Object.assign(this, init);
+        //if (!this.date) {
+            // const date = new Date();
+            // this.date = Date;
+        //}
+        if (typeof this.date === 'string') // || this.date instanceof String)
+        {
+
+        }
+        else {
+            this.date = null;
+        }
 	}
 
 	get id(): string {
@@ -24,6 +35,7 @@ export class Blogpost {
 	}
 
 	title: string;
+    date: string;
 	text: string;
 	paths: string[];
 	createdAt: string;

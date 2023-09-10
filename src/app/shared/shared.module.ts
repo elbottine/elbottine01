@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ConfirmationDialogComponent } from './confirmation-dialog.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateAdapter, NgbDateParserFormatter, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastsContainer } from './toasts-container.component';
 import { HtmlContentComponent } from './html-content.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { CustomAdapter, CustomDateParserFormatter, DateFormatPipe } from './date';
 
 const routes: Routes = [
     { path: 'team',  component: HtmlContentComponent, data: {path: 'assets/html/team.html'} },
@@ -17,12 +18,12 @@ const routes: Routes = [
 @NgModule({
 	declarations: [
 		ConfirmationDialogComponent,
-        HtmlContentComponent
+        HtmlContentComponent,
+        DateFormatPipe
 	],
 	imports: [
 		CommonModule,
 		FormsModule,
-        CommonModule,
         NgbModule,
         ToastsContainer,
         RouterModule,
@@ -30,7 +31,12 @@ const routes: Routes = [
     ],
     exports: [
         ToastsContainer,
-        RouterModule
-	]
+        RouterModule,
+        DateFormatPipe
+	],
+    providers: [
+        { provide: NgbDateAdapter, useClass: CustomAdapter },
+        { provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter }
+    ],
 })
 export class SharedModule {}
