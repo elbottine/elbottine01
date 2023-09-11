@@ -56,7 +56,7 @@ import { ToastService } from '../shared/toast-service';
         <div class="input-group">
             <angular-editor class="w-100"
                 [placeholder]="'Entrer le texte ici...'"
-                style="min-height: 500px;"
+                style="min-height: 250px;"
                 [(ngModel)]="model.text"
                 id="text" name="text">
             </angular-editor>        

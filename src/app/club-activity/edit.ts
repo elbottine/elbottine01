@@ -11,7 +11,7 @@ import { ToastService } from '../shared/toast-service';
     template: `
 <div class="container">
 
-<h1 class="my-4">Evénement</h1>
+<h1 class="my-4">Activité</h1>
 
 <form #MyForm="ngForm" class="row g-4" *ngIf="model">
   
@@ -52,11 +52,11 @@ import { ToastService } from '../shared/toast-service';
     </div>
 
     <div class="col-12">
-        <label for="title" class="form-label h3">Texte (optionnel)</label>
+        <label for="title" class="form-label h3">Information</label>
         <div class="input-group">
             <angular-editor class="w-100"
                 [placeholder]="'Entrer le texte ici...'"
-                style="min-height: 500px;"
+                style="min-height: 250px;"
                 [(ngModel)]="model.text"
                 id="text" name="text">
             </angular-editor>        

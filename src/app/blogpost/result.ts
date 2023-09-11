@@ -35,8 +35,6 @@ export class SearchResultComponent {
 	@Input()
 	blogposts: Blogpost[];
 
-//htmlContent = '';
-
     canEdit(blogpost: Blogpost) {
         return blogpost.id && this.authService.canEdit;
     }

@@ -31,7 +31,7 @@ import { AuthService } from '../auth/auth.service';
     </div>
 </nav> -->
 
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark stipes">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark stipes">
     <a class="XXXnavbar-brand" href="#">
         <img src="/assets/logo.png" class="mx-2" style="width:50px;">
         <img src="/assets/logo-text.png" class="mx-2" style="width:200px;">
@@ -42,11 +42,12 @@ import { AuthService } from '../auth/auth.service';
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto"> -->
 
-    <button class="navbar-toggler" type="button" (click)="collapsed = !collapsed">
-      <span class="navbar-toggler-icon"></span>
+    <button type="button" class="navbar-toggler" (click)="collapsed = !collapsed">
+        <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="navbar-collapse" [class.collapse]="collapsed" id="navbarContent">
-      <ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav ms-auto">
 
             <li class="nav-item">
                 <a class="nav-link m-2" routerLink="home" routerLinkActive="active">Accueil</a>
@@ -104,7 +105,7 @@ import { AuthService } from '../auth/auth.service';
     	            {{ userName }}
                 </a>
             </li>
-      </ul>
+        </ul>
     </div>
 </nav>
 	`
@@ -136,11 +137,4 @@ export class HeaderComponent {
     close() {
         this.dropdown.close();
     }
-
-    // add belove code
-  navbarCollapsed = true;
-
-  toggleNavbarCollapsing() {
-    this.navbarCollapsed = !this.navbarCollapsed;
-  }
 }

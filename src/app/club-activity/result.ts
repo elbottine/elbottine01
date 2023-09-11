@@ -6,22 +6,13 @@ import { AuthService } from '../auth/auth.service';
 @Component({
 	selector: 'xyz-search-result',
 	template: `
-<div class="card my-4" *ngFor="let model of clubActivities">
-    <!-- <img class="card-img-left debug" [src]="model.mainImagePath" style="width:200px; heigth:200px;"> -->
-    <div class="card-body">
-        <div class="card-title d-flex my-3">
-            <div class="p-2"><h3>{{model.title}}</h3></div>
-            <div class="ms-auto p-2"><h3>{{model.date| dateFormat}}</h3></div>
-        </div>
-        <div [innerHTML]="model.shortText"></div>
-        <div class="d-flex align-items-end">
-            <div class="text-muted">{{model.updatedBy}} - {{model.updatedAt | dateFormat: 'dt'}}</div>
-            <div class="ms-auto">
-            <button class="btn btn-primary" [routerLink]="['/club-activity', 'read', model.id]">La suite...</button>
-            <button class="btn btn-primary" [routerLink]="['/club-activity', 'edit', model.id]" *ngIf="canEdit(model)">Modifier</button>
-            </div>
-        </div>
-    </div>
+<div class="mt-4">
+<div class="d-flex align-middle g-2" *ngFor="let model of clubActivities">
+    <div class="align-middle me-2">{{model.date| dateFormat}}</div>
+    <div class="align-middle me-auto">{{model.title}}</div>
+    <button class="btn btn-ou­tline-primary btn-xs" [routerLink]="['/club-activity', 'read', model.id]"><i class="bi bi-file-earmark-richtext"></i></button>
+    <button class="btn btn-ou­tline-primary btn-xs" [routerLink]="['/club-activity', 'edit', model.id]" *ngIf="canEdit(model)"><i class="bi bi-pencil-square"></i></button>
+</div>
 </div>
 `
 })
@@ -34,8 +25,6 @@ export class SearchResultComponent {
 
 	@Input()
 	clubActivities: ClubActivity[];
-
-//htmlContent = '';
 
     canEdit(clubActivity: ClubActivity) {
         return clubActivity.id && this.authService.canEdit;
