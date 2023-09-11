@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { FileUploadService } from './file-upload.service';
 
 @Component({

@@ -8,8 +8,8 @@ import { LocalStorageService } from 'src/app/shared/local-storage.service';
 import { Router } from '@angular/router';
 
 @Component({
-	selector: 'xyz-blogpost-summary',	
-	template: `
+    selector: 'xyz-blogpost-summary',
+    template: `
 <div class="blogpostsSummaryContainer">
 <div class="row mb-1" *ngFor="let item of blogposts$ | async">
 	<div class="row border overflow-hidden mb-1 shadow-sm">
@@ -26,22 +26,22 @@ import { Router } from '@angular/router';
 })
 export class BlogpostsSummaryComponent implements OnInit {
 
-	constructor(
-		private blogpostService: BlogpostService,
-		private dialogService: DialogService,
-		private localStorageService: LocalStorageService,
-		private router: Router
-	) {	}
+    constructor(
+        private blogpostService: BlogpostService,
+        private dialogService: DialogService,
+        private localStorageService: LocalStorageService,
+        private router: Router
+    ) { }
 
-	blogposts$: Observable<Blogpost[]>;
-	model: BlogpostsFilter;
-	filter: string;
+    blogposts$: Observable<Blogpost[]>;
+    model: BlogpostsFilter;
+    filter: string;
 
-	ngOnInit(): void {
-		this.blogposts$ = this.blogpostService.searchBlogposts2(new BlogpostsFilter({}))
-		.pipe(
-		    map(x => x.blogposts.slice(0, 3)),
-			shareReplay(1)
-		);
-	}
+    ngOnInit(): void {
+        this.blogposts$ = this.blogpostService.searchBlogposts2(new BlogpostsFilter({}))
+            .pipe(
+                map(x => x.blogposts.slice(0, 3)),
+                shareReplay(1)
+            );
+    }
 }

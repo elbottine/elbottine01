@@ -45,12 +45,6 @@ const routes: Routes = [
         BlogpostReadComponent,
         BlogpostsSummaryComponent
     ],
-    // entryComponents: [
-    // 	BlogpostSearchComponent,
-    // 	BlogpostEditComponent,
-    // 	BlogpostReadComponent,
-    // 	BlogpostsSummaryComponent
-    // ],
     exports: [
         RouterModule,
         AngularEditorModule,
