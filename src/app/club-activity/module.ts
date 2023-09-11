@@ -4,49 +4,46 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UtilsModule } from '../utils/utils.module';
-import { BlogpostEditComponent } from './edit';
+import { ClubActivityEditComponent } from './edit';
 import { SearchResultComponent } from './result';
-import { BlogpostSearchComponent } from './search';
+import { ClubActivitySearchComponent } from './search';
 import { AngularEditorModule } from '@kolkov/angular-editor';
-import { BlogpostReadComponent } from './read';
-import { BlogpostsSummaryComponent } from './latest';
+import { ClubActivityReadComponent } from './read';
 import { UploadImagesModule } from '../files-upload/module';
 import { GalleryModule } from '@ks89/angular-modal-gallery';
 import { SharedModule } from "../shared/shared.module";
 
 const routes: Routes = [
     {
-        path: 'blogpost/search',
-        component: BlogpostSearchComponent,
+        path: 'club-activity/search',
+        component: ClubActivitySearchComponent,
         //canActivate: [AuthorizationGuard]
     },
     {
-        path: 'blogpost/read/:id',
-        component: BlogpostReadComponent,
+        path: 'club-activity/read/:id',
+        component: ClubActivityReadComponent,
     },
     {
-        path: 'blogpost/edit',
-        component: BlogpostEditComponent,
+        path: 'club-activity/edit',
+        component: ClubActivityEditComponent,
     },
     {
-        path: 'blogpost/edit/:id',
-        component: BlogpostEditComponent,
+        path: 'club-activity/edit/:id',
+        component: ClubActivityEditComponent,
     }			
 ];
 
 @NgModule({
     declarations: [
-        BlogpostSearchComponent,
+        ClubActivitySearchComponent,
         SearchResultComponent,
-        BlogpostEditComponent,
-        BlogpostReadComponent,
-        BlogpostsSummaryComponent
+        ClubActivityEditComponent,
+        ClubActivityReadComponent
     ],
     exports: [
         RouterModule,
         AngularEditorModule,
-        SearchResultComponent,
-        BlogpostsSummaryComponent
+        SearchResultComponent
     ],
     imports: [
         CommonModule,
@@ -61,4 +58,4 @@ const routes: Routes = [
         SharedModule
     ]
 })
-export class BlogpostModule {}
+export class ClubActivityModule {}

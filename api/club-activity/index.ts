@@ -9,7 +9,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
         context.log(`################################################################`);
         context.log(`context.bindingData.id: ${context.bindingData.id}`);
-        context.log(`blogpost req: ${JSON.stringify(req)}`);
+        context.log(`clubActivity req: ${JSON.stringify(req)}`);
         context.log(`################################################################`);
 
         await db.init();
@@ -22,7 +22,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                     entry.paths = await getBlobPaths('blogposts-blobs', id);
                     response = entry;
                 } else if (req.query) {
-                    response = { blogposts: await db.findItems(req.query) };
+                    response = { clubActivities: await db.findItems(req.query) };
                 }
                 break;
             case "PUT":

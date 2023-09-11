@@ -13,17 +13,6 @@ export class Blogpost {
 
     public constructor(init?: Partial<Blogpost>) {
 		Object.assign(this, init);
-        //if (!this.date) {
-            // const date = new Date();
-            // this.date = Date;
-        //}
-        if (typeof this.date === 'string') // || this.date instanceof String)
-        {
-
-        }
-        else {
-            this.date = null;
-        }
 	}
 
 	get id(): string {
@@ -43,21 +32,6 @@ export class Blogpost {
 	updatedAt: string;
 	updatedBy: string;
     mainImagePath: string;
-
-	get updatedAtDate(): string {
-		return new Date(Date.parse(this.updatedAt))
-        .toLocaleDateString('fr-FR', 
-            {
-                weekday: 'long',
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric',
-                hour12: false,
-                hour: 'numeric',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-	}
 
 	clone(): Blogpost {
 		return new Blogpost(this);

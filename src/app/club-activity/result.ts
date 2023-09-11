@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Blogpost, BlogpostsFilter } from './model';
+import { ClubActivity, ClubActivitiesFilter } from './model';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
 	selector: 'xyz-search-result',
 	template: `
-<div class="card my-4" *ngFor="let model of blogposts">
+<div class="card my-4" *ngFor="let model of clubActivities">
     <!-- <img class="card-img-left debug" [src]="model.mainImagePath" style="width:200px; heigth:200px;"> -->
     <div class="card-body">
         <div class="card-title d-flex my-3">
@@ -17,8 +17,8 @@ import { AuthService } from '../auth/auth.service';
         <div class="d-flex align-items-end">
             <div class="text-muted">{{model.updatedBy}} - {{model.updatedAt | dateFormat: 'dt'}}</div>
             <div class="ms-auto">
-            <button class="btn btn-primary" [routerLink]="['/blogpost', 'read', model.id]">La suite...</button>
-            <button class="btn btn-primary" [routerLink]="['/blogpost', 'edit', model.id]" *ngIf="canEdit(model)">Modifier</button>
+            <button class="btn btn-primary" [routerLink]="['/club-activity', 'read', model.id]">La suite...</button>
+            <button class="btn btn-primary" [routerLink]="['/club-activity', 'edit', model.id]" *ngIf="canEdit(model)">Modifier</button>
             </div>
         </div>
     </div>
@@ -30,14 +30,14 @@ export class SearchResultComponent {
 	constructor(private router: Router, private authService: AuthService) { }
 
 	@Input()
-	model: BlogpostsFilter;
+	model: ClubActivitiesFilter;
 
 	@Input()
-	blogposts: Blogpost[];
+	clubActivities: ClubActivity[];
 
 //htmlContent = '';
 
-    canEdit(blogpost: Blogpost) {
-        return blogpost.id && this.authService.canEdit;
+    canEdit(clubActivity: ClubActivity) {
+        return clubActivity.id && this.authService.canEdit;
     }
 }

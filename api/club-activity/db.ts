@@ -5,7 +5,7 @@ export const init = async () => {
     await initDb();
 };
 
-export interface IBlogPost {
+export interface IClubActivity {
     title:     string,
     date:      Date, 
     text:      string,
@@ -16,7 +16,7 @@ export interface IBlogPost {
     updatedBy: string
   }
     
-const blogpostSchema = {
+const clubActivitySchema = {
     title:     { type: String, require: true },
     date:      { type: Date, required: false },
     text:      { type: String, require: true },
@@ -27,7 +27,7 @@ const blogpostSchema = {
     updatedBy: { type: String }
 };
 
-const repository = commonModel.discriminator<IBlogPost>('blogpost', new Schema(blogpostSchema, baseConfig));
+const repository = commonModel.discriminator<IClubActivity>('clubactivity', new Schema(clubActivitySchema, baseConfig));
 
 export const addItem = async (doc) => {
     const entry = new repository();

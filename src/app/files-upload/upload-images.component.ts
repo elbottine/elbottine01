@@ -13,8 +13,8 @@ import { FileUploadService } from './file-upload.service';
             <i class="bi-camera bi-align-center" style="font-size:120px; color:#bbb;"></i>
         </div>
         <div class="col-auto" xxxstyle="height: 100px;">
-            <button type="button" class="btn btn-primary btn-block" (click)="addImage()" [disabled]="!blogpostId"><i class="bi-camera"></i></button>
-            <button type="button" class="btn btn-primary btn-block" (click)="deleteMainImage()" [disabled]="!blogpostId || !mainImagePath"><i class="bi-trash"></i></button>
+            <button type="button" class="btn btn-primary btn-block" (click)="addImage()" [disabled]="!folder"><i class="bi-camera"></i></button>
+            <button type="button" class="btn btn-primary btn-block" (click)="deleteMainImage()" [disabled]="!folder || !mainImagePath"><i class="bi-trash"></i></button>
         </div>
     </div>
 </div>
@@ -32,8 +32,8 @@ import { FileUploadService } from './file-upload.service';
             <i class="bi-camera bi-align-center" style="font-size:120px; color:#bbb;"></i>
         </div>
         <div class="col-auto">
-            <button type="button" class="btn btn-primary btn-block" (click)="addImage()" [disabled]="!blogpostId"><i class="bi-camera"></i></button>
-            <button type="button" class="btn btn-primary btn-block" (click)="deleteSelectedImage()" [disabled]="!blogpostId || !selectedImagePath"><i class="bi-trash"></i></button>
+            <button type="button" class="btn btn-primary btn-block" (click)="addImage()" [disabled]="!folder"><i class="bi-camera"></i></button>
+            <button type="button" class="btn btn-primary btn-block" (click)="deleteSelectedImage()" [disabled]="!folder || !selectedImagePath"><i class="bi-trash"></i></button>
         </div>
     </div>
 </div>
@@ -55,7 +55,7 @@ export class UploadImagesComponent implements OnInit {
 	fileInput: ElementRef;
     
     @Input()
-    blogpostId: string;
+    folder: string;
 
     constructor(private uploadService: FileUploadService, private ref: ChangeDetectorRef) { }
 
@@ -101,7 +101,7 @@ export class UploadImagesComponent implements OnInit {
 
     uploadImage(file: File, fileName: string, main: boolean): void {
         this.uploadService
-            .upload(file, this.blogpostId, fileName, 0.25)
+            .upload(file, this.folder, fileName, 0.25)
             .subscribe({
                 next: imagePath => {
                     var index = this.previews.indexOf(imagePath);
@@ -134,7 +134,7 @@ export class UploadImagesComponent implements OnInit {
     deleteMainImage(): void {
         var fileName = this.mainImagePath.split('/').pop();
         this.uploadService
-            .delete(this.blogpostId, fileName)
+            .delete(this.folder, fileName)
             .subscribe({
                 next: _ => {
                     this.mainImagePath = null;
@@ -148,7 +148,7 @@ export class UploadImagesComponent implements OnInit {
     deleteSelectedImage(): void {
         var fileName = this.selectedImagePath.split('/').pop();
         this.uploadService
-            .delete(this.blogpostId, fileName)
+            .delete(this.folder, fileName)
             .subscribe({
                 next: _ => {
                     var index = this.previews.indexOf(this.selectedImagePath);

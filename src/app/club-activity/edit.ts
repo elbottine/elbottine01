@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService } from 'src/app/shared/dialog.service';
-import { BlogpostService } from './service';
-import { Blogpost } from './model';
+import { ClubActivityService } from './service';
+import { ClubActivity } from './model';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { AuthService } from '../auth/auth.service';
 import { ToastService } from '../shared/toast-service';
@@ -79,19 +79,19 @@ import { ToastService } from '../shared/toast-service';
         <div class="text-muted">{{model?.createdBy}} - {{model?.updatedAt | dateFormat }}</div>
         <div class="ms-auto">
             <button class="btn btn-danger" (click)="delete()">Suprimer</button>
-            <button class="btn btn-primary" [routerLink]="['/blogpost', 'read', id]" [disabled]="!id">Visualiser</button>		
+            <button class="btn btn-primary" [routerLink]="['/club-activity', 'read', id]" [disabled]="!id">Visualiser</button>		
             <button class="btn btn-primary" [disabled]="!model || !dirty || !MyForm.valid" (click)="apply()">Sauver</button>
-            <button class="btn btn-primary" routerLink="/blogpost/search">Fermer</button>		
+            <button class="btn btn-primary" routerLink="/club-activity/search">Fermer</button>		
         </div>
     </div>  
 
 </form>
 </div>
 `})
-export class BlogpostEditComponent implements OnInit {
+export class ClubActivityEditComponent implements OnInit {
 
     constructor(
-        private blogpostService: BlogpostService,
+        private clubActivityService: ClubActivityService,
         private dialogService: DialogService,
         private activatedRoute: ActivatedRoute,
         private authService: AuthService,
@@ -99,8 +99,8 @@ export class BlogpostEditComponent implements OnInit {
         private toastService: ToastService
     ) { }
 
-    private modelCopy: Blogpost;
-    model: Blogpost;
+    private modelCopy: ClubActivity;
+    model: ClubActivity;
     id: string = null;
 
     ngOnInit() {
@@ -114,15 +114,15 @@ export class BlogpostEditComponent implements OnInit {
 
     private get() {
         if (this.id) {
-            this.blogpostService
+            this.clubActivityService
                 .get(this.id)
-                .subscribe((model: Blogpost) => {
+                .subscribe((model: ClubActivity) => {
                     this.modelCopy = model.clone();
                     this.model = model;
                 });
         } else {
-            const model = new Blogpost();
-            //blogpost.id = (new Date()).toISOString().replace(/[^0-9]/g, '');
+            const model = new ClubActivity();
+            //clubActivity.id = (new Date()).toISOString().replace(/[^0-9]/g, '');
             model.createdBy = this.authService.user.name;
             model.createdAt = new Date().toISOString();
             this.modelCopy = model.clone();
@@ -134,11 +134,12 @@ export class BlogpostEditComponent implements OnInit {
         const model = this.model.clone();
         model.updatedBy = this.authService.user.name;
         model.updatedAt = new Date().toISOString();
-        this.blogpostService.upsert(model).subscribe({
+        this.clubActivityService.upsert(model).subscribe({
             next: model => {
                 this.modelCopy = model.clone();
                 this.model = model;
                 this.id = model.id;
+                debugger;
                 this.toastService.success('Evénement sauvegardé');
             },
             error: (error: any) => {
@@ -154,16 +155,16 @@ export class BlogpostEditComponent implements OnInit {
         this.dialogService.confirm('Confirmation', "Suprimer l'événement ?")
             .then(result => {
                 if (result) {
-                    this.deleteBlogpost();
+                    this.deleteClubActivity();
                 }
             });
     }
 
-    deleteBlogpost(): void {
-        this.blogpostService.delete(this.model.id)
+    deleteClubActivity(): void {
+        this.clubActivityService.delete(this.model.id)
             .subscribe(
                 (_: any) => {
-                    this.router.navigate(['blogpost/search'])
+                    this.router.navigate(['club-activity/search'])
                     this.toastService.success('Evénement suprimée');
                 }
             );

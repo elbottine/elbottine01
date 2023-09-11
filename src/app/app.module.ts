@@ -14,6 +14,7 @@ import { HomeModule } from './home/module';
 import { SocialLoginModule, SocialAuthServiceConfig, FacebookLoginProvider } from '@abacritt/angularx-social-login';
 import { AuthModule } from './auth/module';
 import { AuthInterceptorService } from './auth/interceptor';
+import { ClubActivityModule } from './club-activity/module';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -28,17 +29,14 @@ const routes: Routes = [
         SocialLoginModule,
         AuthModule,
         HomeModule,
-        //AccountModule,
         BlogpostModule,
+        ClubActivityModule,
         LayoutModule,
-        //TransactionModule,
         BrowserModule,
-        //NgbModule,
         HttpClientModule,
         SpinnerModule,
         SharedModule,
         BrowserAnimationsModule,
-        //ToastrModule.forRoot({ positionClass: 'toast-bottom-left' }),
         RouterModule,
         RouterModule.forRoot(routes, { useHash: true, enableTracing: false })
     ],

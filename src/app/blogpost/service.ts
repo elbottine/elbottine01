@@ -25,9 +25,9 @@ export class BlogpostService {
 	upsert(blogpost: Blogpost): Observable<Blogpost> {
         let response: Observable<Object>;
 		if (blogpost.id) {
-			response = this.httpClient.put('api/blogpost/' + blogpost.id, blogpost);
+			response = this.httpClient.put(this.url + blogpost.id, blogpost);
 		} else {
-			response = this.httpClient.post('api/blogpost/', blogpost);
+			response = this.httpClient.post(this.url, blogpost);
 		}
         return response.pipe(map(r => new Blogpost(r)));
 	}
