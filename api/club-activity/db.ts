@@ -65,7 +65,7 @@ export const findItemById = async (id) => {
 
 export const findItems = async (query: any) => {
     var filter = query.title ? {title: {$regex: `.*${query.title}.*`, $options: 'i'}} : null;
-    return await repository.find(filter).limit(20).sort({'createdAt': -1});
+    return await repository.find(filter).limit(20).sort({'date': -1});
 };
 
 export const deleteItemById = async (id) => {

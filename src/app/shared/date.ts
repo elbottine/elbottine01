@@ -79,18 +79,3 @@ export class DateTimeFormatPipe extends DatePipe implements PipeTransform {
         return value.replace(/^(\d{4})-(\d{2})-(\d{2})T(.{8}).{5}/, '$3/$2/$1 $4');;
     }
 }
-
-// function parseDateTime(date: string): string {
-//     return new Date(Date.parse(date))
-//     .toLocaleDateString('fr-FR', 
-//         {
-//             weekday: 'long',
-//             day: 'numeric',
-//             month: 'long',
-//             year: 'numeric',
-//             hour12: false,
-//             hour: 'numeric',
-//             minute: '2-digit',
-//             second: '2-digit'
-//         });
-// }

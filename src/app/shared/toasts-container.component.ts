@@ -14,16 +14,14 @@ import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 			[class]="toast.classname"
 			[autohide]="true"
 			[delay]="toast.delay || 5000"
-			(hidden)="toastService.remove(toast)"
-		>
+			(hidden)="toastService.remove(toast)">
 			<ng-template [ngIf]="isTemplate(toast)" [ngIfElse]="text">
 				<ng-template [ngTemplateOutlet]="toast.textOrTpl"></ng-template>
 			</ng-template>
-
 			<ng-template #text>{{ toast.textOrTpl }}</ng-template>
 		</ngb-toast>
 	`,
-	host: { class: 'toast-container position-fixed bottom-0 start-0 p-3', style: 'z-index: 1200' },
+	host: { class: 'toast-container position-fixed bottom-0 start-0 p-4', style: 'z-index: 1200' },
 })
 export class ToastsContainer {
 	constructor(public toastService: ToastService) {}

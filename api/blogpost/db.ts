@@ -31,14 +31,14 @@ const repository = commonModel.discriminator<IBlogPost>('blogpost', new Schema(b
 
 export const addItem = async (doc) => {
     const entry = new repository();
-    entry.title= doc.title;
-    entry.date= doc.date;
-    entry.text= doc.text;
-    entry.paths= doc.paths;
-    entry.createdAt= new Date();
-    entry.createdBy= doc.createdBy;
-    entry.updatedAt= new Date();
-    entry.updatedBy= doc.updatedBy;
+    entry.title = doc.title;
+    entry.date = doc.date;
+    entry.text = doc.text;
+    entry.paths = doc.paths;
+    entry.createdAt = new Date();
+    entry.createdBy = doc.createdBy;
+    entry.updatedAt = new Date();
+    entry.updatedBy = doc.updatedBy;
     return await entry.save();
 };
 
@@ -47,14 +47,14 @@ export const updateItem = async (doc) => {
     if (!entry) {
         throw Error(`Document '${doc._id}' not found`);
     }   
-    entry.title= doc.title;
-    entry.date= doc.date;
-    entry.text= doc.text;
-    entry.paths= doc.paths;
-    entry.createdAt= new Date();
-    entry.createdBy= doc.createdBy;
-    entry.updatedAt= new Date();
-    entry.updatedBy= doc.updatedBy;    
+    entry.title = doc.title;
+    entry.date = doc.date;
+    entry.text = doc.text;
+    entry.paths = doc.paths;
+    entry.createdAt = new Date();
+    entry.createdBy = doc.createdBy;
+    entry.updatedAt = new Date();
+    entry.updatedBy = doc.updatedBy;    
     entry.update();    
     return await entry.save();
 };
@@ -65,7 +65,7 @@ export const findItemById = async (id) => {
 
 export const findItems = async (query: any) => {
     var filter = query.title ? {title: {$regex: `.*${query.title}.*`, $options: 'i'}} : null;
-    return await repository.find(filter).limit(20).sort({'createdAt': -1});
+    return await repository.find(filter).limit(20).sort({'date': -1});
 };
 
 export const deleteItemById = async (id) => {

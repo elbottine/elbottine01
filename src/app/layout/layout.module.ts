@@ -5,8 +5,16 @@ import { HeaderComponent } from './header.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-	imports: [CommonModule, RouterModule, NgbModule],
-	declarations: [HeaderComponent],
-	exports: [HeaderComponent]
+	imports: [
+        CommonModule,
+        RouterModule,
+        NgbModule
+    ],
+	declarations: [
+        HeaderComponent
+    ],
+	exports: [
+        HeaderComponent
+    ]
 })
 export class LayoutModule {}

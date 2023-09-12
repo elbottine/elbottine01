@@ -8,8 +8,8 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         let id = null;
 
         context.log(`################################################################`);
-        context.log(`context.bindingData.id: ${context.bindingData.id}`);
-        context.log(`blogpost req: ${JSON.stringify(req)}`);
+        context.log(`blogpost id: ${context.bindingData.id}`);
+        context.log(`blogpost req.query: ${JSON.stringify(req.query)}`);
         context.log(`################################################################`);
 
         await db.init();
@@ -22,6 +22,11 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                     entry.paths = await getBlobPaths('blogposts-blobs', id);
                     response = entry;
                 } else if (req.query) {
+
+                    const query = req.query;
+                    var filter = query.title ? {title: {$regex: `.*${query.title}.*`, $options: 'i'}} : null;
+                    context.log(`>>>>>>>>>>>>>>>>>> ${JSON.stringify(filter)}`);
+
                     response = { blogposts: await db.findItems(req.query) };
                 }
                 break;

@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
-import { TokenService } from './token.service';
+// import { Injectable } from '@angular/core';
+// import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+// import { Observable } from 'rxjs';
+// import { TokenService } from './token.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class BeforeLoginService {
+// @Injectable({
+//   providedIn: 'root'
+// })
+// export class BeforeLoginService {
 
-  canActivate(route:ActivatedRouteSnapshot,state:RouterStateSnapshot):boolean | Observable<boolean>{
-    return !this.Token.loggedIn();
-  }
+//   canActivate(route:ActivatedRouteSnapshot,state:RouterStateSnapshot):boolean | Observable<boolean>{
+//     return !this.Token.loggedIn();
+//   }
   
-  constructor(private Token:TokenService) { }
-}
+//   constructor(private Token:TokenService) { }
+// }
