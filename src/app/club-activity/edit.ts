@@ -140,7 +140,7 @@ export class ClubActivityEditComponent implements OnInit {
                 this.model = model;
                 this.id = model.id;
                 debugger;
-                this.toastService.success('Evénement sauvegardé');
+                this.toastService.success('Activité sauvegardée');
             },
             error: (error: any) => {
                 error = error.error || error;
@@ -152,7 +152,7 @@ export class ClubActivityEditComponent implements OnInit {
     }
 
     delete(): void {
-        this.dialogService.confirm('Confirmation', "Suprimer l'événement ?")
+        this.dialogService.confirm('Confirmation', "Suprimer l'activité ?")
             .then(result => {
                 if (result) {
                     this.deleteClubActivity();
@@ -165,7 +165,7 @@ export class ClubActivityEditComponent implements OnInit {
             .subscribe(
                 (_: any) => {
                     this.router.navigate(['club-activity/search'])
-                    this.toastService.success('Evénement suprimée');
+                    this.toastService.success('Activité suprimée');
                 }
             );
     }
