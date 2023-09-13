@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 <div class="container py-3">
 
 <div class="row">
-<h1 class="main-title my-5">Bienvenue sur le site des z’amis d’el bottine qui bique !</h1>
+<h1 class="main-title m-5">Bienvenue sur le site des z’amis d’el bottine qui bique HT089 !</h1>
 </div>
 
 <div class="row">
