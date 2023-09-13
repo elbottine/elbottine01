@@ -7,11 +7,11 @@ import { AuthService } from '../auth/auth.service';
 	selector: 'xyz-search-result',
 	template: `
 <div class="mt-4">
-    <div class="d-flex align-middle g-2" *ngFor="let model of clubActivities">
+    <div class="d-flex align-middle g-2 mb-2" *ngFor="let model of clubActivities">
         <div class="align-middle me-2">{{model.date| dateFormat}}</div>
         <div class="align-middle me-auto">{{model.title}}</div>
-        <button class="btn btn-ou­tline-primary btn-xs" [routerLink]="['/club-activity', 'read', model.id]"><i class="bi bi-file-earmark-richtext"></i></button>
-        <button class="btn btn-ou­tline-primary btn-xs" [routerLink]="['/club-activity', 'edit', model.id]" *ngIf="canEdit(model)"><i class="bi bi-pencil-square"></i></button>
+        <button class="btn btn-primary btn-sm" [routerLink]="['/club-activity', 'read', model.id]">La suite...</button>
+        <button class="btn btn-primary btn-sm" [routerLink]="['/club-activity', 'edit', model.id]" *ngIf="canEdit(model)">Modifier</button>
     </div>
 </div>
 `
