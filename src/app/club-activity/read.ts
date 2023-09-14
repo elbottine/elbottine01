@@ -18,7 +18,7 @@ import { ModalGalleryRef, ModalGalleryService, Image, ModalGalleryConfig, PlainL
 
     <img *ngIf="mainImagePath" [src]="mainImagePath" class="singleImageItem" />
 
-    <div class="shadow p-3 bg-body" [innerHTML]="model.text"></div>
+    <div class="shadow p-3 bg-body" [innerHTML]="model.text" *ngIf="model.text"></div>
 
     <ks-plain-gallery [id]="204" 
         [images]="images"
