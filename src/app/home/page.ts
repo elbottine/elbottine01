@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 <div class="container py-3">
 
 <div class="row">
-<h1 class="main-title m-5">Bienvenue sur le site des z’amis d’el bottine qui bique HT089 !</h1>
+<p class="main-title p-4">Bienvenue sur le site des z’amis d’el bottine qui bique HT089 !</p>
 </div>
 
 <div class="row">
@@ -35,7 +35,7 @@ import { Component } from '@angular/core';
         Bienvenue
         </p>
 
-        <div class="container overflow-hidden">
+        <!-- <div class="container overflow-hidden">
             <div class="grid-wrapper">
                 <div class="big lc-block">
                     <img class="img-fluid rounded" src="/assets/group1.jpg">
@@ -59,7 +59,7 @@ import { Component } from '@angular/core';
                     <img class="img-fluid rounded" src="/assets/group4.jpg">
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 
     <div class="col-lg-3 d-none d-lg-block">
@@ -70,7 +70,7 @@ import { Component } from '@angular/core';
     </div>
 </div>
 
-<div class="d-flex justify-content-end m-5">
+<div class="d-flex justify-content-around p-5">
     <div class="">
         <img src="/assets/ethias.jpg" style="width:100px;">
     </div>

@@ -13,14 +13,6 @@ export class UserInfo {
     email: string;
     authToken: string;
     createdAt: number;
-
-    // get canEdit() {
-    //     return true;
-    // }
-
-    // get canRead() {
-    //     return true;
-    // }
 }
 
 @Injectable({
@@ -59,11 +51,11 @@ export class AuthService {
 
     logout(): void {
         this.set(null);
-        this.socialAuthService.signOut();
+        this.socialAuthService.signOut().catch();
     }
 
     login(): void {
-        this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+        this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).catch();
     }
 
     refreshToken(): void {

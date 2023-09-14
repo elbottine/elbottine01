@@ -115,13 +115,19 @@ h1 {
     //background-color: #2b3050 !important;
 }
 
-// .dropdown-item {
-// 	color: #ffffff !important;
-// }
+.dropdown-item {
+//	color: #ffffff !important;
+    color: var(--bs-nav-link-color);
+}
 
-// .dropdown-menu {
-//     background-color: $topnav-background-color !important;
-// }
+.dropdown-item:hover {
+    color: #ffffff;
+    background-color: $topnav-background-color !important;
+}
+
+.dropdown-menu {
+    background-color: $topnav-background-color !important;
+}
 
 
 
@@ -263,6 +269,7 @@ h1 {
 
 .main-title {
 	//font-family: Lobster;
+
 	font-size: 3em;
     font-weight: bold;
     text-align: center;
@@ -407,18 +414,21 @@ h1 {
     object-fit: cover;
 }
 
-// navbar background color
-@media (min-width: 434px) {
+//navbar background color
+@media (min-width: 0px) {
     .navbar-collapse{
         background-color: #2b3050;
-    }  
+    }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
     .navbar-collapse{
         background-color: unset;
     }  
 }
 
+.dropdown-item {
+
+}
 
 
 

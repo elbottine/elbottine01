@@ -6,7 +6,7 @@ import { AuthService } from '../auth/auth.service';
 @Component({
 	selector: 'xyz-search-result',
 	template: `
-<div class="card my-4" *ngFor="let model of blogposts">
+<div class="card my-4 bg-light" *ngFor="let model of blogposts">
     <!-- <img class="card-img-left debug" [src]="model.mainImagePath" style="width:200px; heigth:200px;"> -->
     <div class="card-body">
         <div class="card-title d-flex my-3">
@@ -17,8 +17,8 @@ import { AuthService } from '../auth/auth.service';
         <div class="d-flex align-items-end">
             <div class="text-muted">{{model.updatedBy}} - {{model.updatedAt | dateFormat: 'dt'}}</div>
             <div class="ms-auto">
-            <button class="btn btn-primary" [routerLink]="['/blogpost', 'read', model.id]">La suite...</button>
-            <button class="btn btn-primary" [routerLink]="['/blogpost', 'edit', model.id]" *ngIf="canEdit(model)">Modifier</button>
+                <button class="btn btn-primary btn-sm" [routerLink]="['/blogpost', 'read', model.id]">La suite...</button>
+                <button class="btn btn-primary btn-sm" [routerLink]="['/blogpost', 'edit', model.id]" *ngIf="canEdit(model)">Modifier</button>
             </div>
         </div>
     </div>

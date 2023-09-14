@@ -42,11 +42,11 @@ import { AuthService } from '../auth/auth.service';
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto"> -->
 
-    <button type="button" class="navbar-toggler" (click)="collapsed = !collapsed">
+    <button type="button" class="navbar-toggler m-2" (click)="collapsed = !collapsed">
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="navbar-collapse" [class.collapse]="collapsed" id="navbarContent">
+    <div class="navbar-collapse colapse" [class.collapse]="collapsed" id="navbarContent">
         <ul class="navbar-nav ms-auto">
 
             <li class="nav-item">
@@ -114,7 +114,7 @@ export class HeaderComponent {
 
     constructor(private authService: AuthService) {}
 
-    collapsed = false;
+    collapsed = true;
 
     @ViewChild('dropdown', { static: true }) dropdown: any;
 
