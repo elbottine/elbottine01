@@ -30,6 +30,7 @@ import { ModalGalleryRef, ModalGalleryService, Image, ModalGalleryConfig, PlainL
         <div class="text-muted">{{model.updatedBy}} - {{model.updatedAt | dateFormat: 'dt'}}</div>
         <div class="ms-auto">
             <button class="btn btn-primary" [routerLink]="['/club-activity', 'edit', model.id]" *ngIf="canEdit(model)">Modifier</button>
+            <button class="btn btn-primary" routerLink="/club-activity/search">Fermer</button>		
         </div>
     </div>
 
