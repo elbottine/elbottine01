@@ -10,6 +10,11 @@ export class FileUploadService {
     constructor(private httpClient: HttpClient) { }
 
     upload(file: File, folder: string, fileName: string, quality: number): Observable<string> {
+        alert(file.size);
+        if (file.size < 333333)
+        {
+            return this.post(file, folder, fileName);
+        }
         return from(createImageBitmap(file)).pipe(
             map(this.getCanvas),
             switchMap(canvas => this.toBlob(canvas, file.name, file.type, quality)),            
