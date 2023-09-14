@@ -10,7 +10,6 @@ export class FileUploadService {
     constructor(private httpClient: HttpClient) { }
 
     upload(file: File, folder: string, fileName: string, quality: number): Observable<string> {
-        alert(file.size);
         if (file.size < 333333)
         {
             return this.post(file, folder, fileName);
