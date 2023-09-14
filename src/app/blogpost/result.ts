@@ -9,9 +9,9 @@ import { AuthService } from '../auth/auth.service';
 <div class="card my-4 bg-light" *ngFor="let model of blogposts">
     <!-- <img class="card-img-left debug" [src]="model.mainImagePath" style="width:200px; heigth:200px;"> -->
     <div class="card-body">
-        <div class="card-title d-flex my-3">
-            <div class="p-2"><h3>{{model.title}}</h3></div>
-            <div class="ms-auto p-2"><h3>{{model.date| dateFormat}}</h3></div>
+        <div class="card-title d-flex my-2">
+            <div class=""><h3>{{model.title}}</h3></div>
+            <div class="ms-auto"><h3>{{model.date| dateFormat}}</h3></div>
         </div>
         <div [innerHTML]="model.shortText"></div>
         <div class="d-flex align-items-end">
