@@ -16,9 +16,9 @@ import { ModalGalleryRef, ModalGalleryService, Image, ModalGalleryConfig, PlainL
         <div class="col-lg-2 ms-auto"><h4>{{model.date | dateFormat}}</h4></div>
     </div>
 
-    <img *ngIf="mainImagePath" [src]="mainImagePath" class="row singleImageItem" />
+    <img *ngIf="mainImagePath" [src]="mainImagePath" class="singleImageItem" />
 
-    <div class="card-text" [innerHTML]="model.text"></div>
+    <div class="shadow p-3 bg-body" [innerHTML]="model.text"></div>
 
     <ks-plain-gallery [id]="204" 
         [images]="images"

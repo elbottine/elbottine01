@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DialogService } from 'src/app/shared/dialog.service';
 import { BlogpostService } from './service';
 import { Blogpost } from './model';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
-import { map } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { ModalGalleryRef, ModalGalleryService, Image, ModalGalleryConfig, PlainLibConfig, PlainGalleryStrategy, LineLayout, PlainGalleryConfig, GridLayout } from '@ks89/angular-modal-gallery';
 
@@ -14,14 +11,14 @@ import { ModalGalleryRef, ModalGalleryService, Image, ModalGalleryConfig, PlainL
 
 <div class="container d-grid gap-5 my-5">
 
-    <div class="row d-flex my-2">
-        <div class="col-lg-10"><h2>{{model.title}}</h2></div>
-        <div class="col-lg-2 ms-auto"><h4>{{model.date | dateFormat}}</h4></div>
+    <div class="row my-2">
+        <div class="col-lg-10"><p class="fs-3">{{model.title}}</p></div>
+        <div class="col-lg-2 ms-auto"><p class="fs-4">{{model.date | dateFormat}}</p></div>
     </div>
 
     <img *ngIf="mainImagePath" [src]="mainImagePath" class="singleImageItem" />
 
-    <div class="card-text" [innerHTML]="model.text"></div>
+    <div class="shadow p-3 bg-body" [innerHTML]="model.text"></div>
 
     <ks-plain-gallery [id]="204" 
         [images]="images"

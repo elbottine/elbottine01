@@ -35,7 +35,7 @@ export class AuthService {
     }
 
     get canEdit(): boolean {
-        var admins = ["schikh@hotmail.com", "johca_i@hotmail.com"];
+        var admins = ["schikh@hotmail.com", "johca_i@hotmail.com", "keetle2@hotmail.com"];
         return admins.includes(this._user?.email.toLowerCase());
     }
 

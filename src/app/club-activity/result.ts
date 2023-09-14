@@ -7,7 +7,7 @@ import { AuthService } from '../auth/auth.service';
 	selector: 'xyz-search-result',
 	template: `
 <div class="mt-4">
-    <div class="row p-2 mb-2 bg-light" *ngFor="let model of clubActivities">
+    <div class="row p-2 mt-3 bg-light border" *ngFor="let model of clubActivities">
         <div class="col-lg-2">{{model.date| dateFormat}}</div>
         <div class="col-lg-7">{{model.title}}</div>
         <div class="col-lg-3 text-end">
