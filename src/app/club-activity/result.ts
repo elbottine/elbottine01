@@ -12,7 +12,7 @@ import { AuthService } from '../auth/auth.service';
         <div class="col-lg-7">{{model.title}}</div>
         <div class="col-lg-3 text-end">
             <a [routerLink]="['/club-activity', 'read', model.id]" class="">La suite...</a>
-            <a [routerLink]="['/club-activity', 'edit', model.id]" class="ms-2">Modifier</a>
+            <a [routerLink]="['/club-activity', 'edit', model.id]" class="ms-2" *ngIf="canEdit(model)">Modifier</a>
         </div>
     </div>
 </div>
