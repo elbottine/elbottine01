@@ -11,7 +11,7 @@ import { ToastService } from '../shared/toast-service';
     template: `
 <div class="container">
 
-<h1 class="my-4">Album photos</h1>
+<h1 class="my-4">Albums photo</h1>
 
 <form #MyForm="ngForm" class="row g-4" *ngIf="model">
   

@@ -10,7 +10,7 @@ import { AuthService } from '../auth/auth.service';
 <div class="container">
 
     <div class="d-flex align-items-end">
-        <h1 class="mt-4">Activités</h1>
+        <h1 class="mt-4">Albums photo</h1>
     </div>
 
 	<form class="d-flex mt-4" xxstyle="display: none;">
@@ -20,7 +20,7 @@ import { AuthService } from '../auth/auth.service';
 			<i class="bi bi-search"></i>
 		</button>
          <button *ngIf="canEdit" class="btn btn-danger text-nowrap" routerLink="/photo-album/edit">
-            Ajouter une activité
+            Ajouter un album photo
         </button>
 	</form>
 
