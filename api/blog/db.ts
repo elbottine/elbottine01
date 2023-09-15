@@ -40,18 +40,27 @@ const blogpostSchema = {
     updatedBy: { type: String }
 };
 
-const BlogPostRepository = commonModel.discriminator<IBlogBase>('blogpost', new Schema(blogpostSchema, baseConfig));
-const ClubActivityRepository = commonModel.discriminator<IBlogBase>('clubactivity', new Schema(blogpostSchema, baseConfig));
-const PhotoAlbumRepository = commonModel.discriminator<IBlogBase>('photo-album', new Schema(blogpostSchema, baseConfig));
+let blogPostRepository: Model<IBlogBase> = null;
+let clubActivityRepository: Model<IBlogBase> = null;
+let photoAlbumRepository: Model<IBlogBase> = null;
 
 export function createRepository(entity): Model<IBlogBase>  {
     switch(entity?.toLowerCase()) {
         case 'blogpost':
-            return BlogPostRepository;
+            if (!blogPostRepository == null) {
+                blogPostRepository = commonModel.discriminator<IBlogBase>('blogpost', new Schema(blogpostSchema, baseConfig));
+            }
+            return blogPostRepository;
         case 'club-activity':
-            return ClubActivityRepository;
+            if (!clubActivityRepository == null) {
+                clubActivityRepository = commonModel.discriminator<IBlogBase>('clubactivity', new Schema(blogpostSchema, baseConfig));
+            }
+            return clubActivityRepository;
         case 'photo-album':
-            return PhotoAlbumRepository;
+            if (!photoAlbumRepository == null) {
+                photoAlbumRepository = commonModel.discriminator<IBlogBase>('photo-album', new Schema(blogpostSchema, baseConfig));
+            }
+            return photoAlbumRepository;
         default:
             throw `entity '${entity}' not supported`;
     }
