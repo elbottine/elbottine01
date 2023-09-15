@@ -47,17 +47,17 @@ let photoAlbumRepository: Model<IBlogBase> = null;
 export function createRepository(entity): Model<IBlogBase>  {
     switch(entity?.toLowerCase()) {
         case 'blogpost':
-            if (!blogPostRepository == null) {
+            if (blogPostRepository == null) {
                 blogPostRepository = commonModel.discriminator<IBlogBase>('blogpost', new Schema(blogpostSchema, baseConfig));
             }
             return blogPostRepository;
         case 'club-activity':
-            if (!clubActivityRepository == null) {
+            if (clubActivityRepository == null) {
                 clubActivityRepository = commonModel.discriminator<IBlogBase>('clubactivity', new Schema(blogpostSchema, baseConfig));
             }
             return clubActivityRepository;
         case 'photo-album':
-            if (!photoAlbumRepository == null) {
+            if (photoAlbumRepository == null) {
                 photoAlbumRepository = commonModel.discriminator<IBlogBase>('photo-album', new Schema(blogpostSchema, baseConfig));
             }
             return photoAlbumRepository;

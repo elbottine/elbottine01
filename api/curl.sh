@@ -93,3 +93,11 @@ curl -X POST -F "filename=@README.md" -H "Content-Type: text/plain" "http://loca
 
 
 curl -X GET  http://localhost:7071/api/auth --verbose
+
+
+
+
+We've enabled you for one-time free support to help you out with this issue. You can file your support case through the communication titled "You have been enabled for one-time Free Technical Support" (TRACKING ID: VNN_-LS0) that is located through your Azure portal on https://msft.it/601995cU9
+ once the message loads, refer to the "Create a support request" on the right of the screen to create a support request. If you don't 
+see the message, please ensure that all filters are set to 'all' or check if the message is available in the Health History (Help + Support > Service Health > Health History).
+ Once a support ticket is created, an assigned support engineer will be in touch. Feel free to let us know if there are any concerns with creating the support request. ^MV
