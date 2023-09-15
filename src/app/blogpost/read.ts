@@ -11,6 +11,8 @@ import { ModalGalleryRef, ModalGalleryService, Image, ModalGalleryConfig, PlainL
 
 <div class="container d-grid gap-5 my-5">
 
+    <h1 class="my-4">Evénement</h1>
+
     <div class="row my-2">
         <div class="col-lg-10"><p class="fs-3">{{model.title}}</p></div>
         <div class="col-lg-2 ms-auto"><p class="fs-4">{{model.date | dateFormat}}</p></div>
