@@ -1,16 +1,18 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import { getBlobPaths } from "../upload/azure-storage-blob-sas-url";
 import * as db from "./db";
-
+// email https://stackoverflow.com/questions/19509357/not-able-to-connect-to-outlook-com-smtp-using-nodemailer
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     try {
-        let response = null;
-        let id = null;
-
         context.log(`################################################################`);
         context.log(`blogpost id: ${context.bindingData.id}`);
+        context.log(`blogpost entity: ${context.bindingData.entity}`);
         context.log(`blogpost req.query: ${JSON.stringify(req.query)}`);
         context.log(`################################################################`);
+
+        let response = null;
+        let entity = context.bindingData.entity;
+        let id = null;
 
         await db.init();
 
@@ -18,16 +20,11 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
             case "GET":
                 id = context.bindingData.id;
                 if (id) {
-                    const entry = await db.findItemById(id);
+                    const entry = await db.findItemById(entity, id);
                     entry.paths = await getBlobPaths('blogposts-blobs', id);
                     response = entry;
                 } else if (req.query) {
-
-                    const query = req.query;
-                    var filter = query.title ? {title: {$regex: `.*${query.title}.*`, $options: 'i'}} : null;
-                    context.log(`>>>>>>>>>>>>>>>>>> ${JSON.stringify(filter)}`);
-
-                    response = { blogposts: await db.findItems(req.query) };
+                    response = { list: await db.findItems(entity, req.query) };
                 }
                 break;
             case "PUT":
@@ -38,20 +35,20 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 if (!req?.body) {
                     throw Error("No document");
                 }
-                response = await db.updateItem(req.body);
+                response = await db.updateItem(entity, req.body);
                 break;
             case "POST":
                 if (!req?.body) {
                     throw Error("No document");
                 }
-                response = await db.addItem(req?.body);
+                response = await db.addItem(entity, req?.body);
                 break;
             case "DELETE":
                 id = context.bindingData.id;
                 if (!id) {
                     throw Error("No document id");
                 }
-                response = await db.deleteItemById(id);
+                response = await db.deleteItemById(entity, id);
                 break;
             default:
                 throw Error(`${req.method} not allowed`)

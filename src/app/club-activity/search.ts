@@ -47,7 +47,7 @@ export class ClubActivitySearchComponent implements OnInit {
 		this.model = new ClubActivitiesFilter();
         this.clubActivities$ = this.clubActivityService.getClubActivities$()
             .pipe(
-		        map(x => x.clubActivities),
+		        map(x => x.list),
 //			    shareReplay(1)
 		    );
         this.clubActivities$.subscribe();

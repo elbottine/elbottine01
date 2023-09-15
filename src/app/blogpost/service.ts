@@ -9,7 +9,7 @@ import { Blogpost, BlogpostsFilter, SearchBlogpostResponse } from './model';
 	providedIn: 'root'
 })
 export class BlogpostService {
-	private url = 'api/blogpost/';
+	private url = 'api/blog/blogpost/';
 
 	private blogposts$: Observable<SearchBlogpostResponse>;
 	private searchBlogpostsChange$ = new Subject<BlogpostsFilter>();

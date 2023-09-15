@@ -39,7 +39,7 @@ export class BlogpostsSummaryComponent implements OnInit {
     ngOnInit(): void {
         this.blogposts$ = this.blogpostService.searchBlogposts2(new BlogpostsFilter({}))
             .pipe(
-                map(x => x.blogposts.slice(0, 3)),
+                map(x => x.list.slice(0, 3)),
                 shareReplay(1)
             );
     }

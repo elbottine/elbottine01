@@ -47,7 +47,7 @@ export class BlogpostSearchComponent implements OnInit {
 		this.model = new BlogpostsFilter();
         this.blogposts$ = this.blogpostService.getBlogposts$()
             .pipe(
-		        map(x => x.blogposts),
+		        map(x => x.list),
 //			    shareReplay(1)
 		    );
         this.blogposts$.subscribe();

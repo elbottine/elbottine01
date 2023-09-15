@@ -3,10 +3,10 @@ import { FilterBase } from "../shared/Filter-base";
 export class SearchClubActivityResponse {
 
 	public constructor(init?: Partial<SearchClubActivityResponse>) {
-		this.clubActivities = init && init.clubActivities ? init.clubActivities.map(t => new ClubActivity(t)) : [];
+		this.list = init && init.list ? init.list.map(t => new ClubActivity(t)) : [];
 	}
 
-	clubActivities: ClubActivity[];
+	list: ClubActivity[];
 }
 
 export class ClubActivity {

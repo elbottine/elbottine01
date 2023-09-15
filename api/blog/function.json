@@ -7,8 +7,11 @@
       "name": "req",
       "methods": [
         "get",
-        "post"
-      ]
+        "post",
+        "put",
+        "delete"
+      ],
+      "route": "blog/{entity}/{id:length(1,30)?}"
     },
     {
       "type": "http",
@@ -16,5 +19,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/message/index.js"
+  "scriptFile": "../dist/blog/index.js"
 }

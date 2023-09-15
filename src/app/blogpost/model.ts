@@ -3,10 +3,10 @@ import { FilterBase } from "../shared/Filter-base";
 export class SearchBlogpostResponse {
 
 	public constructor(init?: Partial<SearchBlogpostResponse>) {
-		this.blogposts = init && init.blogposts ? init.blogposts.map(t => new Blogpost(t)) : [];
+		this.list = init && init.list ? init.list.map(t => new Blogpost(t)) : [];
 	}
 
-	blogposts: Blogpost[];
+	list: Blogpost[];
 }
 
 export class Blogpost {

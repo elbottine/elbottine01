@@ -1,11 +1,21 @@
-import { Schema } from "mongoose";
-import { baseConfig, commonModel, initDb } from "../db";
+import { Schema, model, connect, Model } from "mongoose";
 
-export const init = async () => {
-    await initDb();
+const baseConfig = {
+    discriminatorKey: "_type",
+    collection: "col"
 };
 
-export interface IBlogPost {
+export const commonModel = model('Common', new Schema({}, baseConfig));
+
+let db = null;
+
+export const init = async () => {
+    if (!db) {
+        db = await connect(process.env["CosmosDbConnectionString"]);
+    }
+};
+
+export interface IBlogBase {
     title:     string,
     date:      Date, 
     text:      string,
@@ -14,8 +24,11 @@ export interface IBlogPost {
     createdBy: string,
     updatedAt: Date,
     updatedBy: string
-  }
-    
+}
+
+export interface IBlogPost extends IBlogBase {}
+export interface IClubActivity extends IBlogBase {}
+
 const blogpostSchema = {
     title:     { type: String, require: true },
     date:      { type: Date, required: false },
@@ -27,9 +40,22 @@ const blogpostSchema = {
     updatedBy: { type: String }
 };
 
-const repository = commonModel.discriminator<IBlogPost>('blogpost', new Schema(blogpostSchema, baseConfig));
+const BlogPostRepository = commonModel.discriminator<IBlogBase>('blogpost', new Schema(blogpostSchema, baseConfig));
+const ClubActivityRepository = commonModel.discriminator<IBlogBase>('clubactivity', new Schema(blogpostSchema, baseConfig));
 
-export const addItem = async (doc) => {
+export function createRepository(entity): Model<IBlogBase>  {
+    switch(entity?.toLowerCase()) {
+        case 'blogpost':
+            return BlogPostRepository;
+        case 'club-activity':
+            return ClubActivityRepository;
+        default:
+            throw `entity '${entity}' not supported`;
+    }
+};
+
+export const addItem = async (entity, doc) => {
+    const repository = createRepository(entity);
     const entry = new repository();
     entry.title = doc.title;
     entry.date = doc.date;
@@ -42,7 +68,8 @@ export const addItem = async (doc) => {
     return await entry.save();
 };
 
-export const updateItem = async (doc) => {
+export const updateItem = async (entity, doc) => {
+    const repository = createRepository(entity);
     var entry = await repository.findById(doc._id);
     if (!entry) {
         throw Error(`Document '${doc._id}' not found`);
@@ -59,15 +86,18 @@ export const updateItem = async (doc) => {
     return await entry.save();
 };
 
-export const findItemById = async (id) => {
+export const findItemById = async (entity, id) => {
+    const repository = createRepository(entity);
     return await repository.findById(id);
 };
 
-export const findItems = async (query: any) => {
+export const findItems = async (entity, query: any) => {
+    const repository = createRepository(entity);
     var filter = query.title ? {title: {$regex: `.*${query.title}.*`, $options: 'i'}} : null;
     return await repository.find(filter).limit(20).sort({'date': -1});
 };
 
-export const deleteItemById = async (id) => {
+export const deleteItemById = async (entity, id) => {
+    const repository = createRepository(entity);
     return await repository.findByIdAndDelete(id);
 };

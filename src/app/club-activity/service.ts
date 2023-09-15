@@ -9,7 +9,7 @@ import { ClubActivity, ClubActivitiesFilter, SearchClubActivityResponse } from '
 	providedIn: 'root'
 })
 export class ClubActivityService {
-	private url = 'api/club-activity/';
+	private url = 'api/blog/club-activity/';
 
 	private clubActivities$: Observable<SearchClubActivityResponse>;
 	private searchClubActivitiesChange$ = new Subject<ClubActivitiesFilter>();
