@@ -15,6 +15,7 @@ import { SocialLoginModule, SocialAuthServiceConfig, FacebookLoginProvider } fro
 import { AuthModule } from './auth/module';
 import { AuthInterceptorService } from './auth/interceptor';
 import { ClubActivityModule } from './club-activity/module';
+import { PhotoAlbumModule } from './photo-album/module';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -31,6 +32,7 @@ const routes: Routes = [
         HomeModule,
         BlogpostModule,
         ClubActivityModule,
+        PhotoAlbumModule,
         LayoutModule,
         BrowserModule,
         HttpClientModule,

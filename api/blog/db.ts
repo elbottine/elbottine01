@@ -42,6 +42,7 @@ const blogpostSchema = {
 
 const BlogPostRepository = commonModel.discriminator<IBlogBase>('blogpost', new Schema(blogpostSchema, baseConfig));
 const ClubActivityRepository = commonModel.discriminator<IBlogBase>('clubactivity', new Schema(blogpostSchema, baseConfig));
+const PhotoAlbumRepository = commonModel.discriminator<IBlogBase>('photo-album', new Schema(blogpostSchema, baseConfig));
 
 export function createRepository(entity): Model<IBlogBase>  {
     switch(entity?.toLowerCase()) {
@@ -49,6 +50,8 @@ export function createRepository(entity): Model<IBlogBase>  {
             return BlogPostRepository;
         case 'club-activity':
             return ClubActivityRepository;
+        case 'photo-album':
+            return PhotoAlbumRepository;
         default:
             throw `entity '${entity}' not supported`;
     }
