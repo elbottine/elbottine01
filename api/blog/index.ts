@@ -1,7 +1,10 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import { getBlobPaths } from "../upload/azure-storage-blob-sas-url";
 import * as db from "./db";
+import * as cache from "./cache";
+
 // email https://stackoverflow.com/questions/19509357/not-able-to-connect-to-outlook-com-smtp-using-nodemailer
+
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     try {
         context.log(`################################################################`);
@@ -20,11 +23,25 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
             case "GET":
                 id = context.bindingData.id;
                 if (id) {
-                    const entry = await db.findItemById(entity, id);
-                    entry.paths = await getBlobPaths('blogposts-blobs', id);
-                    response = entry;
+                    response = cache.get(entity, id);
+                    if (!response) {
+                        const entry = await db.findItemById(entity, id);
+                        entry.paths = await getBlobPaths('blogposts-blobs', id);
+                        response = entry;    
+                        cache.set(response, entity, id);
+                    }
+                    else {
+                        context.log(`>>>>>>>>>>>>>> cache hit ${id}`);
+                    }
                 } else if (req.query) {
-                    response = { list: await db.findItems(entity, req.query) };
+                    response = cache.get(entity, req.query);
+                    if (!response) {
+                        response = { list: await db.findItems(entity, req.query) };
+                        cache.set(response, entity, req.query);
+                    }
+                    else {
+                        context.log(`>>>>>>>>>>>>>> cache hit ${req.query}`);
+                    }
                 }
                 break;
             case "PUT":

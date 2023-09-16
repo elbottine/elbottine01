@@ -8,10 +8,14 @@ const baseConfig = {
 export const commonModel = model('Common', new Schema({}, baseConfig));
 
 let db = null;
+let cache = null;
 
 export const init = async () => {
     if (!db) {
         db = await connect(process.env["CosmosDbConnectionString"]);
+    }
+    if (!cache) {
+        cache = new Map();
     }
 };
 
