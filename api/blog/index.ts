@@ -28,19 +28,19 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                         const entry = await db.findItemById(entity, id);
                         entry.paths = await getBlobPaths('blogposts-blobs', id);
                         response = entry;    
-                        cache.set(response, entity, id);
+                        cache.set(entity, id, response);
                     }
                     else {
-                        context.log(`>>>>>>>>>>>>>> cache hit ${id}`);
+                        context.log(`>>>>>> cache hit ${id}`);
                     }
                 } else if (req.query) {
                     response = cache.get(entity, req.query);
                     if (!response) {
                         response = { list: await db.findItems(entity, req.query) };
-                        cache.set(response, entity, req.query);
+                        cache.set(entity, req.query, response);
                     }
                     else {
-                        context.log(`>>>>>>>>>>>>>> cache hit ${req.query}`);
+                        context.log(`>>>>>> cache hit ${req.query}`);
                     }
                 }
                 break;
@@ -53,12 +53,16 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                     throw Error("No document");
                 }
                 response = await db.updateItem(entity, req.body);
+                cache.del(entity);
+                cache.set(response, entity, id);
                 break;
             case "POST":
                 if (!req?.body) {
                     throw Error("No document");
                 }
                 response = await db.addItem(entity, req?.body);
+                cache.del(entity);
+                cache.set(response, entity, response["_id"]);
                 break;
             case "DELETE":
                 id = context.bindingData.id;
@@ -66,9 +70,11 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                     throw Error("No document id");
                 }
                 response = await db.deleteItemById(entity, id);
+                cache.del(entity);
+                cache.del(id);
                 break;
             default:
-                throw Error(`${req.method} not allowed`)
+                throw Error(`${req.method} not allowed`);
         }
 
         context.res = {

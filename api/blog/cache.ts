@@ -1,29 +1,30 @@
-let _map = null;
+let _map = new Map();
 
-function getMap() {
-    if (!_map) {
-        _map = new Map();
+function getMap(key) {
+    if (!_map.has(key)) {
+        _map.set(key, new Map());
     }
-    return _map;
+    return _map.get(key);
 }
 
-export function get(...args) {
-    const key = JSON.stringify(args);
-    const map = getMap();
-    if (map.has(key)) {
-        return map.get(key);
+function stringify(key) {
+    return typeof key === 'string' ? key : JSON.stringify(key);
+}
+
+export function get(key1, key2) {
+    const map = getMap(key1);
+    key2 = stringify(key2);
+    if (map.has(key2)) {
+        return map.get(key2);
     }  
 }
 
-export function set(value, ...args) {
-    const key = JSON.stringify(args);
-    const map = getMap();
-    map.delete(key);
-    map.set(key, value);
+export function set(key1, key2, value) {
+    const map = getMap(key1);
+    key2 = stringify(key2);
+    map.set(key2, value);
 }
 
-export function del(...args) {
-    const key = JSON.stringify(args);
-    const map = getMap();
-    map.delete(key);
+export function del(key1) {
+    _map.delete(key1);
 }
