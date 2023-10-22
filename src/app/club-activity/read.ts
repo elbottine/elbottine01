@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ClubActivityService } from './service';
 import { ClubActivity } from './model';
-import { AuthService } from '../auth/auth.service';
+import { AccountService } from '../auth/account.service';
 import { ModalGalleryRef, ModalGalleryService, Image, ModalGalleryConfig, PlainLibConfig, PlainGalleryStrategy, LineLayout, PlainGalleryConfig, GridLayout } from '@ks89/angular-modal-gallery';
 
 @Component({
@@ -47,7 +47,7 @@ export class ClubActivityReadComponent implements OnInit {
     constructor(
         private clubActivityService: ClubActivityService,
         private activatedRoute: ActivatedRoute,
-        private authService: AuthService,
+        private accountService: AccountService,
         private modalGalleryService: ModalGalleryService
         )
     { }
@@ -80,7 +80,7 @@ export class ClubActivityReadComponent implements OnInit {
     }
 
     canEdit(clubActivity: ClubActivity) {
-        return clubActivity.id && this.authService.canEdit;
+        return clubActivity.id && this.accountService.userInfo.canEdit;
     }
 
     open(index: number): void {

@@ -4,7 +4,7 @@ import { DialogService } from 'src/app/shared/dialog.service';
 import { ClubActivityService } from './service';
 import { ClubActivity } from './model';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
-import { AuthService } from '../auth/auth.service';
+import { AccountService } from '../auth/account.service';
 import { ToastService } from '../shared/toast-service';
 
 @Component({
@@ -41,11 +41,11 @@ import { ToastService } from '../shared/toast-service';
     <div class="col-12">
         <label for="title" class="form-label h3">Photo principale (optionnel)</label>
         <div class="input-group">
-            <app-upload-images class="w-100"
+            <xyz-upload-images class="w-100"
                 [folder]="id" 
                 [previews]="model.paths"
                 [singleImage]=true>
-            </app-upload-images>
+            </xyz-upload-images>
             <!-- [mainImagePath]="model.mainImagePath" -->
             <!-- (updateMainImage)="updateMainImage($event)" -->
         </div>
@@ -66,11 +66,11 @@ import { ToastService } from '../shared/toast-service';
     <div class="col-12">
         <label for="title" class="form-label h3">Photos (optionnel)</label>
         <div class="input-group">
-            <app-upload-images class="w-100"
+            <xyz-upload-images class="w-100"
                 [folder]="id"
                 [previews]="model.paths"
                 [singleImage]=false>
-            </app-upload-images>
+            </xyz-upload-images>
             <!-- (updateImageLigt)="imageListUpdated($event)" -->        
         </div>
     </div>
@@ -94,7 +94,7 @@ export class ClubActivityEditComponent implements OnInit {
         private clubActivityService: ClubActivityService,
         private dialogService: DialogService,
         private activatedRoute: ActivatedRoute,
-        private authService: AuthService,
+        private accountService: AccountService,
         private router: Router,
         private toastService: ToastService
     ) { }
@@ -123,7 +123,7 @@ export class ClubActivityEditComponent implements OnInit {
         } else {
             const model = new ClubActivity();
             //clubActivity.id = (new Date()).toISOString().replace(/[^0-9]/g, '');
-            model.createdBy = this.authService.user.name;
+            model.createdBy = this.accountService.userInfo.name;
             model.createdAt = new Date().toISOString();
             this.modelCopy = model.clone();
             this.model = model;
@@ -132,7 +132,7 @@ export class ClubActivityEditComponent implements OnInit {
 
     apply(): void {
         const model = this.model.clone();
-        model.updatedBy = this.authService.user.name;
+        model.updatedBy = this.accountService.userInfo.name;
         model.updatedAt = new Date().toISOString();
         this.clubActivityService.upsert(model).subscribe({
             next: model => {

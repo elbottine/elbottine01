@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PhotoAlbum, ClubActivitiesFilter } from './model';
 import { PhotoAlbumService } from './service';
-import { AuthService } from '../auth/auth.service';
+import { AccountService } from '../auth/account.service';
 
 @Component({
 	template: `
@@ -36,7 +36,7 @@ export class PhotoAlbumSearchComponent implements OnInit {
 
 	constructor(
 		private photoAlbumService: PhotoAlbumService,
-        private authService: AuthService
+        private accountService: AccountService
 	) {	}
 
 	clubActivities$: Observable<PhotoAlbum[]>;
@@ -55,7 +55,7 @@ export class PhotoAlbumSearchComponent implements OnInit {
 	}
 
     get canEdit() {
-        return this.authService.canEdit;
+        return this.accountService.userInfo.canEdit;
     }
 
 	search(): void {

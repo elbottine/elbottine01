@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PhotoAlbumService } from './service';
 import { PhotoAlbum } from './model';
-import { AuthService } from '../auth/auth.service';
 import { ModalGalleryRef, ModalGalleryService, Image, ModalGalleryConfig, PlainLibConfig, PlainGalleryStrategy, LineLayout, PlainGalleryConfig, GridLayout } from '@ks89/angular-modal-gallery';
+//import { AccountService } from '../auth/account.service';
+import { AccountService } from '../auth/account.service';
 
 @Component({
     template: `
@@ -47,7 +48,7 @@ export class PhotoAlbumReadComponent implements OnInit {
     constructor(
         private photoAlbumService: PhotoAlbumService,
         private activatedRoute: ActivatedRoute,
-        private authService: AuthService,
+        private accountService: AccountService,
         private modalGalleryService: ModalGalleryService
         )
     { }
@@ -80,7 +81,7 @@ export class PhotoAlbumReadComponent implements OnInit {
     }
 
     canEdit(photoAlbum: PhotoAlbum) {
-        return photoAlbum.id && this.authService.canEdit;
+        return photoAlbum.id && this.accountService.userInfo.canEdit;
     }
 
     open(index: number): void {

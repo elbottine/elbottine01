@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Blogpost, BlogpostsFilter } from './model';
 import { BlogpostService } from './service';
-import { AuthService } from '../auth/auth.service';
+import { AccountService } from '../auth/account.service';
 
 @Component({
 	template: `
@@ -36,7 +36,7 @@ export class BlogpostSearchComponent implements OnInit {
 
 	constructor(
 		private blogpostService: BlogpostService,
-        private authService: AuthService
+        private accountService: AccountService
 	) {	}
 
 	blogposts$: Observable<Blogpost[]>;
@@ -55,7 +55,7 @@ export class BlogpostSearchComponent implements OnInit {
 	}
 
     get canEdit() {
-        return this.authService.canEdit;
+        return this.accountService.userInfo.canEdit;
     }
 
 	search(): void {

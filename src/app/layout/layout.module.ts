@@ -3,15 +3,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './header.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthModule } from '../auth/module';
 
 @NgModule({
 	imports: [
         CommonModule,
+        AuthModule,
         RouterModule,
         NgbModule
     ],
 	declarations: [
-        HeaderComponent
+        HeaderComponent,
     ],
 	exports: [
         HeaderComponent

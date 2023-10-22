@@ -20,7 +20,7 @@ import { Component, Inject } from '@angular/core';
     </footer>
 </div>
 <xyz-spinner-component></xyz-spinner-component>
-<app-toasts></app-toasts>
+<xyz-toasts></xyz-toasts>
 `
 })
 export class AppComponent {

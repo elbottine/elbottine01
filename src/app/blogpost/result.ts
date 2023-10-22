@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Blogpost, BlogpostsFilter } from './model';
-import { AuthService } from '../auth/auth.service';
+import { AccountService } from '../auth/account.service';
 
 @Component({
 	selector: 'xyz-search-result',
@@ -21,7 +21,10 @@ import { AuthService } from '../auth/auth.service';
 })
 export class SearchResultComponent {
 
-	constructor(private router: Router, private authService: AuthService) { }
+	constructor(
+        private router: Router, 
+        private accountService: AccountService
+    ) { }
 
 	@Input()
 	model: BlogpostsFilter;
@@ -30,6 +33,6 @@ export class SearchResultComponent {
 	blogposts: Blogpost[];
 
     canEdit(blogpost: Blogpost) {
-        return blogpost.id && this.authService.canEdit;
+        return blogpost.id && this.accountService.userInfo.canEdit;
     }
 }

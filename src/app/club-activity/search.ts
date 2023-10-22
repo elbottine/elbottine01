@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ClubActivity, ClubActivitiesFilter } from './model';
 import { ClubActivityService } from './service';
-import { AuthService } from '../auth/auth.service';
+import { AccountService } from '../auth/account.service';
 
 @Component({
 	template: `
@@ -36,7 +36,7 @@ export class ClubActivitySearchComponent implements OnInit {
 
 	constructor(
 		private clubActivityService: ClubActivityService,
-        private authService: AuthService
+        private accountService: AccountService
 	) {	}
 
 	clubActivities$: Observable<ClubActivity[]>;
@@ -55,7 +55,7 @@ export class ClubActivitySearchComponent implements OnInit {
 	}
 
     get canEdit() {
-        return this.authService.canEdit;
+        return this.accountService.userInfo.canEdit;
     }
 
 	search(): void {

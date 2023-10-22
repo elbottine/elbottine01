@@ -1,50 +1,65 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService, UserInfo } from './auth.service';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastService } from '../shared/toast-service';
+import { AccountService } from './account.service';
 
 @Component({
-    selector: 'app-login',
-    template: `
-  <div class="col-8">
-  <div class="card">
-      <div class="card-header">
-          Login Here
-      </div>
-
-      <div *ngIf="!isLogged">
-        <div class="card-body">
-            <button type="button" (click)="login()" class="btn btn-primary btn-block">Signin with Facebook</button>
+    selector: 'xyz-login',
+	template: `
+<div class="card" style="width: 500px;">
+    <div class="card-body">
+        <h5 class="card-title">Identification</h5>
+        <div class="form-group m-2">
+            <label>Compte</label>
+            <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="userId"
+            />
         </div>
-      </div>
-
-      <div *ngIf="isLogged">
-        <div>
-          <h4>{{ user }}</h4>
+        <div class="form-group m-2">
+            <label>Mot de passe</label>
+            <input
+                type="password"
+                class="form-control"
+                [(ngModel)]="password"
+            />
         </div>
-        <button type="button" (click)="logout()" class="btn btn-primary">Sign Out</button>
-      </div>
-  </div>
-</div>
-`
+        <div class="form-group m-2">
+            <button type="submit" class="btn btn-primary" (click)="tryLogin()">
+                Login
+            </button>
+        </div>
+    </div>
+</div>`
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-    constructor(private authService: AuthService) {}
+	userId: string;
+	password: string;
 
-    ngOnInit(): void {}
+	constructor(
+		private accountService: AccountService,
+		private toastService: ToastService,
+		private router: Router
+	) {}
 
-    get user(): UserInfo {
-        return this.authService.user;
-    }
+    @Output() closeComponent = new EventEmitter<any>();
+    
+	tryLogin() {
+		this.accountService.login(this.userId, this.password).subscribe(
+			r => {
+                this.close();
+				this.router.navigateByUrl('/');
+			},
+			e => {
+                this.close();
+				this.toastService.error('Compte ou mot de passe incorrect');
+			}
+		);
+	}
 
-    get isLogged(): boolean {
-        return this.authService.isLogged;
-    }
-
-    login(): void {
-        this.authService.login();
-    }
-
-    logout(): any {
-        this.authService.logout();
-    }
+    close(): void {
+		this.closeComponent.emit();
+	}
 }

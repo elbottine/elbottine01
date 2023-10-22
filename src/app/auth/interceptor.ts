@@ -1,21 +1,20 @@
 import { Injectable } from "@angular/core";
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders, } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { AuthService } from "./auth.service";
+import { AccountService } from '../auth/account.service';
 
 @Injectable({
     providedIn: "root",
 })
 export class AuthInterceptorService implements HttpInterceptor {
     
-    constructor(private authService: AuthService) {}
+    constructor(private accountService: AccountService) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (this.authService.isLogged) {
+        if (this.accountService.isLogged) {
             const clonedRequest = req.clone({
                 headers: req.headers
-                .set("Authorization", "Bearer " + this.authService.user.authToken)
-                .set("user-email", this.authService.user.email)
+                .set("authorization", this.accountService.userInfo.token)
             });
             return next.handle(clonedRequest);
         } else {

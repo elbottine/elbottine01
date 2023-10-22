@@ -4,8 +4,9 @@ import { DialogService } from 'src/app/shared/dialog.service';
 import { BlogpostService } from './service';
 import { Blogpost } from './model';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
-import { AuthService } from '../auth/auth.service';
 import { ToastService } from '../shared/toast-service';
+import { AccountService } from '../auth/account.service';
+//import { AccountService } from '../account/account.service';
 
 @Component({
     template: `
@@ -41,11 +42,11 @@ import { ToastService } from '../shared/toast-service';
     <div class="col-12">
         <label for="title" class="form-label h3">Photo principale (optionnel)</label>
         <div class="input-group">
-            <app-upload-images class="w-100"
+            <xyz-upload-images class="w-100"
                 [folder]="id" 
                 [previews]="model.paths"
                 [singleImage]=true>
-            </app-upload-images>
+            </xyz-upload-images>
             <!-- [mainImagePath]="model.mainImagePath" -->
             <!-- (updateMainImage)="updateMainImage($event)" -->
         </div>
@@ -66,11 +67,11 @@ import { ToastService } from '../shared/toast-service';
     <div class="col-12">
         <label for="title" class="form-label h3">Photos (optionnel)</label>
         <div class="input-group">
-            <app-upload-images class="w-100"
+            <xyz-upload-images class="w-100"
                 [folder]="id"
                 [previews]="model.paths"
                 [singleImage]=false>
-            </app-upload-images>
+            </xyz-upload-images>
             <!-- (updateImageLigt)="imageListUpdated($event)" -->        
         </div>
     </div>
@@ -94,9 +95,9 @@ export class BlogpostEditComponent implements OnInit {
         private blogpostService: BlogpostService,
         private dialogService: DialogService,
         private activatedRoute: ActivatedRoute,
-        private authService: AuthService,
         private router: Router,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private accountService: AccountService
     ) { }
 
     private modelCopy: Blogpost;
@@ -123,7 +124,7 @@ export class BlogpostEditComponent implements OnInit {
         } else {
             const model = new Blogpost();
             //blogpost.id = (new Date()).toISOString().replace(/[^0-9]/g, '');
-            model.createdBy = this.authService.user.name;
+            model.createdBy = this.accountService.userInfo.name;
             model.createdAt = new Date().toISOString();
             this.modelCopy = model.clone();
             this.model = model;
@@ -132,7 +133,7 @@ export class BlogpostEditComponent implements OnInit {
 
     apply(): void {
         const model = this.model.clone();
-        model.updatedBy = this.authService.user.name;
+        model.createdBy = this.accountService.userInfo.name;
         model.updatedAt = new Date().toISOString();
         this.blogpostService.upsert(model).subscribe({
             next: model => {

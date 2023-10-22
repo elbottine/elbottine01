@@ -2,6 +2,7 @@ import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import { getBlobPaths } from "../upload/azure-storage-blob-sas-url";
 import * as db from "./db";
 import * as cache from "./cache";
+import { checkUserAdmin } from "../account/security";
 
 // email https://stackoverflow.com/questions/19509357/not-able-to-connect-to-outlook-com-smtp-using-nodemailer
 
@@ -45,6 +46,8 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 }
                 break;
             case "PUT":
+                checkUserAdmin(context.bindingData.headers.authorization);
+                
                 id = context.bindingData.id;
                 if (!id) {
                     throw Error("No document id");
@@ -57,6 +60,8 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 cache.set(response, entity, id);
                 break;
             case "POST":
+                checkUserAdmin(context.bindingData.headers.authorization);
+
                 if (!req?.body) {
                     throw Error("No document");
                 }
@@ -65,6 +70,8 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 cache.set(response, entity, response["_id"]);
                 break;
             case "DELETE":
+                checkUserAdmin(context.bindingData.headers.authorization);
+
                 id = context.bindingData.id;
                 if (!id) {
                     throw Error("No document id");

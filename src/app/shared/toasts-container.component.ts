@@ -5,7 +5,7 @@ import { NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-	selector: 'app-toasts',
+	selector: 'xyz-toasts',
 	standalone: true,
 	imports: [NgbToastModule, NgIf, NgTemplateOutlet, NgFor],
 	template: `

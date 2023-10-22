@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BlogpostService } from './service';
 import { Blogpost } from './model';
-import { AuthService } from '../auth/auth.service';
 import { ModalGalleryRef, ModalGalleryService, Image, ModalGalleryConfig, PlainLibConfig, PlainGalleryStrategy, LineLayout, PlainGalleryConfig, GridLayout } from '@ks89/angular-modal-gallery';
+import { AccountService } from '../auth/account.service';
 
 @Component({
     template: `
@@ -47,7 +47,7 @@ export class BlogpostReadComponent implements OnInit {
     constructor(
         private blogpostService: BlogpostService,
         private activatedRoute: ActivatedRoute,
-        private authService: AuthService,
+        private accountService: AccountService,
         private modalGalleryService: ModalGalleryService
         )
     { }
@@ -80,7 +80,7 @@ export class BlogpostReadComponent implements OnInit {
     }
 
     canEdit(blogpost: Blogpost) {
-        return blogpost.id && this.authService.canEdit;
+        return blogpost.id && this.accountService.userInfo.canEdit;
     }
 
     open(index: number): void {

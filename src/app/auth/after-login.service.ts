@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { TokenService } from './token.service';
+import { AccountService } from '../auth/account.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +9,8 @@ import { TokenService } from './token.service';
 export class AfterLoginService {
 
   canActivate(route:ActivatedRouteSnapshot,state:RouterStateSnapshot):boolean | Observable<boolean>{
-    return this.Token.loggedIn();
+    return this.accountService.isLogged;
   }
   
-  constructor(private Token:TokenService) { }
+  constructor(private accountService: AccountService) { }
 }

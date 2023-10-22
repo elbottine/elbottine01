@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } fr
 import { FileUploadService } from './file-upload.service';
 
 @Component({
-    selector: 'app-upload-images',
+    selector: 'xyz-upload-images',
     template: `
 <div class="container-fluid" *ngIf="singleImage">
     <div class="row">

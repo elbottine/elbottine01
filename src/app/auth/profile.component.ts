@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+// import { Component, OnInit } from '@angular/core';
 
-@Component({
-  selector: 'app-profile',
-  template: '<p>profile works!</p>'
-})
-export class ProfileComponent implements OnInit {
+// @Component({
+//   selector: 'xyz-profile',
+//   template: '<p>profile works!</p>'
+// })
+// export class ProfileComponent implements OnInit {
 
-  constructor() { }
+//   constructor() { }
 
-  ngOnInit(): void {
-  }
-}
+//   ngOnInit(): void {
+//   }
+// }

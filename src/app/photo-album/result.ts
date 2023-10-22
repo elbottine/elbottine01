@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { PhotoAlbum, ClubActivitiesFilter } from './model';
-import { AuthService } from '../auth/auth.service';
+import { AccountService } from '../auth/account.service';
 
 @Component({
 	selector: 'xyz-search-result',
@@ -20,7 +20,7 @@ import { AuthService } from '../auth/auth.service';
 })
 export class SearchResultComponent {
 
-	constructor(private router: Router, private authService: AuthService) { }
+	constructor(private router: Router, private accountService: AccountService) { }
 
 	@Input()
 	model: ClubActivitiesFilter;
@@ -29,6 +29,6 @@ export class SearchResultComponent {
 	clubActivities: PhotoAlbum[];
 
     canEdit(photoAlbum: PhotoAlbum) {
-        return photoAlbum.id && this.authService.canEdit;
+        return photoAlbum.id && this.accountService.userInfo.canEdit;
     }
 }

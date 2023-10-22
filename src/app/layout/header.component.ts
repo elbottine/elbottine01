@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
+import { AccountService } from '../auth/account.service';
 
 @Component({
     selector: 'xyz-header',
@@ -96,7 +96,7 @@ import { AuthService } from '../auth/auth.service';
 	Suivez l’actualité sur facebook
 -->
 
-            <li class="nav-item" *ngIf="!isLogged">
+            <!-- <li class="nav-item" *ngIf="!isLogged">
                 <a class="nav-link m-2 text-nowrap" routerLink="" (click)="login()" ngbTooltip="Connexion" placement="bottom">
                     <i class="bi bi-facebook"></i>
                     S'identifier
@@ -108,34 +108,54 @@ import { AuthService } from '../auth/auth.service';
                     <i class="bi bi-person-square"></i>
     	            {{ userName }}
                 </a>
-            </li>
-        </ul>
+            </li> -->
+
+			<li class="nav-item" *ngIf="!isLogged">
+				<div class="d-inline-block" ngbDropdown display="dynamic" placement="bottom-right" #dropdown="ngbDropdown">
+					<a class="nav-link m-2" ngbDropdownAnchor (click)="dropdown.toggle();">
+                        <i class="bi bi-box-arrow-in-right"></i>
+						Se connecter
+					</a>
+					<div class="p-0" ngbDropdownMenu>
+						<xyz-login (closeComponent)="dropdown.close()">
+						</xyz-login>
+					</div>
+				</div>
+			</li>
+
+			<li class="nav-item" *ngIf="isLogged">
+				<a class="nav-link m-2" routerLink="" (click)="logout()" ngbTooltip="Déconnexion" placement="bottom">
+                    {{ userName }}
+                    <i class="bi bi-box-arrow-right"></i>
+				</a>
+			</li>
+		</ul>
     </div>
 </nav>
 	`
 })
 export class HeaderComponent {
 
-    constructor(private authService: AuthService) {}
+    constructor(private accountService: AccountService) {}
 
     collapsed = true;
 
     @ViewChild('dropdown', { static: true }) dropdown: any;
 
     get isLogged(): boolean {
-        return this.authService.isLogged;
+        return this.accountService.isLogged;
     }
 
     get userName(): string {
-        return this.authService.user ? this.authService.user.name : "";
+        return this.accountService.userInfo ? this.accountService.userInfo.name : "";
     }
 
-    login() {
-        this.authService.login();
-    }
+    // login() {
+    //     this.accountService.login();
+    // }
 
     logout() {
-        this.authService.logout();
+        this.accountService.logout();
     }
 
     close() {
