@@ -2,6 +2,7 @@ import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import HTTP_CODES from "http-status-enum";
 import * as multipart from "parse-multipart";
 import { deleteBlob, generateReadOnlySASUrl, saveBlob } from './azure-storage-blob-sas-url';
+import { checkUserAdmin } from "../account/security";
 
 export const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<any> {
 
