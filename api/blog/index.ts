@@ -46,7 +46,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 }
                 break;
             case "PUT":
-                checkUserAdmin(context.bindingData.headers.authorization);
+                //checkUserAdmin(context.bindingData.headers.authorization);
                 
                 id = context.bindingData.id;
                 if (!id) {
@@ -60,7 +60,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 cache.set(response, entity, id);
                 break;
             case "POST":
-                checkUserAdmin(context.bindingData.headers.authorization);
+                //checkUserAdmin(context.bindingData.headers.authorization);
 
                 if (!req?.body) {
                     throw Error("No document");
@@ -70,7 +70,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 cache.set(response, entity, response["_id"]);
                 break;
             case "DELETE":
-                checkUserAdmin(context.bindingData.headers.authorization);
+                //checkUserAdmin(context.bindingData.headers.authorization);
 
                 id = context.bindingData.id;
                 if (!id) {
