@@ -9,6 +9,7 @@ import { checkUserAdmin } from "../account/security";
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     try {
         context.log(`################################################################`);
+        context.log(`blogpost headers: ${JSON.stringify(context.bindingData.headers)}`);
         context.log(`blogpost id: ${context.bindingData.id}`);
         context.log(`blogpost entity: ${context.bindingData.entity}`);
         context.log(`blogpost req.query: ${JSON.stringify(req.query)}`);
