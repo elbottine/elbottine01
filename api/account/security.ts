@@ -8,13 +8,18 @@ export function encrypt(data: object): string {
 };
 
 export function decrypt(text: string): object {
-    var json = CryptoJS.AES.decrypt(text, secretKey).toString(CryptoJS.enc.Utf8);
-    return JSON.parse(json);
+    try {
+        var json = CryptoJS.AES.decrypt(text, secretKey).toString(CryptoJS.enc.Utf8);
+        return JSON.parse(json);
+    }
+    catch {
+        return null;
+    }
 };
 
 export function canEdit(user: string): boolean {
     var admins = ["said", "ingrid", "xxxx"];
-    return admins.includes(user.toLowerCase());
+    return admins.includes(user?.toLowerCase());
 }
 
 export function checkUserAdmin(token: string): object {
@@ -23,10 +28,10 @@ export function checkUserAdmin(token: string): object {
     }
     var userInfo = decrypt(token);
     if (!userInfo) {
-        throw Error('Invalid authorization token'); 
+        throw Error(`${token} Invalid authorization token`);
     }
     if (canEdit((<any>userInfo).name)) {
-        throw Error('Not authorized'); 
+        throw Error(`${(<any>userInfo).name} not authorized`);
     }
     return userInfo;
 };
