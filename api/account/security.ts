@@ -25,7 +25,7 @@ export function checkUserAdmin(token: string): object {
     if (!userInfo) {
         throw Error('Invalid authorization token'); 
     }
-    if (canEdit((<any>userInfo).userId)) {
+    if (canEdit((<any>userInfo).name)) {
         throw Error('Not authorized'); 
     }
     return userInfo;
