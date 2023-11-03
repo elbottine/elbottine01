@@ -23,6 +23,8 @@ export const httpTrigger: AzureFunction = async function (context: Context, req:
     try {
         switch (req.method) {
             case "POST":
+                checkUserAdmin(context.bindingData.headers['x-Custom-Authorization']);
+
                 id = context.bindingData.id;
                 fileName = context.bindingData.filename;
                 if (!req || !req.body) {
@@ -41,6 +43,8 @@ export const httpTrigger: AzureFunction = async function (context: Context, req:
                 response = await saveBlob(containerName, id, fileName, buffer);
                 break;
             case "DELETE":
+                checkUserAdmin(context.bindingData.headers['x-Custom-Authorization']);
+                                
                 id = context.bindingData.id;
                 fileName = context.bindingData.filename;
                 if (!fileName) {
