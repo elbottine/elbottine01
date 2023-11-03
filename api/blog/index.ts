@@ -18,6 +18,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         let response = null;
         let entity = context.bindingData.entity;
         let id = null;
+        const token = context.bindingData.headers['x-custom-authorization']; 
 
         await db.init();
 
@@ -47,8 +48,8 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 }
                 break;
             case "PUT":
-                checkUserAdmin(context.bindingData.headers['x-Custom-Authorization']);
-                
+                checkUserAdmin(token);
+            
                 id = context.bindingData.id;
                 if (!id) {
                     throw Error("No document id");
@@ -61,7 +62,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 cache.set(response, entity, id);
                 break;
             case "POST":
-                checkUserAdmin(context.bindingData.headers['x-Custom-Authorization']);
+                checkUserAdmin(token);
 
                 if (!req?.body) {
                     throw Error("No document");
@@ -71,7 +72,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 cache.set(response, entity, response["_id"]);
                 break;
             case "DELETE":
-                checkUserAdmin(context.bindingData.headers['x-Custom-Authorization']);
+                checkUserAdmin(token);
 
                 id = context.bindingData.id;
                 if (!id) {
