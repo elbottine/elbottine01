@@ -125,7 +125,9 @@ import { AccountService } from '../auth/account.service';
 
 			<li class="nav-item" *ngIf="isLogged">
 				<a class="nav-link m-2" routerLink="" (click)="logout()" ngbTooltip="Déconnexion" placement="bottom">
+                    <i class="bi bi-person-circle"></i>
                     {{ userName }}
+                    &nbsp;
                     <i class="bi bi-box-arrow-right"></i>
 				</a>
 			</li>

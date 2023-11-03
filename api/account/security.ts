@@ -1,10 +1,14 @@
 import * as CryptoJS from 'crypto-js';
 
-let secretKey = process.env["login-key"] ?? "0123456789";
+let secretKey = process.env["login-key"] ?? "1234567890";
 
 export function encrypt(data: object): string {
     var json = JSON.stringify(data);
     return CryptoJS.AES.encrypt(json, secretKey).toString();
+};
+
+export function hash(data: string): string {
+    return CryptoJS.SHA1(data).toString();;
 };
 
 export function decrypt(text: string): object {
@@ -18,7 +22,7 @@ export function decrypt(text: string): object {
 };
 
 export function canEdit(user: string): boolean {
-    var admins = ["said", "ingrid", "xxxx"];
+    var admins = ["said", "ingrid", "myriam"];
     return admins.includes(user?.toLowerCase());
 }
 
