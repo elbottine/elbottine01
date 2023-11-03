@@ -30,7 +30,7 @@ export function checkUserAdmin(token: string): object {
     if (!userInfo) {
         throw Error(`${token} Invalid authorization token`);
     }
-    if (canEdit((<any>userInfo).name)) {
+    if (!canEdit((<any>userInfo).name)) {
         throw Error(`${(<any>userInfo).name} not authorized`);
     }
     return userInfo;
