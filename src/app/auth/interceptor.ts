@@ -14,7 +14,7 @@ export class AuthInterceptorService implements HttpInterceptor {
         if (this.accountService.isLogged) {
             const clonedRequest = req.clone({
                 headers: req.headers
-                .set("authorization", this.accountService.userInfo.token)
+                .set("X-Custom-Authorization", this.accountService.userInfo.token)
             });
             return next.handle(clonedRequest);
         } else {
