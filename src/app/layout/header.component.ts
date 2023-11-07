@@ -49,25 +49,19 @@ import { AccountService } from '../auth/account.service';
     <div class="navbar-collapse colapse" [class.collapse]="collapsed" id="navbarContent">
         <ul class="navbar-nav ms-auto">
 
-            <li class="nav-item">
+            <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                 <a class="nav-link m-2" routerLink="home" routerLinkActive="active">Accueil</a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                 <a class="nav-link m-2" routerLink="blogpost/search" routerLinkActive="active">Evénements</a>
             </li>
-
-            <li class="nav-item">
-                <a class="nav-link m-2" routerLink="club-activity/search" routerLinkActive="active">Activités</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link m-2" routerLink="photo-album/search" routerLinkActive="active">Photos</a>
-            </li>
-
-            <li class="nav-item" ngbDropdown>
+            
+            <li class="nav-item" ngbDropdown data-toggle="collapse" data-target=".navbar-collapse.show">
                 <a class="nav-link m-2" ngbDropdownToggle role="button" routerLinkActive="active">Notre CLUB</a>
                 <ul ngbDropdownMenu>
+                    <li><a ngbDropdownItem routerLink="club-activity/search" routerLinkActive="active">Activités</a></li>
+                    <li><a ngbDropdownItem routerLink="photo-album/search" routerLinkActive="active">Photos</a></li>
                     <li><a ngbDropdownItem routerLink="team" routerLinkActive="active">L'équipe</a></li>
                     <li><a ngbDropdownItem routerLink="store" routerLinkActive="active">Boutique</a></li>
                     <li><a ngbDropdownItem routerLink="register" routerLinkActive="active">Inscription</a></li>
