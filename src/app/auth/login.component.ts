@@ -6,7 +6,7 @@ import { AccountService } from './account.service';
 @Component({
     selector: 'xyz-login',
 	template: `
-<div class="card" style="width: 500px;">
+<div class="card" style="width: 200px;">
     <div class="card-body">
         <h5 class="card-title">Identification</h5>
         <div class="form-group m-2">
