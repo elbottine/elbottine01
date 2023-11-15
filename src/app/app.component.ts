@@ -15,7 +15,7 @@ import { Component, Inject } from '@angular/core';
     </div>
 	<footer class="footer d-flex align-items-center justify-content-center">
         <span>
-            &copy; 2023 Les z’amis d’el bottine qui bique !
+            &copy; 2023 El bottine qui bique !
         </span>
     </footer>
 </div>

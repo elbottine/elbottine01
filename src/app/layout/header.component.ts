@@ -56,7 +56,7 @@ import { AccountService } from '../auth/account.service';
             <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                 <a class="nav-link m-2" routerLink="blogpost/search" routerLinkActive="active">Evénements</a>
             </li>
-            
+
             <li class="nav-item" ngbDropdown data-toggle="collapse" data-target=".navbar-collapse.show">
                 <a class="nav-link m-2" ngbDropdownToggle role="button" routerLinkActive="active">Notre CLUB</a>
                 <ul ngbDropdownMenu>
@@ -66,7 +66,6 @@ import { AccountService } from '../auth/account.service';
                     <li><a ngbDropdownItem routerLink="store" routerLinkActive="active">Boutique</a></li>
                     <li><a ngbDropdownItem routerLink="register" routerLinkActive="active">Inscription</a></li>
                     <li><a ngbDropdownItem routerLink="contact" routerLinkActive="active">Nous Contacter</a></li>
-                    <li><hr class="dropdown-divider"></li>
                     <li><a ngbDropdownItem href="https://www.facebook.com/groups/373720320310075/"><i class="bi bi-facebook"></i> Facebook</a></li>
                 </ul>                
             </li>
